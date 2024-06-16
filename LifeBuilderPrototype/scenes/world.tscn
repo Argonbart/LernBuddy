@@ -1,10 +1,11 @@
-[gd_scene load_steps=108 format=3 uid="uid://cyuep5hu63eox"]
+[gd_scene load_steps=109 format=3 uid="uid://cyuep5hu63eox"]
 
 [ext_resource type="Script" path="res://scripts/system/api.gd" id="1_cggbg"]
 [ext_resource type="PackedScene" uid="uid://d1sly5v33noi4" path="res://scenes/village.tscn" id="1_tsape"]
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="2_tqaec"]
 [ext_resource type="Texture2D" uid="uid://33btmr1jae4r" path="res://sprites/player.png" id="5_i5bwh"]
 [ext_resource type="Script" path="res://scripts/entities/blacksmith.gd" id="6_urmr3"]
+[ext_resource type="PackedScene" uid="uid://d1nscf6uf5o1y" path="res://scenes/choices.tscn" id="7_f3v1j"]
 [ext_resource type="Texture2D" uid="uid://bne6lcq72e7lu" path="res://sprites/blacksmith.png" id="7_w5wi0"]
 [ext_resource type="PackedScene" uid="uid://blo8qjf4uqgr7" path="res://scenes/dialogue.tscn" id="8_8t07w"]
 [ext_resource type="Texture2D" uid="uid://cyg5aojhn1xuf" path="res://sprites/phantom/phantom_idle.png" id="9_2ae4a"]
@@ -637,15 +638,15 @@ height = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbxmn"]
 radius = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_337xl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4vcf"]
 atlas = ExtResource("16_vl47v")
 region = Rect2(480, 480, 80, 120)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1ci86"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1lmp"]
 atlas = ExtResource("16_vl47v")
 region = Rect2(560, 480, 80, 120)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3hun0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_823oi"]
 atlas = ExtResource("16_vl47v")
 region = Rect2(640, 480, 80, 120)
 
@@ -653,13 +654,13 @@ region = Rect2(640, 480, 80, 120)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_337xl")
+"texture": SubResource("AtlasTexture_d4vcf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1ci86")
+"texture": SubResource("AtlasTexture_o1lmp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3hun0")
+"texture": SubResource("AtlasTexture_823oi")
 }],
 "loop": true,
 "name": &"idle",
@@ -703,6 +704,8 @@ offset = Vector2(1, -5)
 [node name="PlayerCollisionBox" type="CollisionShape2D" parent="Player"]
 position = Vector2(-1, 1)
 shape = SubResource("CapsuleShape2D_xt6x7")
+
+[node name="PlayerChoiceDialog" parent="Player" instance=ExtResource("7_f3v1j")]
 
 [node name="Blacksmith" type="CharacterBody2D" parent="."]
 position = Vector2(190, 30)
@@ -785,9 +788,10 @@ shape = SubResource("CapsuleShape2D_mcwr6")
 [node name="NPC2ChatRange" type="CollisionShape2D" parent="NPC2/NPC2ChatArea"]
 shape = SubResource("CircleShape2D_jbxmn")
 
-[node name="Mayor" type="CharacterBody2D" parent="."]
+[node name="Mayor" type="CharacterBody2D" parent="." node_paths=PackedStringArray("player_choice_dialog")]
 position = Vector2(-95, 250)
 script = ExtResource("15_qvj74")
+player_choice_dialog = NodePath("../Player/PlayerChoiceDialog")
 
 [node name="MayorSprite" type="AnimatedSprite2D" parent="Mayor"]
 scale = Vector2(0.35, 0.35)

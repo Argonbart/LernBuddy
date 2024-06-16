@@ -1,0 +1,11 @@
+[
+	{"name": "Mayor", "text": "Hi! Welcome to the village! Develop this place by building houses and follow your learning goals! I will help you with that!"},
+	{"name": "Mayor", "text": "First off, is there anything you'd like to learn or work towards to? Anything you want to achieve at a later point?"},
+	{"name": "You", "options": ["I would like to learn Godot and become a better programmer.", "I would like to learn a new language.", "I want to improve my jogging sessions."]},
+	{"name": "Mayor", "text": "Great! Do you have any experiences with that so far?"},
+	{"name": "You", "options": ["No, i am a complete beginner and don't know where to start.", "I did a few things here and there.", "I am pretty good at it already."]},
+	{"name": "Mayor", "text": "Good. Then let's start by getting familiar with all the tools. You could start by watching the following guide: [link]. How does that sound?"},
+	{"name": "You", "options": ["Sounds good! I will try that.", "Let me think about that.", "No, i don't want to set anything up for that."]},
+	{"name": "Mayor", "text": "Amazing! Let's discuss where we should set up your project building for that.."},
+	{"name": "System", "text": "Gives player options to select building slots or place a starter building somewhere manually.."}
+]
