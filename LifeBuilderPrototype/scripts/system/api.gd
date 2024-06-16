@@ -1,11 +1,13 @@
 extends Node
 
-signal next_response(message)
+signal next_response(message, npc_id)
 
 var api_key : String = "" # << insert api key here
 var url : String = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=%s"%api_key
 var header = ["Content-Type: application/json"]
 var request : HTTPRequest
+
+var npc_id = -1
 
 func send_api_request(message):
 	request = HTTPRequest.new()
@@ -31,8 +33,12 @@ func _on_request_completed(_result, _response_code, _headers, body):
 	json.parse(body.get_string_from_utf8())
 	var response = json.get_data()
 	var message = response.candidates[0].content.parts[0].text
-	next_response.emit(message)
+	next_response.emit(message, npc_id)
 
+func _on_blacksmith_next_prompt(input):
+	npc_id = 0
+	send_api_request(input + " Respond that in less than 50 words. Additionally talk like a blacksmith.")
 
-func _on_blacksmith_dialogue_next_prompt(input):
-	send_api_request(input)
+func _on_phantom_next_prompt(input):
+	npc_id = 1
+	send_api_request(input + " Respond that in less than 50 words. Additionally talk like a phantom.")
