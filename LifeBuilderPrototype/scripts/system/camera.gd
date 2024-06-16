@@ -30,6 +30,7 @@ func _process(delta):
 				deactivate_player.emit()
 				is_active = !is_active
 	
+	zooming(delta)
 	if blacksmith_dialogue_active:
 		move_to_blacksmith()
 	elif phantom_dialogue_active:
@@ -37,8 +38,6 @@ func _process(delta):
 	elif mayor_dialogue_active:
 		move_to_mayor()
 	else:
-		zooming(delta)
-		
 		if is_active:
 			simple_pan(delta)
 			click_and_drag(delta)
