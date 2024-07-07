@@ -2,7 +2,7 @@ extends Node
 
 signal next_response(message, npc_id)
 
-var api_key : String = "AIzaSyDlFWpV7DbOWOlbeFmEtVF_gNWESO0WCio" # << insert api key here
+var api_key : String = "" # << insert api key here
 var url : String = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=%s"%api_key
 var header = ["Content-Type: application/json"]
 var request : HTTPRequest
