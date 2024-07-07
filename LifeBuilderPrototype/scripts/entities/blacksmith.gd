@@ -52,7 +52,7 @@ func _input(event):
 
 func start_conversation():
 	blacksmith_dialogue_name.text = "Blacksmith"
-	blacksmith_dialogue_text.text = "Hi! My name is Borkir. How can i help you?"
+	blacksmith_dialogue_text.text = "Hi! My name is Borkir. What do you want to reflect on?"
 
 func _on_chat_api_next_response(message, npc_id):
 	if npc_id == 0:
