@@ -1,12 +1,9 @@
 extends TileMap
 
-@export var world : Node2D
-
 func _process(_delta):
-	if !world.dialogue_active:
-		if Input.is_action_just_pressed("build"):
-			var pos = local_to_map(to_local(get_global_mouse_position()))
-			build_house(pos)
+	if Input.is_action_just_pressed("build"):
+		var pos = local_to_map(to_local(get_global_mouse_position()))
+		build_house(pos)
 
 func build_house(pos):
 	build_fundament(pos)

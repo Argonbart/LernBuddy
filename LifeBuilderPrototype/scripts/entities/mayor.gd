@@ -10,7 +10,8 @@ signal dialogue_finished()
 @onready var mayor_dialogue_text = $MayorDialogue/DialogueBox/Text
 @onready var mayor_text_input = $MayorDialogue/TextInput
 
-@export var player_choice_dialog : Control
+@export var player : CharacterBody2D
+@onready var player_choice_dialog : Control = player.get_child(2)
 
 var mayor_dialogue_active = false
 var player_nearby = false

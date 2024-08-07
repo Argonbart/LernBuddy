@@ -15,7 +15,7 @@ func _process(_delta):
 	
 	if !respawn_animation:
 		if is_active:
-			if Input.is_action_pressed("right") or Input.is_action_pressed("left"):
+			if Input.is_action_pressed("right") or Input.is_action_pressed("left") or Input.is_action_pressed("up") or Input.is_action_pressed("down"):
 				player_sprite.play("run")
 			elif Input.is_action_pressed("jump"):
 				player_sprite.play("jump")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://on051hxhywix"]
+
+[ext_resource type="FontFile" uid="uid://ucf1kmd61sow" path="res://fonts/FantaisieArtistique.otf" id="1_cdt8k"]
+
+[node name="TaverneSign" type="ColorRect"]
+custom_minimum_size = Vector2(10, 10)
+offset_left = 27.0
+offset_top = -32.0
+offset_right = 102.0
+offset_bottom = -14.0
+color = Color(0.223529, 0.0862745, 0.0745098, 1)
+
+[node name="TaverneLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+offset_right = 1480.0
+offset_bottom = 380.0
+scale = Vector2(0.05, 0.05)
+theme_override_fonts/font = ExtResource("1_cdt8k")
+theme_override_font_sizes/font_size = 300
+text = "TAVERNE"
+horizontal_alignment = 1
+vertical_alignment = 1

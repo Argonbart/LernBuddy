@@ -14,7 +14,6 @@ var drag_start_camera_pos = Vector2.ZERO
 var is_dragging : bool = false
 var is_active : bool = false
 
-var dialogue_active = false
 var blacksmith_dialogue_active = false
 var phantom_dialogue_active = false
 var mayor_dialogue_active = false
@@ -23,14 +22,13 @@ func _ready():
 	zoom_target = zoom
 
 func _process(delta):
-	if !dialogue_active:
-		if Input.is_action_just_released("camera"):
-				if is_active:
-					activate_player.emit()
-					is_active = !is_active
-				else:
-					deactivate_player.emit()
-					is_active = !is_active
+	if Input.is_action_just_released("camera"):
+			if is_active:
+				activate_player.emit()
+				is_active = !is_active
+			else:
+				deactivate_player.emit()
+				is_active = !is_active
 	
 	zooming(delta)
 	if blacksmith_dialogue_active:
@@ -97,25 +95,19 @@ func move_to_target(target):
 	position = position + move_amount * (1/zoom.x)
 
 func _on_blacksmith_dialogue_started():
-	dialogue_active = true
 	blacksmith_dialogue_active = true
 
 func _on_blacksmith_dialogue_finished():
-	dialogue_active = false
 	blacksmith_dialogue_active = false
 
 func _on_phantom_dialogue_started():
-	dialogue_active = true
 	phantom_dialogue_active = true
 
 func _on_phantom_dialogue_finished():
-	dialogue_active = false
 	phantom_dialogue_active = false
 
 func _on_mayor_dialogue_started():
-	dialogue_active = true
 	mayor_dialogue_active = true
 
 func _on_mayor_dialogue_finished():
-	dialogue_active = false
 	mayor_dialogue_active = false
