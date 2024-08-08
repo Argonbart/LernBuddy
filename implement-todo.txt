@@ -1,0 +1,6 @@
+- click card = open card editor (missing text input on card)
+- accept = play card
+- select where to play card
+- point calculation
+
+- npc ai behaviour --> just place a random card with a random quote..

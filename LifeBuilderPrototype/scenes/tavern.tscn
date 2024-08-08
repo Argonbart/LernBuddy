@@ -1,8 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=17 format=3 uid="uid://cq5lgla7on08e"]
 
 [ext_resource type="Texture2D" uid="uid://ce6wvcejgqpn" path="res://tilemaps/atlas_32x.png" id="1_42gis"]
+[ext_resource type="Script" path="res://scripts/tavern_camera.gd" id="1_47vrq"]
 [ext_resource type="PackedScene" uid="uid://cwq04qt76k1y3" path="res://scenes/player.tscn" id="2_dvt78"]
-[ext_resource type="Script" path="res://scripts/exit.gd" id="3_bljxc"]
+[ext_resource type="Script" path="res://scripts/tavern_exit.gd" id="3_bljxc"]
+[ext_resource type="Script" path="res://scripts/tavern_table.gd" id="5_y146u"]
+[ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://scenes/gameboard.tscn" id="6_hher4"]
+[ext_resource type="PackedScene" uid="uid://dtg661hui0ojm" path="res://scenes/player_cards.tscn" id="7_70w3i"]
+[ext_resource type="PackedScene" uid="uid://bxoix41d028yc" path="res://scenes/deck.tscn" id="8_p8nab"]
+[ext_resource type="Script" path="res://scripts/button.gd" id="9_gfgty"]
+[ext_resource type="StyleBox" uid="uid://ur1hsyltbhts" path="res://scenes/cards/white_card.tres" id="10_51bq7"]
+[ext_resource type="StyleBox" uid="uid://cemdf27g8ojnd" path="res://scenes/cards/green_card.tres" id="11_7kelh"]
+[ext_resource type="StyleBox" uid="uid://dk4swo7r03emu" path="res://scenes/cards/red_card.tres" id="12_g42hi"]
+[ext_resource type="StyleBox" uid="uid://dmyoljv7hd5i1" path="res://scenes/cards/blue_card.tres" id="13_cxt10"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_46qj3"]
 texture = ExtResource("1_42gis")
@@ -7969,9 +7979,12 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_46qj3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrnru"]
-size = Vector2(101.75, 82.5)
+size = Vector2(280, 201)
 
 [node name="Taverne" type="Node"]
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("1_47vrq")
 
 [node name="TavernTileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_1nsr1")
@@ -7996,7 +8009,7 @@ layer_7/z_index = 4
 layer_7/tile_data = PackedInt32Array(1441805, 1572865, 4, 1507341, 1572865, 5, 1572877, 1572865, 6, 1638413, 1572865, 7, 1441806, 1638401, 4, 1507342, 1638401, 5, 1441807, 1703937, 4, 1507343, 1703937, 5, 1572879, 1703937, 6, 1441808, 1769473, 4, 1507344, 1769473, 5, 1572880, 1769473, 6, 1638416, 1769473, 7)
 
 [node name="Player" parent="." instance=ExtResource("2_dvt78")]
-position = Vector2(300, 600)
+position = Vector2(260, 570)
 scale = Vector2(2, 2)
 
 [node name="Exit" type="Area2D" parent="."]
@@ -8006,5 +8019,141 @@ script = ExtResource("3_bljxc")
 position = Vector2(257, 603)
 shape = SubResource("RectangleShape2D_mrnru")
 
+[node name="Table" type="Area2D" parent="."]
+script = ExtResource("5_y146u")
+
+[node name="TableCollision" type="CollisionShape2D" parent="Table"]
+position = Vector2(243, 208.5)
+shape = SubResource("RectangleShape2D_mrnru")
+
+[node name="TableGame" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 136.0
+offset_top = 136.0
+offset_right = 342.0
+offset_bottom = 281.0
+
+[node name="GameBoard" parent="TableGame" instance=ExtResource("6_hher4")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="PlayerCards" parent="TableGame" instance=ExtResource("7_70w3i")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = 5.0
+offset_right = 430.0
+offset_bottom = 45.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Deck" parent="TableGame" instance=ExtResource("8_p8nab")]
+offset_left = -60.0
+offset_top = 140.0
+offset_right = -20.0
+offset_bottom = 180.0
+
+[node name="Button" type="Button" parent="TableGame/Deck"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 44.0
+offset_bottom = 42.0
+flat = true
+script = ExtResource("9_gfgty")
+
+[node name="BigCards" type="Control" parent="TableGame"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -53.0
+offset_right = 79.0
+offset_bottom = 53.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="WhiteCard" type="Panel" parent="TableGame/BigCards"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("10_51bq7")
+
+[node name="GreenCard" type="Panel" parent="TableGame/BigCards"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("11_7kelh")
+
+[node name="RedCard" type="Panel" parent="TableGame/BigCards"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("12_g42hi")
+
+[node name="BlueCard" type="Panel" parent="TableGame/BigCards"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("13_cxt10")
+
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit" to="Exit" method="_on_body_exited"]
+[connection signal="body_entered" from="Table" to="Table" method="_on_body_entered"]
+[connection signal="body_exited" from="Table" to="Table" method="_on_body_exited"]
+[connection signal="table_game_exited" from="Table" to="Camera" method="_on_table_table_game_exited"]
+[connection signal="table_game_started" from="Table" to="Camera" method="_on_table_table_game_started"]
+[connection signal="button_up" from="TableGame/Deck/Button" to="Table" method="_on_button_button_up"]

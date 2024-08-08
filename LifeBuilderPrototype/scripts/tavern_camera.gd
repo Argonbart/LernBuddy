@@ -1,12 +1,9 @@
 extends Camera2D
 
-signal activate_player
-signal deactivate_player
+@onready var player = $"../Player"
 
-@export var player : Node2D
-@export var blacksmith : Node2D
-@export var phantom : Node2D
-@export var mayor : Node2D
+var table_position = Vector2(250, 210)
+var table_game_started = false
 
 var zoom_target : Vector2
 var drag_start_mouse_pos = Vector2.ZERO
@@ -14,30 +11,22 @@ var drag_start_camera_pos = Vector2.ZERO
 var is_dragging : bool = false
 var is_active : bool = false
 
-var blacksmith_dialogue_active = false
-var phantom_dialogue_active = false
-var mayor_dialogue_active = false
-
 func _ready():
 	zoom_target = zoom
 
 func _process(delta):
-	if Input.is_action_just_released("camera"):
+	if !table_game_started and Input.is_action_just_released("camera"):
 		if is_active:
-			activate_player.emit()
 			is_active = !is_active
+			player.is_active = !player.is_active
 		else:
-			deactivate_player.emit()
 			is_active = !is_active
+			player.is_active = !player.is_active
 	
-	zooming(delta)
-	if blacksmith_dialogue_active:
-		move_to_blacksmith()
-	elif phantom_dialogue_active:
-		move_to_phantom()
-	elif mayor_dialogue_active:
-		move_to_mayor()
+	if table_game_started:
+		move_to_table(delta)
 	else:
+		zooming(delta)
 		if is_active:
 			simple_pan(delta)
 			click_and_drag(delta)
@@ -80,40 +69,25 @@ func click_and_drag(_delta):
 		var moveVector = get_viewport().get_mouse_position() - drag_start_mouse_pos
 		position = drag_start_camera_pos - moveVector * (1/zoom.x)
 
-func move_to_blacksmith():
-	move_to_target(blacksmith.global_position)
+func move_to_table(delta):
+	move_to_target(table_position, delta)
 
-func move_to_phantom():
-	move_to_target(phantom.global_position)
-
-func move_to_mayor():
-	move_to_target(mayor.global_position)
+func move_to_target(target, delta):
 	
-func move_to_target(target):
+	if(zoom_target.x <= 2.9 or zoom_target.x >= 3.1):
+		zoom_target.x *= 1.01
+	if(zoom_target.y <= 2.9 or zoom_target.y >= 3.1):
+		zoom_target.y *= 1.01
+	zoom = zoom.slerp(zoom_target, 20 * delta)
+	
 	var target_vector = target - position
 	var move_amount = target_vector.normalized()
 	position = position + move_amount * (1/zoom.x)
 
-func _on_blacksmith_dialogue_started():
-	blacksmith_dialogue_active = true
+func _on_table_table_game_started():
+	table_game_started = true
 	player.is_active = false
 
-func _on_blacksmith_dialogue_finished():
-	blacksmith_dialogue_active = false
-	player.is_active = true
-
-func _on_phantom_dialogue_started():
-	phantom_dialogue_active = true
-	player.is_active = false
-
-func _on_phantom_dialogue_finished():
-	phantom_dialogue_active = false
-	player.is_active = true
-
-func _on_mayor_dialogue_started():
-	mayor_dialogue_active = true
-	player.is_active = false
-
-func _on_mayor_dialogue_finished():
-	mayor_dialogue_active = false
+func _on_table_table_game_exited():
+	table_game_started = false
 	player.is_active = true

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/system/api.gd" id="1_cggbg"]
 [ext_resource type="PackedScene" uid="uid://d1sly5v33noi4" path="res://scenes/village.tscn" id="1_tsape"]
-[ext_resource type="Script" path="res://scripts/taverne.gd" id="2_egtpv"]
+[ext_resource type="Script" path="res://scripts/tavern.gd" id="2_egtpv"]
 [ext_resource type="PackedScene" uid="uid://on051hxhywix" path="res://scenes/taverne_label.tscn" id="2_onmhj"]
 [ext_resource type="PackedScene" uid="uid://cwq04qt76k1y3" path="res://scenes/player.tscn" id="6_j060x"]
 [ext_resource type="Script" path="res://scripts/entities/blacksmith.gd" id="6_urmr3"]
@@ -471,6 +471,7 @@ mayor = NodePath("../Mayor")
 script = ExtResource("1_cggbg")
 
 [node name="Player" parent="." instance=ExtResource("6_j060x")]
+position = Vector2(65, 40)
 
 [node name="Blacksmith" type="CharacterBody2D" parent="."]
 position = Vector2(190, 30)
