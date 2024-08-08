@@ -1,4 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd8go0qykin0m"]
+[gd_scene load_steps=3 format=3 uid="uid://bd8go0qykin0m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yummw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0lx3"]
 bg_color = Color(0, 0, 0, 0)
@@ -41,6 +44,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yummw")
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/PanelContainer"]
 custom_minimum_size = Vector2(206, 146)

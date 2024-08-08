@@ -2,7 +2,7 @@ extends Camera2D
 
 @onready var player = $"../Player"
 
-var table_position = Vector2(250, 210)
+var table_position = Vector2(250, 220)
 var table_game_started = false
 
 var zoom_target : Vector2
@@ -15,23 +15,23 @@ func _ready():
 	zoom_target = zoom
 
 func _process(delta):
-	if !table_game_started and Input.is_action_just_released("camera"):
-		if is_active:
-			is_active = !is_active
-			player.is_active = !player.is_active
-		else:
-			is_active = !is_active
-			player.is_active = !player.is_active
-	
+	#if !table_game_started and Input.is_action_just_released("camera"):
+		#if is_active:
+			#is_active = !is_active
+			#player.is_active = !player.is_active
+		#else:
+			#is_active = !is_active
+			#player.is_active = !player.is_active
 	if table_game_started:
 		move_to_table(delta)
 	else:
-		zooming(delta)
-		if is_active:
-			simple_pan(delta)
-			click_and_drag(delta)
-		else:
-			position = player.global_position
+		#zooming(delta)
+		#if is_active:
+			#simple_pan(delta)
+			#click_and_drag(delta)
+		#else:
+			#position = player.global_position
+		standard_position()
 
 func zooming(delta):
 	if Input.is_action_just_pressed("zoom_in"):
@@ -75,14 +75,19 @@ func move_to_table(delta):
 func move_to_target(target, delta):
 	
 	if(zoom_target.x <= 2.9 or zoom_target.x >= 3.1):
-		zoom_target.x *= 1.01
+		zoom_target.x *= 1.03
 	if(zoom_target.y <= 2.9 or zoom_target.y >= 3.1):
-		zoom_target.y *= 1.01
+		zoom_target.y *= 1.03
 	zoom = zoom.slerp(zoom_target, 20 * delta)
 	
 	var target_vector = target - position
 	var move_amount = target_vector.normalized()
-	position = position + move_amount * (1/zoom.x)
+	if target_vector.length() > 5:
+		position = position + move_amount * (1/zoom.x) * 15
+
+func standard_position():
+	zoom = Vector2(1.0, 1.0)
+	position = Vector2(get_viewport_rect().size / 2)
 
 func _on_table_table_game_started():
 	table_game_started = true
@@ -91,3 +96,4 @@ func _on_table_table_game_started():
 func _on_table_table_game_exited():
 	table_game_started = false
 	player.is_active = true
+	zoom_target = Vector2(1.0, 1.0)

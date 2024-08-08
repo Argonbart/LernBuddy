@@ -8038,6 +8038,25 @@ offset_top = 136.0
 offset_right = 342.0
 offset_bottom = 281.0
 
+[node name="GameBoard" parent="TableGame" instance=ExtResource("6_hher4")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="PlayCardButton" type="Button" parent="TableGame/GameBoard"]
+visible = false
+layout_mode = 0
+offset_left = 215.0
+offset_top = 125.0
+offset_right = 1135.0
+offset_bottom = 538.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_0rucw")
+text = "PLAY"
+
 [node name="Deck" parent="TableGame" instance=ExtResource("8_p8nab")]
 offset_left = -60.0
 offset_top = 140.0
@@ -8081,27 +8100,8 @@ grow_vertical = 2
 
 [node name="PlayCards" type="Control" parent="TableGame"]
 anchors_preset = 0
-offset_right = 206.0
-offset_bottom = 143.0
-
-[node name="GameBoard" parent="TableGame" instance=ExtResource("6_hher4")]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-
-[node name="PlayCardButton" type="Button" parent="TableGame/GameBoard"]
-visible = false
-layout_mode = 0
-offset_left = 215.0
-offset_top = 125.0
-offset_right = 1135.0
-offset_bottom = 538.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 300
-theme_override_styles/normal = SubResource("StyleBoxFlat_0rucw")
-text = "PLAY"
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit" to="Exit" method="_on_body_exited"]
@@ -8109,5 +8109,5 @@ text = "PLAY"
 [connection signal="body_exited" from="Table" to="Table" method="_on_body_exited"]
 [connection signal="table_game_exited" from="Table" to="Camera" method="_on_table_table_game_exited"]
 [connection signal="table_game_started" from="Table" to="Camera" method="_on_table_table_game_started"]
-[connection signal="button_up" from="TableGame/Deck/Button" to="Table" method="_on_button_button_up"]
 [connection signal="pressed" from="TableGame/GameBoard/PlayCardButton" to="Table" method="_on_play_card_button_pressed"]
+[connection signal="button_up" from="TableGame/Deck/Button" to="Table" method="_on_button_button_up"]
