@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=15 format=3 uid="uid://cq5lgla7on08e"]
 
 [ext_resource type="Texture2D" uid="uid://ce6wvcejgqpn" path="res://tilemaps/atlas_32x.png" id="1_42gis"]
 [ext_resource type="Script" path="res://scripts/tavern_camera.gd" id="1_47vrq"]
+[ext_resource type="Script" path="res://scripts/system/api.gd" id="1_b3q28"]
 [ext_resource type="PackedScene" uid="uid://cwq04qt76k1y3" path="res://scenes/player.tscn" id="2_dvt78"]
 [ext_resource type="Script" path="res://scripts/tavern_exit.gd" id="3_bljxc"]
 [ext_resource type="Script" path="res://scripts/tavern_table.gd" id="5_y146u"]
@@ -7987,6 +7988,9 @@ border_color = Color(0, 0, 0, 1)
 
 [node name="Taverne" type="Node"]
 
+[node name="ChatAPI" type="Node" parent="."]
+script = ExtResource("1_b3q28")
+
 [node name="Camera" type="Camera2D" parent="."]
 script = ExtResource("1_47vrq")
 
@@ -8103,10 +8107,19 @@ theme_override_font_sizes/font_size = 300
 theme_override_styles/normal = SubResource("StyleBoxFlat_0rucw")
 text = "PLAY"
 
+[node name="BigCardsOnField" type="Control" parent="TableGame"]
+anchors_preset = 0
+offset_left = -59.0
+offset_top = 19.5
+offset_right = -19.0
+offset_bottom = 59.5
+
+[connection signal="next_response" from="ChatAPI" to="Table" method="_on_chat_api_next_response"]
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit" to="Exit" method="_on_body_exited"]
 [connection signal="body_entered" from="Table" to="Table" method="_on_body_entered"]
 [connection signal="body_exited" from="Table" to="Table" method="_on_body_exited"]
+[connection signal="player_prompt" from="Table" to="ChatAPI" method="_on_table_player_prompt"]
 [connection signal="table_game_exited" from="Table" to="Camera" method="_on_table_table_game_exited"]
 [connection signal="table_game_started" from="Table" to="Camera" method="_on_table_table_game_started"]
 [connection signal="button_up" from="TableGame/Deck/Button" to="Table" method="_on_button_button_up"]
