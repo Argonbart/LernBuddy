@@ -1,5 +1,2 @@
-- accept = play card
-- select where to play card
+- npc ai behaviour?
 - point calculation
-
-- npc ai behaviour --> just place a random card with a random quote..
