@@ -21,6 +21,7 @@ SceneSwitcher="*res://scene_switcher.gd"
 [display]
 
 window/size/viewport_height=640
+window/stretch/mode="viewport"
 
 [input]
 

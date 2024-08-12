@@ -8152,6 +8152,7 @@ scale = Vector2(1.65625, 1.65625)
 sprite_frames = SubResource("SpriteFrames_x3m1y")
 animation = &"idle"
 frame_progress = 0.901352
+speed_scale = 0.5
 
 [node name="PlayerWon" type="Panel" parent="."]
 visible = false

@@ -247,16 +247,15 @@ func draw_card():
 func choose_card_text(color):
 	var card_text = ""
 	if color == "red":  # red = Emotionen
-		card_text = "Welche Vorteile oder Möglichkeiten ergeben sich?\n[ Fang an zu tippen.. ]"
+		card_text = "EMOTIONEN\nWie fühlst du dich in Bezug auf das zu reflektierende Thema? Welche positiven oder negativen Gefühle empfindest du?\n[ Fang an zu tippen.. ]"
 	if color == "yellow":  # white = Fakten
-		card_text = "Welche für deine Reflektion relevanten Fakten, Daten, Informationen fallen dir ein?\n[ Fang an zu tippen.. ]"
+		card_text = "FAKTEN\nWelche für deine Reflektion relevanten Fakten, Daten, Informationen fallen dir ein?\n[ Fang an zu tippen.. ]"
 	if color == "green":  # green = Optimismus
-		card_text = "Welche Zweifel, Unsicherheiten, Begeisterung verspürst du in Bezug auf das zu reflektierende Thema?\n[ Fang an zu tippen.. ]"
+		card_text = "OPTIMISMUS\nWelche Vorteile oder Möglichkeiten ergeben sich?\n[ Fang an zu tippen.. ]"
 	if color == "blue":  # blue = Kreativität
-		card_text = "Sei kreativ! Welche verrückten oder eher fernen Dinge fallen die zu deinem Thema ein?\n[ Fang an zu tippen.. ]"
+		card_text = "KREATIVITÄT\nWelche verrückten oder eher fernen Dinge fallen die zu deinem Thema ein?\n[ Fang an zu tippen.. ]"
 	if color == "grey":  # purple = Bonus
 		var card_effect = next_card_effect()
-		#var effect_code = card_effect.keys()[0]
 		var effect_text = card_effect.values()[0]
 		card_text = effect_text
 	return card_text
@@ -558,7 +557,7 @@ func _add_corner_card(style_box, card_text):
 
 func create_special_card():
 	var new_style_box = special_card_style_box
-	var card_text = "Schreibe einen \"Ich\"-Satz!"
+	var card_text = "Formuliere einen \"Ich\"-Satz zu der Thematik, zu dem du gerne neue Perspektiven einnehmen möchtest. Beispiel: Mein Lernfortschritt kommt nicht so gut voran wie erwünscht.\n[ Fang an zu tippen.. ]"
 	var new_hand_card = _add_hand_card(new_style_box)
 	var new_edit_card = _add_edit_card(new_style_box, card_text)
 	var new_corner_card = _add_corner_card(special_card_style_box, card_text)

@@ -1,2 +1,0 @@
-- npc ai behaviour?
-- point calculation
