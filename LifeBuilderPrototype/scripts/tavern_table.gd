@@ -4,15 +4,42 @@ signal table_game_started()
 signal table_game_exited()
 signal player_prompt(text)
 
-var white_card_path = "res://scenes/cards/yellow_card.tres"
-var green_card_path = "res://scenes/cards/green_card.tres"
-var red_card_path = "res://scenes/cards/red_card.tres"
-var blue_card_path = "res://scenes/cards/blue_card.tres"
-var bonus_card_path = "res://scenes/cards/bonus_card.tres"
-var card_paths = [white_card_path, green_card_path, red_card_path, blue_card_path, bonus_card_path]
-#var card_colors = ["yellow", "green", "red", "blue", "purple"]
-var color_codes = []
-var game_field_positions = [Vector2(31, 8), Vector2(83, 8), Vector2(135, 8), Vector2(31, 52), Vector2(83, 52), Vector2(135, 52), Vector2(31, 96), Vector2(83, 96), Vector2(135, 96)]
+@onready var deck = $"../TableGame/Deck"
+@onready var player_hand_cards = $"../TableGame/PlayerCards"
+@onready var player_edit_cards = $"../TableGame/EditCards"
+@onready var played_cards = $"../TableGame/PlayCards"
+@onready var game_board = $"../TableGame/GameBoard"
+@onready var played_cards_big_view = $"../TableGame/BigCardsOnField"
+
+@onready var player = $"../Player"
+@onready var richard = $"../Richard/RichardSprite"
+@onready var camera = $"../Camera"
+@onready var table_game = $"../TableGame"
+@onready var play_card_button = $"../TableGame/GameBoard/PlayCardButton"
+@onready var win_screen = $"../PlayerWon"
+@onready var win_screen_button = $"../PlayerWon/Button"
+@onready var ergebnis_screen = $"../ErgebnisScreen"
+
+var draw_card_button = null
+var deck_cards = []
+var player_hand_counter = 0
+
+var deck_empty
+var player_hand_empty
+
+var special_card_played = false
+var special_card_hand = null
+var special_card_edit = null
+var special_card_corner = null
+var special_card_style_box
+
+var colors
+var style_boxes
+var game_field_positions
+
+var player_nearby
+var game_ongoing
+
 var game_field_position_selected = null
 var game_field_last_selected = null
 
@@ -27,45 +54,89 @@ var grid_empty = [true, true, true, true, true, true, true, true, true]
 var grid_cards = [null, null, null, null, null, null, null, null, null]
 var grid_big_cards = [null, null, null, null, null, null, null, null, null]
 
-@onready var player = $"../Player"
-@onready var camera = $"../Camera"
-@onready var table_game = $"../TableGame"
-@onready var play_card_button = $"../TableGame/GameBoard/PlayCardButton"
+var json_as_dict
+var json_length
+var line_counter
+var color_counter
 
-var player_nearby = false
-var game_ongoing = false
+var card_effects_dict
+var play_extra_card = false
+
+func start_richard_json():
+	var richard_dialogue_file = "res://dialogue/richard_dialogue.json"
+	var json_as_text = FileAccess.get_file_as_string(richard_dialogue_file)
+	json_as_dict = JSON.parse_string(json_as_text)
+	json_length = len(json_as_dict)
+	line_counter = 0
+	color_counter = 0
+	var card_effects_file = "res://dialogue/bonus_card_effects.json"
+	var json_as_text_2 = FileAccess.get_file_as_string(card_effects_file)
+	card_effects_dict = JSON.parse_string(json_as_text_2)
+
+func next_card_effect():
+	return card_effects_dict[randi_range(0,len(card_effects_dict)-1)]
+
+func next_richard_text():
+	if json_as_dict and line_counter < json_length:
+		var return_text = json_as_dict[line_counter].text
+		line_counter = line_counter + 1
+		return return_text
+	else:
+		return "No more Richard text."
+
+func next_richard_style_box():
+	if json_as_dict and color_counter < json_length:
+		var color = json_as_dict[color_counter].color
+		var color_idx = -1
+		if color == "red":
+			color_idx = 0
+		if color == "yellow":
+			color_idx = 1
+		if color == "green":
+			color_idx = 2
+		if color == "blue":
+			color_idx = 3
+		if color == "grey":
+			color_idx = 4
+		var return_style_box = style_boxes[color_idx]
+		color_counter = color_counter + 1
+		return return_style_box
+	else:
+		return StyleBoxFlat.new()
 
 func _ready():
 	table_game.visible = false
-	initiate_color_codes()
-	create_table_buttons()
-	play_card_button.connect("button_down", func(): _play_card())
+	player_nearby = false
+	game_ongoing = false
+	initiate_game_field()
+
+func initiate_game_field():
+	initiate_style_boxes()
+	initiate_table_buttons()
+	generate_deck(8)
+	create_special_card()
+	start_richard_json()
 
 func _process(_delta):
-	if player_nearby and Input.is_action_just_pressed("interact"):
-		table_game_started.emit()
-		if game_ongoing:
-			return
+	if player_nearby and !game_ongoing and Input.is_action_just_pressed("interact"):
 		game_ongoing = true
+		table_game_started.emit()
 		start_game()
 	
 	if game_ongoing and Input.is_action_just_pressed("esc"):
-		table_game_exited.emit()
+		win_screen_button.visible = false
+		ergebnis_screen.visible = false
 		game_ongoing = false
+		table_game_exited.emit()
 		stop_game()
-
-func initiate_color_codes():
-	for card_path in card_paths:
-		var style_box = load(card_path)
-		color_codes.append(style_box.bg_color) 
-
-func _on_body_entered(body):
-	if body.name == "Player":
-		player_nearby = true
-
-func _on_body_exited(body):
-	if body.name == "Player":
-		player_nearby = false
+	
+	if player_hand_counter == 0:
+		player_hand_empty = true
+	else:
+		player_hand_empty = false
+	
+	if deck_empty and player_hand_empty:
+		player_hand_counter = -1
 
 func start_game():
 	table_game.visible = true
@@ -75,22 +146,131 @@ func stop_game():
 	table_game.visible = false
 	player.visible = true
 
-func _on_button_button_up():
-	if !richards_turn:
-		draw_card()
+func _on_body_entered(body):
+	if body.name == "Player":
+		player_nearby = true
+
+func _on_body_exited(body):
+	if body.name == "Player":
+		player_nearby = false
+
+func initiate_style_boxes():
+	colors = {Color("#ea4d53") : "red", Color("#ebbc6d"):  "yellow", Color("#328948") : "green", Color("#554dc9") : "blue", Color("#989595") : "grey"}
+	style_boxes = []
+	for color in colors.keys():
+		var new_style_box = StyleBoxFlat.new()
+		new_style_box.bg_color = color
+		new_style_box.border_width_left = 1
+		new_style_box.border_width_top = 1
+		new_style_box.border_width_right = 1
+		new_style_box.border_width_bottom = 1
+		new_style_box.border_color = Color("#000000")
+		style_boxes.append(new_style_box)
+	special_card_style_box = StyleBoxFlat.new()
+	special_card_style_box.bg_color = Color.AQUAMARINE
+	special_card_style_box.border_width_left = 1
+	special_card_style_box.border_width_top = 1
+	special_card_style_box.border_width_right = 1
+	special_card_style_box.border_width_bottom = 1
+	special_card_style_box.border_color = Color("#000000")
+
+func initiate_table_buttons():
+	game_field_positions = [Vector2(31, 8), Vector2(83, 8), Vector2(135, 8), Vector2(31, 52), Vector2(83, 52), Vector2(135, 52), Vector2(31, 96), Vector2(83, 96), Vector2(135, 96)]
+	for pos in game_field_positions:
+		var new_button = Button.new()
+		new_button.custom_minimum_size = Vector2(40, 40)
+		new_button.position = pos
+		new_button.flat = true
+		new_button.connect("focus_entered", func(): _button_selected_on(new_button))
+		new_button.connect("focus_exited", func(): _button_selected_off())
+		new_button.connect("mouse_entered", func(): _hovering_over_button(new_button))
+		new_button.connect("mouse_exited", func(): _stop_hovering_over_button(new_button))
+		game_board.add_child(new_button)
+	play_card_button.connect("button_down", func(): _play_card())
+	win_screen_button.connect("pressed", func(): _show_ergebnis_screen())
+
+func _show_ergebnis_screen():
+	win_screen.visible = false
+	ergebnis_screen.visible = true
+
+func generate_deck(deck_length):
+	for i in range(deck_length):
+		var white_card = Panel.new()
+		var white_style_box = StyleBoxFlat.new()
+		white_style_box.bg_color = Color.WHITE
+		white_style_box.border_width_left = 1
+		white_style_box.border_width_top = 1
+		white_style_box.border_width_right = 1
+		white_style_box.border_width_bottom = 1
+		white_style_box.border_color = Color("#000000")
+		white_card.custom_minimum_size = Vector2(40, 40)
+		white_card.position = Vector2(0 + 2*i, 0 - 2*i)
+		white_card.add_theme_stylebox_override("panel", white_style_box)
+		white_card.visible = true
+		deck.add_child(white_card)
+		deck_cards.append(white_card)
+	var new_draw_button = Button.new()
+	new_draw_button.size = Vector2(40, 40)
+	new_draw_button.position = Vector2(0 + 2 * (deck_length-1), 0 - 2 * (deck_length-1))
+	new_draw_button.flat = true
+	new_draw_button.set_script("res://scripts/button.gd")
+	deck.add_child(new_draw_button)
+	draw_card_button = new_draw_button
+	draw_card_button.connect("button_up", func(): _draw_card_button_up())
+	if deck_length > 0:
+		deck_empty = false
 
 func draw_card():
+	if !special_card_played:
+		return
+	if deck_empty:
+		return
+	var new_style_box = style_boxes[randi_range(0,len(colors)-1)]
+	var card_text = choose_card_text(colors[new_style_box.bg_color])
+	var new_hand_card = _add_hand_card(new_style_box)
+	var new_edit_card = _add_edit_card(new_style_box, card_text)
+	var new_button = _add_card_button()
+	new_button.connect("pressed", func(): _click_card(new_edit_card))
+	new_hand_card.add_child(new_button)
+	player_hand_cards.add_child(new_hand_card)
+	player_edit_cards.add_child(new_edit_card)
+	player_cards_array.append(new_hand_card)
+	player_hand_counter = player_hand_counter + 1
+	edit_cards_array.append(new_edit_card)
+	deck_cards[-1].queue_free()
+	deck_cards.pop_back()
+	draw_card_button.position = Vector2(draw_card_button.position.x - 2, draw_card_button.position.y + 2)
+	if len(deck_cards) == 0:
+		draw_card_button.queue_free()
+		deck_empty = true
+
+func choose_card_text(color):
+	var card_text = ""
+	if color == "red":  # red = Emotionen
+		card_text = "Welche Vorteile oder Möglichkeiten ergeben sich?\n[ Fang an zu tippen.. ]"
+	if color == "yellow":  # white = Fakten
+		card_text = "Welche für deine Reflektion relevanten Fakten, Daten, Informationen fallen dir ein?\n[ Fang an zu tippen.. ]"
+	if color == "green":  # green = Optimismus
+		card_text = "Welche Zweifel, Unsicherheiten, Begeisterung verspürst du in Bezug auf das zu reflektierende Thema?\n[ Fang an zu tippen.. ]"
+	if color == "blue":  # blue = Kreativität
+		card_text = "Sei kreativ! Welche verrückten oder eher fernen Dinge fallen die zu deinem Thema ein?\n[ Fang an zu tippen.. ]"
+	if color == "grey":  # purple = Bonus
+		var card_effect = next_card_effect()
+		#var effect_code = card_effect.keys()[0]
+		var effect_text = card_effect.values()[0]
+		card_text = effect_text
+	return card_text
+
+func _add_hand_card(style_box_type):
 	var new_card_hand = Panel.new()
-	var new_card_edit = Panel.new()
-	var new_button = Button.new()
-	var new_text_edit = TextEdit.new()
-	var new_color = randi_range(0,len(card_paths)-1)
-	var style_box = load(card_paths[new_color])
-	
 	new_card_hand.custom_minimum_size = Vector2(40, 40)
 	new_card_hand.size_flags_horizontal = Control.SIZE_SHRINK_CENTER | Control.SIZE_EXPAND
-	new_card_hand.add_theme_stylebox_override("panel", style_box)
-	
+	new_card_hand.add_theme_stylebox_override("panel", style_box_type)
+	return new_card_hand
+
+func _add_edit_card(style_box, card_text):
+	var new_card_edit = Panel.new()
+	var new_text_edit = TextEdit.new()
 	new_card_edit.custom_minimum_size = Vector2(100, 100)
 	new_card_edit.position = Vector2(2.5, 3.0)
 	new_card_edit.add_theme_stylebox_override("panel", style_box)
@@ -98,35 +278,25 @@ func draw_card():
 	new_text_edit.scale = Vector2(0.05, 0.05)
 	new_text_edit.custom_minimum_size = Vector2(1900, 1900)
 	new_text_edit.position = Vector2(3.0, 2.0)
-	var card_text = ""
-	if new_color == 0:  # white = Fakten
-		card_text = "Welche für deine Reflektion relevanten Fakten, Daten, Informationen fallen dir ein?\n[ Fang an zu tippen.. ]"
-	if new_color == 1:  # green = Optimismus
-		card_text = "Welche Zweifel, Unsicherheiten, Begeisterung verspürst du in Bezug auf das zu reflektierende Thema?\n[ Fang an zu tippen.. ]"
-	if new_color == 2:  # red = Emotionen
-		card_text = "Welche Vorteile oder Möglichkeiten ergeben sich?\n[ Fang an zu tippen.. ]"
-	if new_color == 3:  # blue = Kreativität
-		card_text = "Sei kreativ! Welche verrückten oder eher fernen Dinge fallen die zu deinem Thema ein?\n[ Fang an zu tippen.. ]"
-	if new_color == 4:  # purple = Bonus
-		card_text = "Ziehe zwei Karten."
 	new_text_edit.placeholder_text = card_text
+	if style_box.bg_color in colors and colors[style_box.bg_color] == "grey":
+		new_text_edit.text = card_text
+		new_text_edit.add_theme_color_override("font_readonly_color", Color.BLACK)
 	new_text_edit.add_theme_color_override("background_color", style_box.bg_color)
 	new_text_edit.add_theme_color_override("font_color", Color.BLACK)
 	new_text_edit.add_theme_color_override("font_placeholder_color", Color.BLACK)
 	new_text_edit.add_theme_font_size_override("font_size", 140)
 	new_text_edit.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+	if style_box.bg_color in colors:
+		new_text_edit.editable = colors[style_box.bg_color] != "grey"
 	new_card_edit.add_child(new_text_edit)
-	
-	new_button.connect("pressed", func(): _click_card(new_card_edit))
+	return new_card_edit
+
+func _add_card_button():
+	var new_button = Button.new()
 	new_button.custom_minimum_size = Vector2(40, 40)
 	new_button.flat = true
-	new_card_hand.add_child(new_button)
-	
-	table_game.get_child(1).add_child(new_card_hand)
-	table_game.get_child(2).add_child(new_card_edit)
-	
-	player_cards_array.append(new_card_hand)
-	edit_cards_array.append(new_card_edit)
+	return new_button
 
 func _click_card(edit_card):
 	if !richards_turn:
@@ -143,20 +313,7 @@ func _click_card(edit_card):
 			else:
 				card.visible = false
 
-func create_table_buttons():
-	for pos in game_field_positions:
-		var new_button = Button.new()
-		new_button.custom_minimum_size = Vector2(40, 40)
-		new_button.position = pos
-		new_button.flat = true
-		new_button.connect("focus_entered", func(): _button_selected_on(new_button))
-		new_button.connect("focus_exited", func(): _button_selected_off())
-		new_button.connect("mouse_entered", func(): _hovering_over_button(new_button))
-		new_button.connect("mouse_exited", func(): _stop_hovering_over_button(new_button))
-		table_game.get_child(4).add_child(new_button)
-
 func _button_selected_on(button):
-	
 	if active_card:
 		game_field_position_selected = button
 		game_field_last_selected = button.position
@@ -178,16 +335,18 @@ func _stop_hovering_over_button(button):
 				grid_big_cards[grid_idx].visible = false
 
 func play_card_on_field_allowed(played_card, game_field_position):
-	var yellow = color_codes[0]
-	var green = color_codes[1]
-	var red = color_codes[2]
-	var blue = color_codes[3]
-	var purple = color_codes[4]
-	var played_card_color = played_card.get_theme_stylebox("panel").bg_color
+	var red = colors.values()[0]
+	var yellow = colors.values()[1]
+	var green = colors.values()[2]
+	var blue = colors.values()[3]
+	var grey = colors.values()[4]
+	if played_card.get_theme_stylebox("panel") == special_card_style_box:
+		return true
+	var played_card_color = colors[played_card.get_theme_stylebox("panel").bg_color]
 	if !grid_cards[find_grid_position(game_field_position)]:
 		return true
-	var field_card_color = grid_cards[find_grid_position(game_field_position)].get_theme_stylebox("panel").bg_color
-	if(played_card_color == purple or field_card_color == purple):
+	var field_card_color = colors[grid_cards[find_grid_position(game_field_position)].get_theme_stylebox("panel").bg_color]
+	if(played_card_color == grey or field_card_color == grey):
 		return true
 	if(played_card_color == field_card_color):
 		return true
@@ -210,59 +369,86 @@ func _play_card():
 	else:
 		print("This move is not allowed!")
 
+func _add_field_card(style_box):
+	var new_field_card = Panel.new()
+	var new_field_card_label = Label.new()
+	new_field_card.custom_minimum_size = Vector2(40, 40)
+	new_field_card.add_theme_stylebox_override("panel", style_box)
+	new_field_card.position = game_field_last_selected
+	new_field_card.visible = true
+	new_field_card_label.custom_minimum_size = Vector2(720, 720)
+	new_field_card_label.add_theme_color_override("font_color", Color.BLACK)
+	new_field_card_label.position = Vector2(2, 2)
+	new_field_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	new_field_card_label.scale = Vector2(0.05, 0.05)
+	new_field_card_label.add_theme_font_size_override("font_size", 60)
+	new_field_card_label.text = active_card.get_child(0).text
+	new_field_card.add_child(new_field_card_label)
+	return new_field_card
+
+func _add_field_card_big_view(style_box):
+	var new_big_card = Panel.new()
+	var new_big_card_label = Label.new()
+	new_big_card.custom_minimum_size = Vector2(100, 100)
+	new_big_card.position = Vector2(2.5, 3.0)
+	new_big_card.add_theme_stylebox_override("panel", style_box)
+	new_big_card.visible = false
+	new_big_card_label.custom_minimum_size = Vector2(1900, 1900)
+	new_big_card_label.position = Vector2(3.0, 2.0)
+	new_big_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	new_big_card_label.scale = Vector2(0.05, 0.05)
+	new_big_card_label.add_theme_font_size_override("font_size", 140)
+	new_big_card_label.text = active_card.get_child(0).text
+	new_big_card_label.add_theme_color_override("font_color", Color.BLACK)
+	new_big_card.add_child(new_big_card_label)
+	return new_big_card
+
 func _execute_play_card():
-	if game_field_last_selected != null and active_card != null:
-		var player_card_number = edit_cards_array.find(active_card)
+	if !special_card_played:
+		special_card_corner.get_child(0).text = special_card_edit.get_child(0).text
+		special_card_played = true
+		special_card_hand.queue_free()
+		special_card_edit.queue_free()
+		special_card_corner.visible = true
 		play_card_button.visible = false
-		var new_card_play = Panel.new()
-		var new_label = Label.new()
-		var style_box = active_card.get_theme_stylebox("panel")
-		new_card_play.custom_minimum_size = Vector2(40, 40)
-		new_card_play.add_theme_stylebox_override("panel", style_box)
-		new_label.add_theme_color_override("font_color", Color.BLACK)
-		new_card_play.position = game_field_last_selected
-		new_card_play.visible = true
-		new_label.custom_minimum_size = Vector2(720, 720)
-		new_label.position = Vector2(2, 2)
-		new_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		new_label.scale = Vector2(0.05, 0.05)
-		new_label.add_theme_font_size_override("font_size", 60)
-		new_label.text = active_card.get_child(0).text
-		new_card_play.add_child(new_label)
-		table_game.get_child(3).add_child(new_card_play)
+		return
+	
+	if game_field_last_selected != null and active_card != null:
+		play_card_button.visible = false
+		var play_card_style_box = active_card.get_theme_stylebox("panel")
+		var new_field_card = _add_field_card(play_card_style_box)
+		var new_field_card_big_view = _add_field_card_big_view(play_card_style_box)
+		played_cards.add_child(new_field_card)
+		played_cards_big_view.add_child(new_field_card_big_view)
+		var player_card_number = edit_cards_array.find(active_card)
 		player_cards_array[player_card_number].queue_free()
+		player_hand_counter = player_hand_counter - 1
 		edit_cards_array[player_card_number].queue_free()
 		
 		var field_nr = game_field_positions.find(game_field_last_selected)	
-		grid_cards[field_nr] = new_card_play
+		grid_cards[field_nr] = new_field_card
 		grid_empty[field_nr] = false
-		var big_card = Panel.new()
-		var big_card_label = Label.new()
-		big_card.custom_minimum_size = Vector2(100, 100)
-		big_card.position = Vector2(2.5, 3.0)
-		big_card.add_theme_stylebox_override("panel", grid_cards[field_nr].get_theme_stylebox("panel"))
-		big_card.visible = false
-		big_card_label.custom_minimum_size = Vector2(1900, 1900)
-		big_card_label.position = Vector2(3.0, 2.0)
-		big_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		big_card_label.scale = Vector2(0.05, 0.05)
-		big_card_label.add_theme_font_size_override("font_size", 140)
-		big_card_label.text = active_card.get_child(0).text
-		big_card_label.add_theme_color_override("font_color", Color.BLACK)
-		big_card.add_child(big_card_label)
-		table_game.get_child(5).add_child(big_card)
-		grid_big_cards[field_nr] = big_card
+		grid_big_cards[field_nr] = new_field_card_big_view
 		
-		var bonus_style_box = load(card_paths[4])
-		if style_box.bg_color == bonus_style_box.bg_color:
-			var timer = Timer.new()
-			add_child(timer)
-			timer.wait_time = 0.3
-			timer.one_shot = true
-			timer.timeout.connect(func(): _draw_first_card_timer_timeout())
-			timer.start()
+		if colors[play_card_style_box.bg_color] == "grey":
+			if active_card.get_child(0).text == "Ziehe zwei Karten.":
+				var timer = Timer.new()
+				add_child(timer)
+				timer.wait_time = 0.3
+				timer.one_shot = true
+				timer.timeout.connect(func(): _draw_first_card_timer_timeout())
+				timer.start()
+			if active_card.get_child(0).text == "Lege eine weitere Karte.":
+				play_extra_card = true
+			active_card = null
+			return
+		if play_extra_card:
+			play_extra_card = false
+			active_card = null
+			return
 		
-		player_prompt.emit(active_card.get_child(0).text)
+		#player_prompt.emit(active_card.get_child(0).text)
+		richard_move(active_card.get_child(0).text)
 		richards_turn = true
 		
 		active_card = null
@@ -284,56 +470,104 @@ func _draw_second_card_timer_timeout():
 func richard_move(text):
 	var timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 0.5
+	timer.wait_time = 1
 	timer.one_shot = true
 	timer.timeout.connect(func(): _richard_timer_timeout(text))
 	timer.start()
 
 func _richard_timer_timeout(text):
 	richard_move_2(text)
+	richards_turn = false
 
-func richard_move_2(text):
-	var richard_text = text
-	var richard_card = Panel.new()
-	var richard_card_label = Label.new()
-	var richard_card_color_idx = randi_range(0,len(card_paths)-1)
-	var richard_card_style_box = load(card_paths[richard_card_color_idx])
-	var richard_card_grid_play_position = randi_range(0,len(grid_cards)-1)
-	richard_card.custom_minimum_size = Vector2(40, 40)
-	richard_card.add_theme_stylebox_override("panel", richard_card_style_box)
-	richard_card_label.add_theme_color_override("font_color", Color.BLACK)
-	richard_card.position = game_field_positions[richard_card_grid_play_position]
-	richard_card.visible = true
-	richard_card_label.custom_minimum_size = Vector2(720, 720)
-	richard_card_label.position = Vector2(2, 2)
-	richard_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	richard_card_label.scale = Vector2(0.05, 0.05)
-	richard_card_label.add_theme_font_size_override("font_size", 60)
-	richard_card_label.text = richard_text
-	richard_card.add_child(richard_card_label)
-	table_game.get_child(3).add_child(richard_card)
+func richard_move_2(_text):
+	
+	var richard_text = next_richard_text()
+	var richard_card_play_position = randi_range(0,len(grid_cards)-1)
+	var richard_play_card_style_box = next_richard_style_box()
+	var new_richard_field_card = _add_richard_field_card(richard_play_card_style_box, richard_card_play_position, richard_text)
+	var new_richard_field_card_big_view = _add_richard_field_card_big_view(richard_play_card_style_box, richard_text)
+	played_cards.add_child(new_richard_field_card)
+	played_cards_big_view.add_child(new_richard_field_card_big_view)
+	grid_cards[richard_card_play_position] = new_richard_field_card
+	grid_empty[richard_card_play_position] = false
+	grid_big_cards[richard_card_play_position] = new_richard_field_card_big_view
+	if player_hand_counter == -1:
+			win_screen.visible = true
 
-	grid_cards[richard_card_grid_play_position] = richard_card
-	grid_empty[richard_card_grid_play_position] = false
-	var richard_big_card = Panel.new()
-	var richard_big_card_label = Label.new()
-	richard_big_card.custom_minimum_size = Vector2(100, 100)
-	richard_big_card.position = Vector2(2.5, 3.0)
-	richard_big_card.add_theme_stylebox_override("panel", richard_card_style_box)
-	richard_big_card.visible = false
-	richard_big_card_label.custom_minimum_size = Vector2(1900, 1900)
-	richard_big_card_label.position = Vector2(3.0, 2.0)
-	richard_big_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	richard_big_card_label.scale = Vector2(0.05, 0.05)
-	richard_big_card_label.add_theme_font_size_override("font_size", 140)
-	richard_big_card_label.text = richard_text
-	richard_big_card_label.add_theme_color_override("font_color", Color.BLACK)
-	richard_big_card.add_child(richard_big_card_label)
-	table_game.get_child(5).add_child(richard_big_card)
-	grid_big_cards[richard_card_grid_play_position] = richard_big_card
+func _add_richard_field_card(style_box, field_position, richard_text):
+	var new_field_card = Panel.new()
+	var new_field_card_label = Label.new()
+	new_field_card.custom_minimum_size = Vector2(40, 40)
+	new_field_card.add_theme_stylebox_override("panel", style_box)
+	new_field_card.position = game_field_positions[field_position]
+	new_field_card.visible = true
+	new_field_card_label.custom_minimum_size = Vector2(720, 720)
+	new_field_card_label.add_theme_color_override("font_color", Color.BLACK)
+	new_field_card_label.position = Vector2(2, 2)
+	new_field_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	new_field_card_label.scale = Vector2(0.05, 0.05)
+	new_field_card_label.add_theme_font_size_override("font_size", 60)
+	new_field_card_label.text = richard_text
+	new_field_card.add_child(new_field_card_label)
+	return new_field_card
 
+func _add_richard_field_card_big_view(style_box, richard_text):
+	var new_big_card = Panel.new()
+	var new_big_card_label = Label.new()
+	new_big_card.custom_minimum_size = Vector2(100, 100)
+	new_big_card.position = Vector2(2.5, 3.0)
+	new_big_card.add_theme_stylebox_override("panel", style_box)
+	new_big_card.visible = false
+	new_big_card_label.custom_minimum_size = Vector2(1900, 1900)
+	new_big_card_label.position = Vector2(3.0, 2.0)
+	new_big_card_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	new_big_card_label.scale = Vector2(0.05, 0.05)
+	new_big_card_label.add_theme_font_size_override("font_size", 140)
+	new_big_card_label.text = richard_text
+	new_big_card_label.add_theme_color_override("font_color", Color.BLACK)
+	new_big_card.add_child(new_big_card_label)
+	return new_big_card
+
+func _draw_card_button_up():
+	if !richards_turn:
+		draw_card()
 
 func _on_chat_api_next_response(message, npc_id):
 	if npc_id == 10:
 		richard_move(message)
 		richards_turn = false
+
+func _add_corner_card(style_box, card_text):
+	var new_card_edit = Panel.new()
+	var new_text_edit = TextEdit.new()
+	new_card_edit.custom_minimum_size = Vector2(20, 20)
+	new_card_edit.position = Vector2(-40, -30)
+	new_card_edit.add_theme_stylebox_override("panel", style_box)
+	new_card_edit.visible = false
+	new_text_edit.scale = Vector2(0.05, 0.05)
+	new_text_edit.custom_minimum_size = Vector2(300, 300)
+	new_text_edit.position = Vector2(3.0, 2.0)
+	new_text_edit.placeholder_text = card_text
+	new_text_edit.add_theme_color_override("background_color", style_box.bg_color)
+	new_text_edit.add_theme_color_override("font_color", Color.BLACK)
+	new_text_edit.add_theme_color_override("font_placeholder_color", Color.BLACK)
+	new_text_edit.add_theme_font_size_override("font_size", 40)
+	new_text_edit.wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
+	new_card_edit.add_child(new_text_edit)
+	return new_card_edit
+
+func create_special_card():
+	var new_style_box = special_card_style_box
+	var card_text = "Schreibe einen \"Ich\"-Satz!"
+	var new_hand_card = _add_hand_card(new_style_box)
+	var new_edit_card = _add_edit_card(new_style_box, card_text)
+	var new_corner_card = _add_corner_card(special_card_style_box, card_text)
+	var new_button = _add_card_button()
+	new_button.connect("pressed", func(): _click_card(new_edit_card))
+	new_hand_card.add_child(new_button)
+	player_hand_cards.add_child(new_hand_card)
+	player_edit_cards.add_child(new_edit_card)
+	richard.add_child(new_corner_card)
+	special_card_hand = new_hand_card
+	special_card_edit = new_edit_card
+	special_card_corner = new_corner_card

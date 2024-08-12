@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://scenes/gameboard.tscn" id="6_hher4"]
 [ext_resource type="PackedScene" uid="uid://dtg661hui0ojm" path="res://scenes/player_cards.tscn" id="7_70w3i"]
 [ext_resource type="PackedScene" uid="uid://bxoix41d028yc" path="res://scenes/deck.tscn" id="8_p8nab"]
+[ext_resource type="Script" path="res://scripts/button.gd" id="9_gfgty"]
 [ext_resource type="Script" path="res://scripts/entities/richard.gd" id="11_5kexj"]
 [ext_resource type="Texture2D" uid="uid://ruwooljbkmql" path="res://sprites/Richard.png" id="11_q6deb"]
-[ext_resource type="PackedScene" uid="uid://dfijr3iv2qyjv" path="res://scenes/ergebnis_screen.tscn" id="12_by2sr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_46qj3"]
 texture = ExtResource("1_42gis")
@@ -8081,10 +8081,19 @@ offset_right = 342.0
 offset_bottom = 281.0
 
 [node name="Deck" parent="TableGame" instance=ExtResource("8_p8nab")]
-offset_left = -70.0
-offset_top = 150.0
-offset_right = -30.0
-offset_bottom = 190.0
+offset_left = -60.0
+offset_top = 140.0
+offset_right = -20.0
+offset_bottom = 180.0
+
+[node name="Button" type="Button" parent="TableGame/Deck"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 44.0
+offset_bottom = 42.0
+flat = true
+script = ExtResource("9_gfgty")
 
 [node name="PlayerCards" parent="TableGame" instance=ExtResource("7_70w3i")]
 layout_mode = 1
@@ -8097,6 +8106,20 @@ offset_right = 430.0
 offset_bottom = 55.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
+
+[node name="EditCards" type="Control" parent="TableGame"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -53.0
+offset_right = 79.0
+offset_bottom = 53.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="PlayCards" type="Control" parent="TableGame"]
 anchors_preset = 0
@@ -8129,70 +8152,24 @@ offset_top = 19.5
 offset_right = -19.0
 offset_bottom = 59.5
 
-[node name="EditCards" type="Control" parent="TableGame"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = -53.0
-offset_right = 79.0
-offset_bottom = 53.0
-grow_horizontal = 0
-grow_vertical = 2
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="Richard" type="CharacterBody2D" parent="."]
 script = ExtResource("11_5kexj")
 
 [node name="RichardSprite" type="AnimatedSprite2D" parent="Richard"]
-position = Vector2(430, 163)
+position = Vector2(435, 163)
 scale = Vector2(1.65625, 1.65625)
 sprite_frames = SubResource("SpriteFrames_x3m1y")
 animation = &"idle"
 frame_progress = 0.901352
-
-[node name="PlayerWon" type="Panel" parent="."]
-visible = false
-offset_left = 93.0
-offset_top = 132.0
-offset_right = 394.0
-offset_bottom = 287.0
-
-[node name="Label" type="Label" parent="PlayerWon"]
-layout_mode = 0
-offset_right = 6020.0
-offset_bottom = 3100.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 800
-text = "Player Won!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="PlayerWon"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="ErgebnisScreen" parent="." instance=ExtResource("12_by2sr")]
-visible = false
-offset_left = 84.0
-offset_top = 116.0
-offset_right = 555.0
-offset_bottom = 393.0
-scale = Vector2(0.675, 0.675)
 
 [connection signal="next_response" from="ChatAPI" to="Table" method="_on_chat_api_next_response"]
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit" to="Exit" method="_on_body_exited"]
 [connection signal="body_entered" from="Table" to="Table" method="_on_body_entered"]
 [connection signal="body_exited" from="Table" to="Table" method="_on_body_exited"]
-[connection signal="player_prompt" from="Table" to="ChatAPI" method="_on_table_player_prompt"]
-[connection signal="table_game_exited" from="Table" to="Camera" method="_on_table_table_game_exited"]
-[connection signal="table_game_started" from="Table" to="Camera" method="_on_table_table_game_started"]
+[connection signal="button_up" from="TableGame/Deck/Button" to="Table" method="_on_button_button_up"]
 [connection signal="pressed" from="TableGame/GameBoard/PlayCardButton" to="Table" method="_on_play_card_button_pressed"]
