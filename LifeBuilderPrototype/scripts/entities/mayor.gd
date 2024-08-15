@@ -10,8 +10,8 @@ signal dialogue_finished()
 @onready var mayor_dialogue_text = $MayorDialogue/DialogueBox/Text
 @onready var mayor_text_input = $MayorDialogue/TextInput
 
-@export var player : CharacterBody2D
-@onready var player_choice_dialog : Control = player.get_child(2)
+@onready var player : CharacterBody2D
+var player_choice_dialog : Control
 
 var mayor_dialogue_active = false
 var player_nearby = false
@@ -20,6 +20,8 @@ var dialogue = []
 var current_dialogue_id = 0
 
 func _ready():
+	player = get_tree().get_root().get_node("Player")
+	player_choice_dialog = player.get_child(2)
 	player_choice_dialog.visible = false
 	mayor_dialogue_box.visible = false
 	mayor_text_input.visible = false

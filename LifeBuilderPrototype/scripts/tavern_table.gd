@@ -11,7 +11,7 @@ signal player_prompt(text)
 @onready var game_board = $"../TableGame/GameBoard"
 @onready var played_cards_big_view = $"../TableGame/BigCardsOnField"
 
-@onready var player = $"../Player"
+@onready var player : Node2D
 @onready var richard = $"../Richard/RichardSprite"
 @onready var camera = $"../Camera"
 @onready var table_game = $"../TableGame"
@@ -105,6 +105,7 @@ func next_richard_style_box():
 		return StyleBoxFlat.new()
 
 func _ready():
+	player = get_tree().get_root().get_node("Player")
 	table_game.visible = false
 	player_nearby = false
 	game_ongoing = false

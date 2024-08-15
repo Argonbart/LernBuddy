@@ -3,7 +3,7 @@ extends Camera2D
 signal activate_player
 signal deactivate_player
 
-@export var player : Node2D
+@onready var player : Node2D
 @export var blacksmith : Node2D
 @export var phantom : Node2D
 @export var mayor : Node2D
@@ -20,6 +20,7 @@ var mayor_dialogue_active = false
 
 func _ready():
 	zoom_target = zoom
+	player = get_tree().get_root().get_node("Player")
 
 func _process(delta):
 	if Input.is_action_just_released("camera"):

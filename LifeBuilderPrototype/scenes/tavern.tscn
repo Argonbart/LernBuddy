@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=21 format=3 uid="uid://cq5lgla7on08e"]
 
 [ext_resource type="Texture2D" uid="uid://ce6wvcejgqpn" path="res://tilemaps/atlas_32x.png" id="1_42gis"]
 [ext_resource type="Script" path="res://scripts/tavern_camera.gd" id="1_47vrq"]
 [ext_resource type="Script" path="res://scripts/system/api.gd" id="1_b3q28"]
-[ext_resource type="PackedScene" uid="uid://cwq04qt76k1y3" path="res://scenes/player.tscn" id="2_dvt78"]
 [ext_resource type="Script" path="res://scripts/tavern_exit.gd" id="3_bljxc"]
 [ext_resource type="Script" path="res://scripts/tavern_table.gd" id="5_y146u"]
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://scenes/gameboard.tscn" id="6_hher4"]
@@ -8053,10 +8052,6 @@ layer_6/tile_data = PackedInt32Array(1441806, 262145, 65540, 1507342, 262145, 65
 layer_7/name = "Door2"
 layer_7/z_index = 4
 layer_7/tile_data = PackedInt32Array(1441805, 1572865, 4, 1507341, 1572865, 5, 1572877, 1572865, 6, 1638413, 1572865, 7, 1441806, 1638401, 4, 1507342, 1638401, 5, 1441807, 1703937, 4, 1507343, 1703937, 5, 1572879, 1703937, 6, 1441808, 1769473, 4, 1507344, 1769473, 5, 1572880, 1769473, 6, 1638416, 1769473, 7)
-
-[node name="Player" parent="." instance=ExtResource("2_dvt78")]
-position = Vector2(260, 570)
-scale = Vector2(2, 2)
 
 [node name="Exit" type="Area2D" parent="."]
 script = ExtResource("3_bljxc")

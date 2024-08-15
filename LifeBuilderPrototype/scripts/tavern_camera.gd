@@ -1,6 +1,6 @@
 extends Camera2D
 
-@onready var player = $"../Player"
+@onready var player : Node2D
 
 var table_position = Vector2(250, 220)
 var table_game_started = false
@@ -13,6 +13,7 @@ var is_active : bool = false
 
 func _ready():
 	zoom_target = zoom
+	player = get_tree().get_root().get_node("Player")
 
 func _process(delta):
 	#if !table_game_started and Input.is_action_just_released("camera"):
