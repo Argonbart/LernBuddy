@@ -141,6 +141,42 @@ height = 26.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_735po"]
 radius = 67.3647
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4vcf"]
+atlas = ExtResource("16_vl47v")
+region = Rect2(480, 480, 80, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1lmp"]
+atlas = ExtResource("16_vl47v")
+region = Rect2(560, 480, 80, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_823oi"]
+atlas = ExtResource("16_vl47v")
+region = Rect2(640, 480, 80, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohudm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4vcf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1lmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_823oi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_up3xi"]
+radius = 6.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ik1py"]
+radius = 59.3043
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlfeg"]
 atlas = ExtResource("11_4duv8")
 region = Rect2(0, 128, 128, 128)
@@ -405,42 +441,6 @@ height = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbxmn"]
 radius = 48.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d4vcf"]
-atlas = ExtResource("16_vl47v")
-region = Rect2(480, 480, 80, 120)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o1lmp"]
-atlas = ExtResource("16_vl47v")
-region = Rect2(560, 480, 80, 120)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_823oi"]
-atlas = ExtResource("16_vl47v")
-region = Rect2(640, 480, 80, 120)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ohudm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d4vcf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o1lmp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_823oi")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_up3xi"]
-radius = 6.0
-height = 24.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ik1py"]
-radius = 59.3043
-
 [node name="World" type="Node2D"]
 
 [node name="Village" parent="." instance=ExtResource("1_tsape")]
@@ -515,6 +515,26 @@ offset_top = -15.0
 offset_right = 41.0
 offset_bottom = 25.0
 
+[node name="Mayor" type="CharacterBody2D" parent="."]
+position = Vector2(-95, 250)
+script = ExtResource("15_qvj74")
+
+[node name="MayorSprite" type="AnimatedSprite2D" parent="Mayor"]
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_ohudm")
+animation = &"idle"
+
+[node name="MayorCollisionBox" type="CollisionShape2D" parent="Mayor"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_up3xi")
+
+[node name="MayorChatArea" type="Area2D" parent="Mayor"]
+
+[node name="MayorChatRange" type="CollisionShape2D" parent="Mayor/MayorChatArea"]
+shape = SubResource("CircleShape2D_ik1py")
+
+[node name="MayorDialogue" parent="Mayor" instance=ExtResource("8_8t07w")]
+
 [node name="NPC1" type="CharacterBody2D" parent="."]
 position = Vector2(550, 60)
 script = ExtResource("11_u21eu")
@@ -548,26 +568,6 @@ shape = SubResource("CapsuleShape2D_mcwr6")
 
 [node name="NPC2ChatRange" type="CollisionShape2D" parent="NPC2/NPC2ChatArea"]
 shape = SubResource("CircleShape2D_jbxmn")
-
-[node name="Mayor" type="CharacterBody2D" parent="."]
-position = Vector2(-95, 250)
-script = ExtResource("15_qvj74")
-
-[node name="MayorSprite" type="AnimatedSprite2D" parent="Mayor"]
-scale = Vector2(0.35, 0.35)
-sprite_frames = SubResource("SpriteFrames_ohudm")
-animation = &"idle"
-
-[node name="MayorCollisionBox" type="CollisionShape2D" parent="Mayor"]
-position = Vector2(0, 4)
-shape = SubResource("CapsuleShape2D_up3xi")
-
-[node name="MayorChatArea" type="Area2D" parent="Mayor"]
-
-[node name="MayorChatRange" type="CollisionShape2D" parent="Mayor/MayorChatArea"]
-shape = SubResource("CircleShape2D_ik1py")
-
-[node name="MayorDialogue" parent="Mayor" instance=ExtResource("8_8t07w")]
 
 [connection signal="body_entered" from="Village/Taverne/TaverneEntry" to="Village/Taverne" method="_on_taverne_entry_body_entered"]
 [connection signal="body_exited" from="Village/Taverne/TaverneEntry" to="Village/Taverne" method="_on_taverne_entry_body_exited"]

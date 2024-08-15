@@ -54,55 +54,12 @@ var grid_empty = [true, true, true, true, true, true, true, true, true]
 var grid_cards = [null, null, null, null, null, null, null, null, null]
 var grid_big_cards = [null, null, null, null, null, null, null, null, null]
 
-var json_as_dict
-var json_length
-var line_counter
-var color_counter
+var richard_dialogue_json_as_dict
+var richard_dialogue_response_counter
+var color_to_idx = {"red": 0, "yellow": 1, "green": 2, "blue": 3, "grey": 4}
 
-var card_effects_dict
+var card_effects_json_as_dict
 var play_extra_card = false
-
-func start_richard_json():
-	var richard_dialogue_file = "res://dialogue/richard_dialogue.json"
-	var json_as_text = FileAccess.get_file_as_string(richard_dialogue_file)
-	json_as_dict = JSON.parse_string(json_as_text)
-	json_length = len(json_as_dict)
-	line_counter = 0
-	color_counter = 0
-	var card_effects_file = "res://dialogue/bonus_card_effects.json"
-	var json_as_text_2 = FileAccess.get_file_as_string(card_effects_file)
-	card_effects_dict = JSON.parse_string(json_as_text_2)
-
-func next_card_effect():
-	return card_effects_dict[randi_range(0,len(card_effects_dict)-1)]
-
-func next_richard_text():
-	if json_as_dict and line_counter < json_length:
-		var return_text = json_as_dict[line_counter].text
-		line_counter = line_counter + 1
-		return return_text
-	else:
-		return "No more Richard text."
-
-func next_richard_style_box():
-	if json_as_dict and color_counter < json_length:
-		var color = json_as_dict[color_counter].color
-		var color_idx = -1
-		if color == "red":
-			color_idx = 0
-		if color == "yellow":
-			color_idx = 1
-		if color == "green":
-			color_idx = 2
-		if color == "blue":
-			color_idx = 3
-		if color == "grey":
-			color_idx = 4
-		var return_style_box = style_boxes[color_idx]
-		color_counter = color_counter + 1
-		return return_style_box
-	else:
-		return StyleBoxFlat.new()
 
 func _ready():
 	player = get_tree().get_root().get_node("Player")
@@ -116,7 +73,23 @@ func initiate_game_field():
 	initiate_table_buttons()
 	generate_deck(8)
 	create_special_card()
-	start_richard_json()
+	initiate_json_files()
+
+func initiate_json_files():
+	richard_dialogue_json_as_dict = JSON.parse_string(FileAccess.get_file_as_string("res://dialogue/richard_dialogue.json"))
+	card_effects_json_as_dict = JSON.parse_string(FileAccess.get_file_as_string("res://dialogue/bonus_card_effects.json"))
+	richard_dialogue_response_counter = 0
+
+func next_richard_response():
+	if richard_dialogue_json_as_dict and richard_dialogue_response_counter < len(richard_dialogue_json_as_dict):
+		var response = {"text": richard_dialogue_json_as_dict[richard_dialogue_response_counter].text, "style_box": style_boxes[color_to_idx[richard_dialogue_json_as_dict[richard_dialogue_response_counter].color]]}
+		richard_dialogue_response_counter = richard_dialogue_response_counter + 1
+		return response
+	else:
+		return {"text": "No more responses for Richard available.", "style_box": style_boxes[0]}
+
+func next_card_effect():
+	return card_effects_json_as_dict[randi_range(0,len(card_effects_json_as_dict)-1)]
 
 func _process(_delta):
 	if player_nearby and !game_ongoing and Input.is_action_just_pressed("interact"):
@@ -188,9 +161,9 @@ func initiate_table_buttons():
 		new_button.connect("mouse_exited", func(): _stop_hovering_over_button(new_button))
 		game_board.add_child(new_button)
 	play_card_button.connect("button_down", func(): _play_card())
-	win_screen_button.connect("pressed", func(): _show_ergebnis_screen())
+	win_screen_button.connect("pressed", func(): _show_result_screen())
 
-func _show_ergebnis_screen():
+func _show_result_screen():
 	win_screen.visible = false
 	ergebnis_screen.visible = true
 
@@ -440,14 +413,16 @@ func _execute_play_card():
 				timer.start()
 			if active_card.get_child(0).text == "Lege eine weitere Karte.":
 				play_extra_card = true
-			active_card = null
-			return
+			if player_hand_counter > 0:
+				active_card = null
+				return
+			play_extra_card = false
+		
 		if play_extra_card:
 			play_extra_card = false
 			active_card = null
 			return
 		
-		#player_prompt.emit(active_card.get_child(0).text)
 		richard_move(active_card.get_child(0).text)
 		richards_turn = true
 		
@@ -480,10 +455,10 @@ func _richard_timer_timeout(text):
 	richards_turn = false
 
 func richard_move_2(_text):
-	
-	var richard_text = next_richard_text()
+	var richard_next_json = next_richard_response()
+	var richard_text = richard_next_json["text"]
 	var richard_card_play_position = randi_range(0,len(grid_cards)-1)
-	var richard_play_card_style_box = next_richard_style_box()
+	var richard_play_card_style_box = richard_next_json["style_box"]
 	var new_richard_field_card = _add_richard_field_card(richard_play_card_style_box, richard_card_play_position, richard_text)
 	var new_richard_field_card_big_view = _add_richard_field_card_big_view(richard_play_card_style_box, richard_text)
 	played_cards.add_child(new_richard_field_card)
@@ -541,7 +516,7 @@ func _add_corner_card(style_box, card_text):
 	var new_card_edit = Panel.new()
 	var new_text_edit = TextEdit.new()
 	new_card_edit.custom_minimum_size = Vector2(20, 20)
-	new_card_edit.position = Vector2(-40, -30)
+	new_card_edit.position = Vector2(240, -20)
 	new_card_edit.add_theme_stylebox_override("panel", style_box)
 	new_card_edit.visible = false
 	new_text_edit.scale = Vector2(0.05, 0.05)
@@ -567,7 +542,7 @@ func create_special_card():
 	new_hand_card.add_child(new_button)
 	player_hand_cards.add_child(new_hand_card)
 	player_edit_cards.add_child(new_edit_card)
-	richard.add_child(new_corner_card)
+	game_board.add_child(new_corner_card)
 	special_card_hand = new_hand_card
 	special_card_edit = new_edit_card
 	special_card_corner = new_corner_card
