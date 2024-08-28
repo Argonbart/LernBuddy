@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="LifeBuilderPrototype"
-run/main_scene="res://scenes/start.tscn"
+run/main_scene="res://segments/start/scenes/start.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
 [autoload]
 
-SceneSwitcher="*res://scripts/scene_switcher.gd"
+SceneSwitcher="*res://segments/start/scripts/scene_switcher.gd"
+GeminiAPI="*res://segments/start/scripts/api.gd"
 
 [display]
 
