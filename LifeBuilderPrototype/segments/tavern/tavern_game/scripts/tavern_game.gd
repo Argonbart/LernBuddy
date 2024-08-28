@@ -1,5 +1,7 @@
 extends Node
 
+# BIG CHANGES INCOMING
+
 signal table_game_started()
 signal table_game_exited()
 
