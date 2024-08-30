@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c5pvjgy8syrst" path="res://segments/tavern/scenes/tavern_tile_map.tscn" id="3_4stuk"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_exit.gd" id="4_og8pp"]
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/table_game_start_stop.gd" id="4_v2fo0"]
-[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/tavern_game_clean.gd" id="5_5jtn1"]
+[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/tavern_game.gd" id="5_5jtn1"]
 [ext_resource type="PackedScene" uid="uid://bxoix41d028yc" path="res://segments/tavern/tavern_game/scenes/deck.tscn" id="6_p7vk2"]
 [ext_resource type="PackedScene" uid="uid://dtg661hui0ojm" path="res://segments/tavern/tavern_game/scenes/player_cards.tscn" id="7_m7lcq"]
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://segments/tavern/tavern_game/scenes/gameboard.tscn" id="8_lkwby"]
