@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=19 format=3 uid="uid://cq5lgla7on08e"]
 
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_camera.gd" id="2_vsa6c"]
 [ext_resource type="PackedScene" uid="uid://c5pvjgy8syrst" path="res://segments/tavern/scenes/tavern_tile_map.tscn" id="3_4stuk"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_exit.gd" id="4_og8pp"]
-[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/tavern_game.gd" id="5_ma7q7"]
+[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/table_game_start_stop.gd" id="4_v2fo0"]
+[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/tavern_game_clean.gd" id="5_5jtn1"]
 [ext_resource type="PackedScene" uid="uid://bxoix41d028yc" path="res://segments/tavern/tavern_game/scenes/deck.tscn" id="6_p7vk2"]
 [ext_resource type="PackedScene" uid="uid://dtg661hui0ojm" path="res://segments/tavern/tavern_game/scenes/player_cards.tscn" id="7_m7lcq"]
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://segments/tavern/tavern_game/scenes/gameboard.tscn" id="8_lkwby"]
@@ -73,7 +74,7 @@ position = Vector2(257, 603)
 shape = SubResource("RectangleShape2D_mrnru")
 
 [node name="Table" type="Area2D" parent="."]
-script = ExtResource("5_ma7q7")
+script = ExtResource("4_v2fo0")
 
 [node name="TableCollision" type="CollisionShape2D" parent="Table"]
 position = Vector2(243, 208.5)
@@ -86,29 +87,7 @@ offset_left = 136.0
 offset_top = 136.0
 offset_right = 342.0
 offset_bottom = 281.0
-
-[node name="Deck" parent="TableGame" instance=ExtResource("6_p7vk2")]
-offset_left = -70.0
-offset_top = 150.0
-offset_right = -30.0
-offset_bottom = 190.0
-
-[node name="PlayerCards" parent="TableGame" instance=ExtResource("7_m7lcq")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = 15.0
-offset_right = 430.0
-offset_bottom = 55.0
-grow_vertical = 0
-scale = Vector2(0.5, 0.5)
-
-[node name="PlayCards" type="Control" parent="TableGame"]
-anchors_preset = 0
-offset_right = 206.0
-offset_bottom = 143.0
+script = ExtResource("5_5jtn1")
 
 [node name="GameBoard" parent="TableGame" instance=ExtResource("8_lkwby")]
 layout_mode = 1
@@ -129,12 +108,30 @@ theme_override_font_sizes/font_size = 300
 theme_override_styles/normal = SubResource("StyleBoxFlat_0rucw")
 text = "PLAY"
 
+[node name="Deck" parent="TableGame" instance=ExtResource("6_p7vk2")]
+offset_left = -70.0
+offset_top = 150.0
+offset_right = -30.0
+offset_bottom = 190.0
+
+[node name="PlayerCards" parent="TableGame" instance=ExtResource("7_m7lcq")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = 15.0
+offset_right = 430.0
+offset_bottom = 50.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
 [node name="BigCardsOnField" type="Control" parent="TableGame"]
 anchors_preset = 0
-offset_left = -59.0
-offset_top = 19.5
-offset_right = -19.0
-offset_bottom = 59.5
+offset_left = -80.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 120.0
 
 [node name="EditCards" type="Control" parent="TableGame"]
 layout_mode = 1
@@ -143,12 +140,19 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = -53.0
+offset_left = -21.0
+offset_top = -52.5
 offset_right = 79.0
-offset_bottom = 53.0
+offset_bottom = 47.5
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="ReflectionCardSlot" type="Control" parent="TableGame"]
+anchors_preset = 0
+offset_left = 250.0
+offset_top = 150.0
+offset_right = 285.0
+offset_bottom = 185.0
 
 [node name="Richard" type="CharacterBody2D" parent="."]
 script = ExtResource("9_ateck")
@@ -197,8 +201,4 @@ scale = Vector2(0.675, 0.675)
 
 [connection signal="body_entered" from="Exit" to="Exit" method="_on_body_entered"]
 [connection signal="body_exited" from="Exit" to="Exit" method="_on_body_exited"]
-[connection signal="body_entered" from="Table" to="Table" method="_on_body_entered"]
-[connection signal="body_exited" from="Table" to="Table" method="_on_body_exited"]
-[connection signal="table_game_exited" from="Table" to="Camera" method="_on_table_table_game_exited"]
-[connection signal="table_game_started" from="Table" to="Camera" method="_on_table_table_game_started"]
 [connection signal="pressed" from="TableGame/GameBoard/PlayCardButton" to="Table" method="_on_play_card_button_pressed"]

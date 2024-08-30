@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgyklh4f640ut"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pt5v0"]
+
+[node name="Panel" type="Panel"]
+offset_right = 35.0
+offset_bottom = 35.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pt5v0")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+scale = Vector2(0.05, 0.05)
+text = "Hello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text Blo viel TextaHellol Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello viel Text BlaHello BlaHello viel Text BlaHello viel Text BlaHello BlaHello viel Text BlaHello viel Text BlaHello ABC DEF GHI JKL MNO PQR STU VW XYZ 1231254132568265"
+autowrap_mode = 3
+clip_text = true
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

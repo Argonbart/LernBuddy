@@ -43,7 +43,7 @@ func next_promt(text, npc):
 	last_npc = npc
 
 func set_api_key():
-	var env_file = FileAccess.open("res://API_KEY.env", FileAccess.READ)
+	var env_file = FileAccess.open("res://key.env", FileAccess.READ)
 	api_key = env_file.get_line().split("= ")[1]
 	url = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=%s"%api_key
 	env_file.close()

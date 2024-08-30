@@ -1,0 +1,5 @@
+res://segments/tavern/scenes/tavern.tscn
+res://segments/tavern/tavern_game/scripts/tavern_game_clean.gd
+res://segments/tavern/tavern_game/scripts/tavern_game.gd
+res://test.tscn
+res://segments/tavern/tavern_game/scenes/gameboard.tscn
