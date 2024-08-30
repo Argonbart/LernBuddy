@@ -54,18 +54,6 @@ var color_to_idx = {"red": 0, "yellow": 1, "green": 2, "blue": 3, "grey": 4}
 var card_effects_json_as_dict
 var play_extra_card = false
 
-func _ready():
-	initiate_game_field()
-
-func initiate_game_field():
-	create_special_card()
-	initiate_json_files()
-
-func initiate_json_files():
-	richard_dialogue_json_as_dict = JSON.parse_string(FileAccess.get_file_as_string("res://ressources/dialogues/richard_dialogue.json"))
-	card_effects_json_as_dict = JSON.parse_string(FileAccess.get_file_as_string("res://ressources/dialogues/bonus_card_effects.json"))
-	richard_dialogue_response_counter = 0
-
 func next_richard_response():
 	if richard_dialogue_json_as_dict and richard_dialogue_response_counter < len(richard_dialogue_json_as_dict):
 		var response = {"text": richard_dialogue_json_as_dict[richard_dialogue_response_counter].text, "style_box": style_boxes[color_to_idx[richard_dialogue_json_as_dict[richard_dialogue_response_counter].color]]}

@@ -1,5 +1,7 @@
 extends Node
 
+signal player_played_card()
+
 @onready var player_deck = $"../TableGame/Deck"
 @onready var player_hand_cards = $"../TableGame/PlayerCards"
 @onready var field_cards_preview = $"../TableGame/BigCardsOnField"
@@ -79,9 +81,7 @@ func initiate_gameboard():
 	else:
 		initiate_player_cards()
 		initiate_player_deck()
-	
-	#create_special_card()
-	#initiate_json_files()
+		#initiate_json_files()
 
 func initiate_style_boxes():
 	style_boxes = {}
@@ -108,6 +108,11 @@ func initiate_field_buttons():
 		new_button.connect("mouse_exited", func(): _stop_hovering_over_button(new_button))
 	play_card_button.connect("button_down", func(): _play_card())
 	#win_screen_button.connect("pressed", func(): _show_result_screen())
+
+#func initiate_json_files():
+	#richard_dialogue_json_as_dict = JSON.parse_string(FileAccess.get_file_as_string("res://ressources/dialogues/richard_dialogue.json"))
+	#card_effects_json_as_dict = JSON.parse_string(FileAccess.get_file_as_string("res://ressources/dialogues/bonus_card_effects.json"))
+	#richard_dialogue_response_counter = 0
 
 func _field_selected(button):
 	field_is_selected = true
@@ -177,6 +182,7 @@ func execute_play_card():
 		active_hand_card.queue_free()
 	active_card.queue_free()
 	active_card = null
+	player_played_card.emit()
 
 func initiate_player_cards():
 	for color in ["red", "yellow", "green", "blue"]:
