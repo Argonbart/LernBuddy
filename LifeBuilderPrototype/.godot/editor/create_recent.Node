@@ -1,8 +1,9 @@
-Button
+TextureRect
 Panel
 Control
-TextEdit
+Node
 Label
-TextureRect
+Button
+TextEdit
 Container
 RichTextLabel

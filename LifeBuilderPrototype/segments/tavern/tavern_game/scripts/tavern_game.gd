@@ -4,6 +4,8 @@ extends Node
 
 signal player_played_card()
 
+@onready var highlighting_controller = $GameBoard/HighlightController	# Handles all highlighting
+@onready var bonus_card_controller = $BonusCardController				# Handles all bonus cards
 @onready var player_deck = $"../TableGame/Deck"							# Bonus-card deck
 @onready var player_hand_cards = $"../TableGame/PlayerCards"			# Players hand cards
 @onready var field_cards_preview = $"../TableGame/BigCardsOnField"		# Preview cards (left)
@@ -52,20 +54,28 @@ var gameboard_fields : Array
 var field_is_selected : bool = false
 var selected_field : ReferenceRect = null
 var active_card : Panel = null
+var player_bonus_card_effects : Array
 var edit_to_hand_cards : Dictionary = {}
 var field_to_preview_cards : Dictionary = {}
 var bonus_cards : Dictionary = {}
 var reflection_card_filled : bool = false
+
+# bonus card variables
+var switch_ongoing : bool = false
+var joker_ongoing : bool = false
+var doublepoints_ongoing : bool = false
+var lock_ongoing : bool = false
 
 ############################################ PROCESS #########################################################
 
 func _process(_delta):
 	
 	# Update visibility of play button
-	if field_is_selected and active_card != null:
-		play_card_button.visible = true
-	else:
-		play_card_button.visible = false
+	if !switch_ongoing and !joker_ongoing and !doublepoints_ongoing and !lock_ongoing:
+		if field_is_selected and active_card != null:
+			play_card_button.visible = true
+		else:
+			play_card_button.visible = false
 	
 	# Update text for hand cards according to edit
 	for edit_card in edit_to_hand_cards.keys():
@@ -92,6 +102,7 @@ func initiate_gameboard():
 	else:
 		initiate_player_cards()
 		initiate_player_deck()
+		bonus_card_controller.initiate_draw_widget()
 
 # Prepare style boxes for cards
 func initiate_style_boxes():
@@ -110,40 +121,75 @@ func initiate_style_boxes():
 
 # Prepare fields with buttons
 func initiate_field_buttons():
-	gameboard_fields = self.find_child("GameBoard").get_child(0).get_child(0).get_child(0).get_children()
+	update_fields()
 	for field in gameboard_fields:
-		var new_button = Button.new()
-		new_button.custom_minimum_size = Vector2(35, 35)
-		new_button.flat = true
-		field.add_child(new_button)
-		new_button.connect("focus_entered", func(): _field_selected(new_button))
-		new_button.connect("focus_exited", func(): _field_deselected())
-		new_button.connect("mouse_entered", func(): _hovering_over_button(new_button))
-		new_button.connect("mouse_exited", func(): _stop_hovering_over_button(new_button))
-	play_card_button.connect("button_down", func(): _play_card())
+		field.find_child("Card").size_flags_horizontal = Control.SIZE_SHRINK_CENTER | Control.SIZE_EXPAND
+		var field_button = field.find_child("Button")
+		field_button.connect("focus_entered", func(): _field_selected(field_button))
+		field_button.connect("focus_exited", func(): _field_deselected())
+		field_button.connect("mouse_entered", func(): _hovering_over_button(field_button))
+		field_button.connect("mouse_exited", func(): _stop_hovering_over_button(field_button))
+	play_card_button.connect("button_down", func(): _play_card_button_pressed())
+
+func update_fields():
+	gameboard_fields = self.find_child("GameBoard").find_child("MarginContainer").find_child("PanelContainer").find_child("Fields").get_children()
+	field_is_selected = false
+	selected_field = null
+	active_card = null
 
 func _field_selected(button):
+	var field = button.get_parent()
+	
+	if switch_ongoing:
+		bonus_card_controller.switch_field(field)
+		return
+	
+	if joker_ongoing:
+		bonus_card_controller.joker_field(field)
+		return
+	
+	if doublepoints_ongoing:
+		bonus_card_controller.doublepoints_field(field)
+		return
+	
+	if lock_ongoing:
+		bonus_card_controller.lock_field(field)
+		return
+	
 	field_is_selected = true
-	selected_field = button.get_parent()
+	selected_field = field
 
 func _field_deselected():
 	field_is_selected = false
 
 func _hovering_over_button(button):
-	if button.get_parent().get_child(1).get_class() == "Panel":
-		var field_card = button.get_parent().get_child(1)
+	var field_card = find_field_card(button.get_parent())
+	if field_card:
 		field_to_preview_cards[field_card].visible = true
 
 func _stop_hovering_over_button(button):
-	if button.get_parent().get_child(1).get_class() == "Panel":
-		var field_card = button.get_parent().get_child(1)
+	var field_card = find_field_card(button.get_parent())
+	if field_card:
 		field_to_preview_cards[field_card].visible = false
+
+func find_field_card(field):
+	var card = field.find_child("Card")
+	if card.get_groups().has("FieldCard"):
+		return card
+	return null
+
+func find_field_button(field):
+	var button = field.find_child("Button")
+	if button.get_groups().has("FieldButton"):
+		return button
+	return null
 
 # Prepare reflection card
 func initiate_reflection_card():
 	var reflection_card_edit = create_edit_card(colors[colors.keys()[5]])
 	reflection_card_edit.visible = true
 	active_card = reflection_card_edit
+	highlighting_controller.highlight_empty_fields()
 
 ############################################ PLAYER #########################################################
 
@@ -155,14 +201,14 @@ func initiate_player_cards():
 
 # Prepare player bonus card deck
 func initiate_player_deck():
-	var effects = generate_random_effects()
+	player_bonus_card_effects = generate_random_effects()
 	for i in range(3):
-		var next_card = create_small_card("grey", "Icon", bonus_card_icons[effects[i]], bonus_card_effects[effects[i]])
+		var next_card = create_small_card("grey", "Icon", bonus_card_icons[player_bonus_card_effects[i]], bonus_card_effects[player_bonus_card_effects[i]])
 		next_card.position = Vector2(0 + 2*i, 0 - 2*i)
 		player_deck.add_child(next_card)
-		var next_card_big = create_big_card("grey", "Preview", bonus_card_effects[effects[i]])
+		var next_card_big = create_big_card("grey", "Preview", bonus_card_effects[player_bonus_card_effects[i]])
 		player_edit_cards.add_child(next_card_big)
-		bonus_cards[effects[i]] = next_card_big
+		bonus_cards[player_bonus_card_effects[i]] = next_card_big
 	var new_draw_button = Button.new()
 	new_draw_button.size = Vector2(39, 39)
 	new_draw_button.position = Vector2(0, -4)
@@ -188,58 +234,91 @@ func _draw_button_released(button):
 	_show_next_bonus_card()
 
 func _show_next_bonus_card():
-	_click_hand_card(bonus_cards.values()[len(bonus_cards)-1])
+	update_edit_cards(bonus_cards.values()[len(bonus_cards)-1])
+	
+	# Check what bonus card is being pressed
+	if bonus_cards.keys()[len(bonus_cards)-1] == "switch":
+		if switch_ongoing:
+			bonus_card_controller.cancel_switch()
+		else:
+			bonus_card_controller.start_switch()
+	elif bonus_cards.keys()[len(bonus_cards)-1] == "joker":
+		if switch_ongoing:
+			bonus_card_controller.cancel_joker()
+		else:
+			bonus_card_controller.start_joker()
+	elif bonus_cards.keys()[len(bonus_cards)-1] == "doublepoints":
+		bonus_card_controller.start_doublepoints()
+	elif bonus_cards.keys()[len(bonus_cards)-1] == "lock":
+		bonus_card_controller.start_lock()
 
 func _click_hand_card(edit_card):
 	
 	if !reflection_card_filled:
 		return
 	
+	if switch_ongoing:
+		bonus_card_controller.cancel_switch()
+	
+	if joker_ongoing:
+		bonus_card_controller.cancel_joker()
+	
+	if doublepoints_ongoing:
+		bonus_card_controller.cancel_doublepoints()
+	
+	if lock_ongoing:
+		bonus_card_controller.cancel_lock()
+	
+	update_edit_cards(edit_card)
+
+func update_edit_cards(edit_card):
 	for card in player_edit_cards.get_children():
 		if card == edit_card:
 			edit_card.visible = !edit_card.visible
 			if edit_card.visible:
 				active_card = edit_card
+				highlighting_controller.highlight_empty_fields()
 			else:
 				active_card = null
+				highlighting_controller.highlight_no_fields()
 		else:
 			card.visible = false
 
 ############################################ PLAYING CARD #########################################################
 
-# Play card
-func _play_card():
-	if play_card_on_field_allowed(active_card, selected_field):
-		execute_play_card()
+# PlayButton pressed
+func _play_card_button_pressed():
+	if play_card_on_field_allowed(selected_field):
+		if colors[active_card.get_theme_stylebox("panel").bg_color] != "grey":
+			play_card()
 	else:
 		print("This move is not allowed!")
 
-func play_card_on_field_allowed(_active_card, field):
-	return field.get_child(1).get_class() != "Panel"
-
-func execute_play_card():
-	
-	if reflection_card_filled:
-		pass
+func play_card_on_field_allowed(field):
+	if colors[active_card.get_theme_stylebox("panel").bg_color] == "grey":
+		if bonus_card_controller.confirm_bonus_card_play():
+			bonus_card_controller.execute_bonus_card()
+			return true
 	else:
-		create_preview_card(colors[colors.keys()[5]], active_card.get_child(0).text)
-		var reflection_card_small = create_small_card(colors[colors.keys()[5]], "Text", "res://ressources/icons/puzzleteil.png", active_card.get_child(0).text)
-		self.get_node("ReflectionCardSlot").add_child(reflection_card_small)
-		
-		var reflection_button = Button.new()
-		reflection_button.custom_minimum_size = Vector2(35, 35)
-		reflection_button.flat = true
-		reflection_button.focus_mode = Control.FOCUS_NONE
-		self.get_node("ReflectionCardSlot").add_child(reflection_button)
-		reflection_button.connect("mouse_entered", func(): _hovering_over_reflection_button(reflection_button))
-		reflection_button.connect("mouse_exited", func(): _stop_hovering_over_reflection_button(reflection_button))
-		
-		active_card.queue_free()
-		active_card = null
-		reflection_card_filled = true
-		initiate_gameboard()
+		if find_field_card(field):
+			return false
+		else:
+			return true
+
+# Card played
+func play_card():
+	
+	# play reflection card if not played yet
+	if !reflection_card_filled:
+		play_reflect_card()
 		return
 	
+	# otherwise play card normally
+	play_normal_card()
+
+func play_normal_card():
+	
+	# check if card text is empty
 	if len(active_card.get_child(0).text) == 0:
 		print("Please type something on the card!")
 		return
@@ -247,27 +326,37 @@ func execute_play_card():
 	# Play card on the field
 	var field_position = gameboard_fields.find(selected_field)
 	var color_name = colors[active_card.get_theme_stylebox("panel").bg_color]
-	if color_name == "grey":
-		var new_field_card = create_small_card(color_name, "Icon", bonus_card_icons[bonus_cards.keys()[len(bonus_cards)-1]], bonus_cards.values()[len(bonus_cards)-1].get_child(0).placeholder_text)
-		var new_preview_card = create_preview_card(color_name, bonus_cards.values()[len(bonus_cards)-1].get_child(0).placeholder_text)
-		gameboard_fields[field_position].add_child(new_field_card)
-		field_to_preview_cards[new_field_card] = new_preview_card
-	else:
-		create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text)
-	gameboard_fields[field_position].move_child(gameboard_fields[field_position].get_child(2), 1)
+	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text")
 	
 	# Remove hand and edit cards
-	if color_name == "grey":
-		bonus_cards.erase(bonus_cards.keys()[len(bonus_cards)-1])
-		player_deck.get_child(len(player_deck.get_children())-2).queue_free()
-	else:
-		var active_hand_card = edit_to_hand_cards[active_card]
-		edit_to_hand_cards.erase(active_card)
-		active_hand_card.queue_free()
+	var active_hand_card = edit_to_hand_cards[active_card]
+	edit_to_hand_cards.erase(active_card)
+	active_hand_card.queue_free()
+	active_card.queue_free()
+	
+	# Reset active card and playbutton
+	active_card = null
+	highlighting_controller.highlight_no_fields()
+	player_played_card.emit()
+
+############################################ REFLECTION CARD FOR BEGINNING #########################################################
+
+func play_reflect_card():
+	create_preview_card(colors[colors.keys()[5]], active_card.get_child(0).text)
+	var reflection_card_small = create_small_card(colors[colors.keys()[5]], "Text", "res://ressources/icons/puzzleteil.png", active_card.get_child(0).text)
+	self.get_node("ReflectionCardSlot").add_child(reflection_card_small)
+	var reflection_button = Button.new()
+	reflection_button.custom_minimum_size = Vector2(35, 35)
+	reflection_button.flat = true
+	reflection_button.focus_mode = Control.FOCUS_NONE
+	self.get_node("ReflectionCardSlot").add_child(reflection_button)
+	reflection_button.connect("mouse_entered", func(): _hovering_over_reflection_button(reflection_button))
+	reflection_button.connect("mouse_exited", func(): _stop_hovering_over_reflection_button(reflection_button))
 	active_card.queue_free()
 	active_card = null
-	play_card_button.visible = false
-	player_played_card.emit()
+	highlighting_controller.highlight_no_fields()
+	reflection_card_filled = true
+	initiate_gameboard()
 
 func _hovering_over_reflection_button(button):
 	if button.get_parent().get_child(0).get_class() == "Panel":
@@ -290,12 +379,28 @@ func create_hand_card(color, icon_path):
 	player_hand_cards.add_child(new_hand_card)
 	edit_to_hand_cards[new_edit_card] = new_hand_card
 
-func create_field_card(field_position, color, icon_path, text):
-	var new_field_card = create_small_card(color, "Text", icon_path, text)
-	var new_preview_card = create_preview_card(color, text)
-	gameboard_fields[field_position].add_child(new_field_card)
-	field_to_preview_cards[new_field_card] = new_preview_card
-	return new_field_card
+func create_field_card(field_position, color, icon_path, text, type):
+	
+	# Adjust field card
+	var field_card = gameboard_fields[field_position].find_child("Card")
+	field_card.add_theme_stylebox_override("panel", style_boxes[color])
+	var field_label = field_card.find_child("Text")
+	field_label.text = text
+	var field_icon = field_card.find_child("Icon")
+	field_icon.set_texture(load(icon_path))
+	
+	# Check if text or icon shown
+	if type == "Text":
+		field_icon.visible = false
+	elif type == "Icon":
+		field_label.visible = false
+	else:
+		printerr("Invalid Card Type. Only Label or Icon accepted.")
+	
+	# preview card and return
+	field_card.add_to_group("FieldCard")
+	field_to_preview_cards[field_card] = create_preview_card(color, text)
+	return field_card
 
 func create_edit_card(color):
 	var new_edit_card = create_big_card(color, "Edit", card_types[color])

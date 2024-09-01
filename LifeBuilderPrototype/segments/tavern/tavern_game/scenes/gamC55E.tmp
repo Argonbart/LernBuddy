@@ -1,0 +1,1324 @@
+[gd_scene load_steps=21 format=3 uid="uid://bd8go0qykin0m"]
+
+[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/board_highlighting.gd" id="1_e1sld"]
+[ext_resource type="Shader" uid="uid://c12c75a40ihsv" path="res://ressources/shader/blinking.tres" id="2_2g6md"]
+[ext_resource type="Material" uid="uid://d0imauablx4ox" path="res://ressources/shader/blinking.material" id="2_sglx3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yummw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0lx3"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2cuf"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3v7cj"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_66dvg"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4cvj"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2hx0y"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7c324"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_214ep"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjjy2"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ebam"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hwsc5"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xd5q6"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ycttf"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hw5qj"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6w0k5"]
+shader = ExtResource("2_2g6md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j08r8"]
+shader = ExtResource("2_2g6md")
+
+[node name="GameBoard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 136.0
+offset_top = 136.0
+offset_right = -810.0
+offset_bottom = -358.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HighlightController" type="Node" parent="."]
+script = ExtResource("1_e1sld")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -83.0
+offset_right = 113.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yummw")
+
+[node name="SelectionGridBelow" type="GridContainer" parent="MarginContainer/PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(206, 146)
+layout_mode = 2
+theme_override_constants/h_separation = -50
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="Field0" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field0"]
+material = ExtResource("2_sglx3")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field1" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field1"]
+material = SubResource("ShaderMaterial_k2cuf")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field2" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field2"]
+material = SubResource("ShaderMaterial_3v7cj")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field3" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field3"]
+material = SubResource("ShaderMaterial_66dvg")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field4" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field4"]
+material = SubResource("ShaderMaterial_e4cvj")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field5" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field5"]
+material = SubResource("ShaderMaterial_2hx0y")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field6" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field6"]
+material = SubResource("ShaderMaterial_7c324")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field7" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field7"]
+material = SubResource("ShaderMaterial_214ep")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field8" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field8"]
+material = SubResource("ShaderMaterial_yjjy2")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field9" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field9"]
+material = SubResource("ShaderMaterial_3ebam")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field10" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field10"]
+material = SubResource("ShaderMaterial_hwsc5")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field11" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field11"]
+material = SubResource("ShaderMaterial_xd5q6")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field12" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field12"]
+material = SubResource("ShaderMaterial_ycttf")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field13" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field13"]
+material = SubResource("ShaderMaterial_hw5qj")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field14" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field14"]
+material = SubResource("ShaderMaterial_6w0k5")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field15" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridBelow"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridBelow/Field15"]
+material = SubResource("ShaderMaterial_j08r8")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Fields" type="GridContainer" parent="MarginContainer/PanelContainer"]
+custom_minimum_size = Vector2(206, 146)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = -50
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="Field0" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field0" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field1" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field1" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field2" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field2" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field3" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field3" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field4" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field4" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field5" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field5" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field6" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field6" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field7" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field7" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field8" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field8" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field9" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field9" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field10" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field10" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field11" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field11" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field12" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field12" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field13" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field13" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field14" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field14" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field15" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field15" groups=["HighlightPanel"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="SelectionGridAbove" type="GridContainer" parent="MarginContainer/PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(206, 146)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = -50
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="Field0" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field0"]
+material = ExtResource("2_sglx3")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field1" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field1"]
+material = SubResource("ShaderMaterial_k2cuf")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field2" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field2"]
+material = SubResource("ShaderMaterial_3v7cj")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field3" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field3"]
+material = SubResource("ShaderMaterial_66dvg")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field4" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field4"]
+material = SubResource("ShaderMaterial_e4cvj")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field5" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field5"]
+material = SubResource("ShaderMaterial_2hx0y")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field6" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field6"]
+material = SubResource("ShaderMaterial_7c324")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field7" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field7"]
+material = SubResource("ShaderMaterial_214ep")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field8" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field8"]
+material = SubResource("ShaderMaterial_yjjy2")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field9" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field9"]
+material = SubResource("ShaderMaterial_3ebam")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field10" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field10"]
+material = SubResource("ShaderMaterial_hwsc5")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field11" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field11"]
+material = SubResource("ShaderMaterial_xd5q6")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field12" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field12"]
+material = SubResource("ShaderMaterial_ycttf")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field13" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field13"]
+material = SubResource("ShaderMaterial_hw5qj")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field14" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field14"]
+material = SubResource("ShaderMaterial_6w0k5")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+
+[node name="Field15" type="ReferenceRect" parent="MarginContainer/PanelContainer/SelectionGridAbove"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="MarginContainer/PanelContainer/SelectionGridAbove/Field15"]
+material = SubResource("ShaderMaterial_j08r8")
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")

@@ -6,26 +6,25 @@ var free_fields = []
 var richard_hand_cards = ["red", "red", "yellow", "yellow", "green", "green", "blue", "blue"]
 
 func _ready():
-	table_game.connect("player_played_card", func(): player_played_card())
+	table_game.connect("player_played_card", func(): _player_played_card())
 
 func _process(_delta):
 	self.get_child(0).play("idle")
 
-func player_played_card():
+func _player_played_card():
 	update_free_fields()
-	await get_tree().create_timer(1.0).timeout
+	#await get_tree().create_timer(1.0).timeout
 	var next_move = calculate_next_move()
 	richard_play_card(next_move["field"], next_move["color"], next_move["text"])
 
 func update_free_fields():
 	free_fields.clear()
 	for field in table_game.gameboard_fields:
-		if field.get_child(1).get_class() != "Panel":
+		if !table_game.find_field_card(field):
 			free_fields.append(field)
 
 func richard_play_card(field_position, color, text):
-	table_game.create_field_card(field_position, color, table_game.card_icons[color], text)
-	table_game.gameboard_fields[field_position].move_child(table_game.gameboard_fields[field_position].get_child(2), 1)
+	table_game.create_field_card(field_position, color, table_game.card_icons[color], text, "Text")
 
 # Current "Strategy": Random color on a random free field
 func calculate_next_move():
