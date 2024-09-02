@@ -110,7 +110,6 @@ func switch_first_field(field):
 	table_game.highlighting_controller.highlight_all_fields()				#### EXPECT LOCKED CARDS, those should not light up - TODO
 	switch_selection_first_card_on = false
 	switch_selection_second_card_on = true
-	print("First Field: ", first_field_to_swap)
 
 func switch_second_field(field):
 	second_field_to_swap = field
@@ -118,7 +117,6 @@ func switch_second_field(field):
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true
 	switch_selection_second_card_on = false
-	print("Second Field: ", second_field_to_swap)
 
 func execute_switch():
 	switch_fields(first_field_to_swap, second_field_to_swap)

@@ -11,6 +11,7 @@ signal player_played_card()
 @onready var field_cards_preview = $"../TableGame/BigCardsOnField"		# Preview cards (left)
 @onready var player_edit_cards = $"../TableGame/EditCards"				# Edit cards (right)
 @onready var play_card_button = $GameBoard/PlayCardButton				# Button to play card
+@onready var play_reflect_card_button = $ReflectionCardField/Button		# Button to play reflect card
 @onready var draw_card_button											# Button to draw bonus-card
 
 # Static card data
@@ -130,6 +131,7 @@ func initiate_field_buttons():
 		field_button.connect("mouse_entered", func(): _hovering_over_button(field_button))
 		field_button.connect("mouse_exited", func(): _stop_hovering_over_button(field_button))
 	play_card_button.connect("button_down", func(): _play_card_button_pressed())
+	play_reflect_card_button.connect("button_down", func(): _play_reflect_card(play_reflect_card_button))
 
 func update_fields():
 	gameboard_fields = self.find_child("GameBoard").find_child("MarginContainer").find_child("PanelContainer").find_child("Fields").get_children()
@@ -189,7 +191,12 @@ func initiate_reflection_card():
 	var reflection_card_edit = create_edit_card(colors[colors.keys()[5]])
 	reflection_card_edit.visible = true
 	active_card = reflection_card_edit
-	highlighting_controller.highlight_empty_fields()
+	highlighting_controller.highlight_reflect_field_on()
+
+func _play_reflect_card(button):
+	var field = button.get_parent()
+	field_is_selected = true
+	selected_field = field
 
 ############################################ PLAYER #########################################################
 
@@ -243,14 +250,20 @@ func _show_next_bonus_card():
 		else:
 			bonus_card_controller.start_switch()
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "joker":
-		if switch_ongoing:
+		if joker_ongoing:
 			bonus_card_controller.cancel_joker()
 		else:
 			bonus_card_controller.start_joker()
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "doublepoints":
-		bonus_card_controller.start_doublepoints()
+		if doublepoints_ongoing:
+			bonus_card_controller.cancel_doublepoints()
+		else:
+			bonus_card_controller.start_doublepoints()
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "lock":
-		bonus_card_controller.start_lock()
+		if lock_ongoing:
+			bonus_card_controller.cancel_lock()
+		else:
+			bonus_card_controller.start_lock()
 
 func _click_hand_card(edit_card):
 	
@@ -342,29 +355,19 @@ func play_normal_card():
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
 
 func play_reflect_card():
-	create_preview_card(colors[colors.keys()[5]], active_card.get_child(0).text)
-	var reflection_card_small = create_small_card(colors[colors.keys()[5]], "Text", "res://ressources/icons/puzzleteil.png", active_card.get_child(0).text)
-	self.get_node("ReflectionCardSlot").add_child(reflection_card_small)
-	var reflection_button = Button.new()
-	reflection_button.custom_minimum_size = Vector2(35, 35)
-	reflection_button.flat = true
-	reflection_button.focus_mode = Control.FOCUS_NONE
-	self.get_node("ReflectionCardSlot").add_child(reflection_button)
-	reflection_button.connect("mouse_entered", func(): _hovering_over_reflection_button(reflection_button))
-	reflection_button.connect("mouse_exited", func(): _stop_hovering_over_reflection_button(reflection_button))
+	var reflection_field = $ReflectionCardField
+	var reflection_card = reflection_field.get_node("Card")
+	var reflection_button = reflection_field.get_node("Button")
+	reflection_card.get_node("Text").text = active_card.get_child(0).text
+	reflection_card.add_theme_stylebox_override("panel", style_boxes["aquamarine"])
+	create_preview_card(colors[colors.keys()[5]], "active_card.get_child(0).text")
+	reflection_button.connect("mouse_entered", func(): _hovering_over_button(reflection_button))
+	reflection_button.connect("mouse_exited", func(): _stop_hovering_over_button(reflection_button))
 	active_card.queue_free()
 	active_card = null
-	highlighting_controller.highlight_no_fields()
+	highlighting_controller.highlight_reflect_field_off()
 	reflection_card_filled = true
 	initiate_gameboard()
-
-func _hovering_over_reflection_button(button):
-	if button.get_parent().get_child(0).get_class() == "Panel":
-		field_cards_preview.get_child(0).visible = true
-
-func _stop_hovering_over_reflection_button(button):
-	if button.get_parent().get_child(0).get_class() == "Panel":
-		field_cards_preview.get_child(0).visible = false
 
 ############################################ CARD CREATION METHODS #########################################################
 

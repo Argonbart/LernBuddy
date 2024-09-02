@@ -41,3 +41,9 @@ func field_has_card(field):
 		if child.get_groups().has("FieldCard"):
 			return true
 	return false
+
+func highlight_reflect_field_on():
+	$"../../ReflectionCardField".get_node("Highlighting").set_material(shader)
+
+func highlight_reflect_field_off():
+	$"../../ReflectionCardField".get_node("Highlighting").set_material(null)

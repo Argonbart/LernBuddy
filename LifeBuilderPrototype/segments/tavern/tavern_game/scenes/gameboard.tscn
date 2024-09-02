@@ -1287,6 +1287,7 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = -5.0
 offset_bottom = -5.0
+mouse_filter = 2
 expand_mode = 1
 
 [node name="Highlighting" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field14" groups=["HighlightPanel"]]
