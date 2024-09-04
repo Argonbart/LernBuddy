@@ -72,6 +72,10 @@ var doublepoints_ongoing : bool = false
 var lock_ongoing : bool = false
 var player_played_bonud_card : bool = false
 
+# points
+var player_points : int = 0
+var richard_points : int = 0
+
 ############################################ PROCESS #########################################################
 
 func _process(_delta):
@@ -151,6 +155,11 @@ func update_fields():
 	active_card = null
 
 func _field_selected(button):
+	
+	if !reflection_card_filled:
+		reflect_field_is_selected = false
+		play_card_button.visible = false
+	
 	var field = button.get_parent()
 	
 	if switch_ongoing:
@@ -186,7 +195,7 @@ func _stop_hovering_over_button(button):
 		field_to_preview_cards[field_card].visible = false
 
 func find_field_card(field):
-	var card = field.find_child("Card")
+	var card = field.get_node("Card")
 	if card.get_groups().has("FieldCard"):
 		return card
 	return null
@@ -360,13 +369,17 @@ func play_card():
 	active_card.queue_free()
 	
 	# Calculate points
-	point_system_controller.calculate_points(gameboard_fields.find(selected_field), null, "Player")
+	var points_this_turn = point_system_controller.calculate_points(gameboard_fields.find(selected_field), "Player")
+	player_points = player_points + points_this_turn[0]
+	richard_points = richard_points + points_this_turn[1]
 	
 	# Reset active card and playbutton
 	active_card = null
 	highlighting_controller.highlight_no_fields()
 	player_played_bonud_card = false
 	player_played_card.emit()
+	
+	print("Player Points: ", player_points, " - Richard Points: ", richard_points)
 
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
 
@@ -376,7 +389,7 @@ func play_reflect_card():
 	var reflection_button = reflection_field.get_node("Button")
 	reflection_card.get_node("Text").text = active_card.get_child(0).text
 	reflection_card.add_theme_stylebox_override("panel", style_boxes["aquamarine"])
-	create_preview_card(colors[colors.keys()[5]], "active_card.get_child(0).text")
+	field_to_preview_cards[reflection_card] = create_preview_card(colors[colors.keys()[5]], active_card.get_child(0).text)
 	reflection_button.connect("mouse_entered", func(): _hovering_over_button(reflection_button))
 	reflection_button.connect("mouse_exited", func(): _stop_hovering_over_button(reflection_button))
 	active_card.queue_free()

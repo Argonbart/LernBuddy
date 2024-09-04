@@ -25,6 +25,11 @@ func update_free_fields():
 
 func richard_play_card(field_position, color, text):
 	table_game.create_field_card(field_position, color, table_game.card_icons[color], text, "Text", false)
+	
+	# Calculate points
+	var points_this_turn = table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.selected_field), "Richard")
+	table_game.richard_points = table_game.richard_points + points_this_turn[0]
+	table_game.player_points = table_game.player_points + points_this_turn[1]
 
 # Current "Strategy": Random color on a random free field
 func calculate_next_move():

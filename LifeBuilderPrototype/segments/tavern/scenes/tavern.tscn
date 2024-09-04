@@ -171,7 +171,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 flat = true
 
-[node name="Card" type="Panel" parent="TableGame/ReflectionCardField"]
+[node name="Card" type="Panel" parent="TableGame/ReflectionCardField" groups=["FieldCard"]]
 custom_minimum_size = Vector2(33, 33)
 layout_mode = 1
 anchors_preset = 8
