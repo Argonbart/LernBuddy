@@ -341,6 +341,7 @@ func _play_card_button_pressed():
 func play_card_on_field_allowed(field):
 	if colors[active_card.get_theme_stylebox("panel").bg_color] == "grey":
 		if bonus_card_controller.confirm_bonus_card_play():
+			bonus_card_controller.currently_playing("Player")
 			bonus_card_controller.execute_bonus_card()
 			return true
 	else:
@@ -357,9 +358,19 @@ func play_card():
 		print("Please type something on the card!")
 		return
 	
-	# Play card on the field
 	var field_position = gameboard_fields.find(selected_field)
 	var color_name = colors[active_card.get_theme_stylebox("panel").bg_color]
+	
+	# Check for lock
+	if field_position == bonus_card_controller.confirmed_locked_field_position:
+		if bonus_card_controller.locked_by != "Player":
+			return
+		else:
+			# remove locked field
+			selected_field.get_node("Locked").queue_free()
+			bonus_card_controller.confirmed_locked_field_position = -1
+	
+	# Play card on the field
 	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text", true)
 	
 	# Remove hand and edit cards
@@ -369,9 +380,7 @@ func play_card():
 	active_card.queue_free()
 	
 	# Calculate points
-	var points_this_turn = point_system_controller.calculate_points(gameboard_fields.find(selected_field), "Player")
-	player_points = player_points + points_this_turn[0]
-	richard_points = richard_points + points_this_turn[1]
+	point_system_controller.calculate_points(gameboard_fields.find(selected_field), "Player")
 	
 	# Reset active card and playbutton
 	active_card = null

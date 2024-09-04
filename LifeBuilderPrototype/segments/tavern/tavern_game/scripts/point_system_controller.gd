@@ -7,6 +7,17 @@ var gamefield_colors = []
 var played_by_player = []
 var played_by_richard = []
 
+# for calculation
+var own_total_points
+var enemy_total_points
+var current_played_by
+var current_played_against 
+var row
+var column
+
+# bonus cards
+var doublepoints_field_position : int = -1
+
 func _ready():
 	initiate_variables()
 	update_gamefield()
@@ -27,8 +38,10 @@ func update_gamefield():
 		gamefield_colors[i] = field_border_color
 		if field_border_color == table_game.player_color:
 			played_by_player[i] = true
+			played_by_richard[i] = false
 		elif field_border_color == table_game.richard_color:
 			played_by_richard[i] = true
+			played_by_player[i] = false
 
 func preview_move(_card_position, _card_color, _card_player):
 	pass
@@ -39,11 +52,13 @@ func calculate_points(card_position, card_player):
 	if !gamefield[card_position]:
 		return
 	
-	var own_total_points = 0
-	var enemy_total_points = 0
+	own_total_points = 0
+	enemy_total_points = 0
+	current_played_by = null
+	current_played_against = null
+	row = card_position / 4
+	column = card_position % 4
 	
-	var current_played_by = null
-	var current_played_against = null
 	if card_player == "Player":
 		current_played_by = played_by_player
 		current_played_against = played_by_richard
@@ -53,85 +68,113 @@ func calculate_points(card_position, card_player):
 	else:
 		printerr("Invalid Input for \"card_player\"!")
 	
-	var neighbors = get_neighbors(card_position)
-	for neighbor in neighbors:
-		var own_card_color = gamefield[card_position].get_node("Card").get_theme_stylebox("panel").bg_color
-		var neighbor_card_color = neighbor["field"].get_node("Card").get_theme_stylebox("panel").bg_color
-		if neighbor_card_color == own_card_color and current_played_by[neighbor["position"]] == true:				# played card is next to own card of same color
-			enemy_total_points = enemy_total_points + 1
-			print("Next to own card")
-		if neighbor_card_color == own_card_color and current_played_against[neighbor["position"]] == true:			# played card is next to enemy card of same color
-			own_total_points = own_total_points + 1
-			print("Next to enemy card")
+	check_neighbors(card_position)
+	check_row()
+	check_column()
+	check_diagonal()
 	
-	var row = card_position / 4
-	var column = card_position % 4
+	# save points
+	if card_player == "Player":
+		table_game.player_points = table_game.player_points + own_total_points
+		table_game.richard_points = table_game.richard_points + enemy_total_points
+	if card_player == "Richard":
+		table_game.richard_points = table_game.richard_points + own_total_points
+		table_game.player_points = table_game.player_points + enemy_total_points
 	
-	# row
+	print("Turn of ", card_player, " ---> Own points: ", own_total_points, " - Enemy points: ", enemy_total_points)
+
+func check_row():
+	var row_positions = []
 	var row_colors = []
 	for current_column in range(4):
 		var current_position = row * 4 + current_column
 		if current_played_by[current_position] != true:
 			break
 		row_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
+		row_positions.append(current_position)
+	
 	if len(row_colors) == 4:
 		if array_has_duplicates(row_colors):
-			own_total_points = own_total_points + 2
-			print("Row of 4")
+			if doublepoints_field_position in row_positions:
+				own_total_points = own_total_points + 4
+			else:
+				own_total_points = own_total_points + 2
 		else:
-			own_total_points = own_total_points + 3
-			print("Rainbow Row of 4")
-	
-	# column
+			if doublepoints_field_position in row_positions:
+				own_total_points = own_total_points + 6
+			else:
+				own_total_points = own_total_points + 3
+
+func check_column():
+	var column_positions = []
 	var column_colors = []
 	for current_row in range(4):
 		var current_position = current_row * 4 + column
 		if current_played_by[current_position] != true:
 			break
 		column_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
+		column_positions.append(current_position)
+	
 	if len(column_colors) == 4:
 		if array_has_duplicates(column_colors):
-			own_total_points = own_total_points + 2
-			print("Column of 4")
+			if doublepoints_field_position in column_positions:
+				own_total_points = own_total_points + 4
+			else:
+				own_total_points = own_total_points + 2
 		else:
-			own_total_points = own_total_points + 3
-			print("Rainbow Column of 4")
+			if doublepoints_field_position in column_positions:
+				own_total_points = own_total_points + 6
+			else:
+				own_total_points = own_total_points + 3
+
+func check_neighbors(card_position):
+	var neighbors = get_neighbors()
+	for neighbor in neighbors:
+		var own_card_color = gamefield[card_position].get_node("Card").get_theme_stylebox("panel").bg_color
+		var neighbor_card_color = neighbor["field"].get_node("Card").get_theme_stylebox("panel").bg_color
+		if neighbor_card_color == own_card_color and current_played_by[neighbor["position"]] == true:				# played card is next to own card of same color
+			if doublepoints_field_position == card_position or doublepoints_field_position == neighbor["position"]:
+				enemy_total_points = enemy_total_points + 2
+			else:
+				enemy_total_points = enemy_total_points + 1
+		if neighbor_card_color == own_card_color and current_played_against[neighbor["position"]] == true:			# played card is next to enemy card of same color
+			if doublepoints_field_position == card_position or doublepoints_field_position == neighbor["position"]:
+				own_total_points = own_total_points + 2
+			else:
+				own_total_points = own_total_points + 1
+
+func check_diagonal():
 	
-	# diagonals
-	if card_position in range(0,16,5):
-		var diagonal_colors = []
-		for current_position in range(0,16,5):
-			if current_played_against[current_position] == true:
-				break
-			var current_card_color = gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color
-			if current_card_color == table_game.player_color or current_card_color == table_game.richard_color:
-				diagonal_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
-			if len(diagonal_colors) == 4:
-				if array_has_duplicates(diagonal_colors):
+	var field = row * 4 + column
+	var diagonal_fields = []
+	if field in range(0,16,5):
+		diagonal_fields = range(0,16,5)
+	elif field in range(3,13,3):
+		diagonal_fields = range(3,13,3)
+	else:
+		return false
+	
+	var diagonal_positions = []
+	var diagonal_colors = []
+	for current_position in diagonal_fields:
+		if current_played_against[current_position] == true:
+			break
+		var current_card_border_color = gamefield[current_position].get_node("Card").get_theme_stylebox("panel").border_color
+		if current_card_border_color == table_game.player_color or current_card_border_color == table_game.richard_color:
+			diagonal_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
+			diagonal_positions.append(current_position)
+		
+		if len(diagonal_colors) == 4:
+			if array_has_duplicates(diagonal_colors):
+				if doublepoints_field_position in diagonal_positions:
+					own_total_points = own_total_points + 4
+				else:
 					own_total_points = own_total_points + 2
-					print("Diagonal of 4")
+			else:
+				if doublepoints_field_position in diagonal_positions:
+					own_total_points = own_total_points + 6
 				else:
 					own_total_points = own_total_points + 3
-					print("Rainbow Diagonal of 4")
-	
-	if card_position in range(3,13,3):
-		var diagonal_colors = []
-		for current_position in range(3,13,3):
-			if current_played_against[current_position] == true:
-				break
-			var current_card_border_color = gamefield[current_position].get_node("Card").get_theme_stylebox("panel").border_color
-			if current_card_border_color == table_game.player_color or current_card_border_color == table_game.richard_color:
-				diagonal_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
-			if len(diagonal_colors) == 4:
-				if array_has_duplicates(diagonal_colors):
-					own_total_points = own_total_points + 2
-					print("Diagonal of 4")
-				else:
-					own_total_points = own_total_points + 3
-					print("Rainbow Diagonal of 4")
-	
-	print("Turn of ", card_player, " ---> Own points: ", own_total_points, " - Enemy points: ", enemy_total_points)
-	return [own_total_points, enemy_total_points]
 
 func array_has_duplicates(array):
 	for element in array:
@@ -143,10 +186,8 @@ func array_has_duplicates(array):
 			return true
 	return false
 
-func get_neighbors(field_position):
+func get_neighbors():
 	var neighbors = []
-	var row = field_position / 4
-	var column = field_position % 4
 	for horizontal in [-1, 0, 1]:
 		for vertical in [-1, 0, 1]:
 			if horizontal == 0 and vertical == 0:

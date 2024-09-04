@@ -7,7 +7,8 @@ extends Node
 
 var bonus_card_playable : bool = false
 var active_bonus_card : String = ""
-var confirmed_locked_field : ReferenceRect = null
+var confirmed_locked_field_position : int = -1
+var locked_by : String = ""
 
 # joker
 var delete_field : ReferenceRect = null
@@ -23,6 +24,9 @@ var double_field : ReferenceRect = null
 
 # lock
 var locking_field : ReferenceRect = null
+var no_card_field_border_color = Color("#afafaf")
+
+var played_by : String = ""
 
 ############################################ JOKER #########################################################
 
@@ -121,6 +125,8 @@ func switch_second_field(field):
 func execute_switch():
 	switch_fields(first_field_to_swap, second_field_to_swap)
 	bonus_card_played_successfully("switch")
+	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(first_field_to_swap), played_by)
+	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(second_field_to_swap), played_by)
 
 # Swaps cards inside the fields manually
 func switch_fields(field1, field2):
@@ -169,6 +175,7 @@ func doublepoints_field(field):
 func execute_doublepoints():
 	create_doublepoints_field(double_field)
 	bonus_card_played_successfully("doublepoints")
+	table_game.point_system_controller.doublepoints_field_position = table_game.gameboard_fields.find(double_field)
 
 func create_doublepoints_field(field):
 	var doublepoints_node = Control.new()
@@ -221,7 +228,12 @@ func lock_field(field):
 
 func execute_lock():
 	create_locked_field(locking_field)
-	confirmed_locked_field = locking_field
+	if table_game.find_field_card(locking_field):
+		# lock card
+		pass
+	else:
+		confirmed_locked_field_position = table_game.gameboard_fields.find(locking_field)
+		locked_by = played_by
 	bonus_card_played_successfully("lock")
 
 func create_locked_field(field):
@@ -282,3 +294,6 @@ func bonus_card_played_successfully(type):
 	table_game.joker_ongoing = false
 	table_game.doublepoints_ongoing = false
 	table_game.lock_ongoing = false
+
+func currently_playing(player):
+	played_by = player
