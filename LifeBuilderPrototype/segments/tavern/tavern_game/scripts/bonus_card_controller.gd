@@ -180,7 +180,7 @@ func create_doublepoints_field(field):
 	border_panel.name = "Border"
 	border_panel.custom_minimum_size = Vector2(37, 37)
 	border_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/cards_colors_style_boxes/doublepoints_border.tres"))
+	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/gameboard_visual_styles/bonus_card_border.tres"))
 	border_panel.anchor_left = 0.5
 	border_panel.anchor_top = 0.5
 	border_panel.anchor_right = 0.5
@@ -201,7 +201,7 @@ func create_doublepoints_field(field):
 	doublepoints_node.add_child(border_panel)
 	doublepoints_node.add_child(x2_label)
 	field.add_child(doublepoints_node)
-	field.move_child(doublepoints_node, 3)
+	field.move_child(doublepoints_node, 2)
 
 ############################################ LOCK #########################################################
 
@@ -234,7 +234,7 @@ func create_locked_field(field):
 	border_panel.name = "Border"
 	border_panel.custom_minimum_size = Vector2(37, 37)
 	border_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/cards_colors_style_boxes/doublepoints_border.tres"))
+	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/gameboard_visual_styles/bonus_card_border.tres"))
 	border_panel.anchor_left = 0.5
 	border_panel.anchor_top = 0.5
 	border_panel.anchor_right = 0.5
@@ -255,7 +255,7 @@ func create_locked_field(field):
 	locked_node.add_child(border_panel)
 	locked_node.add_child(locked_icon)
 	field.add_child(locked_node)
-	field.move_child(locked_node, 3)
+	field.move_child(locked_node, 2)
 
 ###########################################################################################################
 
@@ -277,7 +277,7 @@ func bonus_card_played_successfully(type):
 	table_game.bonus_cards[type].queue_free()
 	table_game.bonus_cards.erase(type)
 	table_game.player_deck.get_child(len(table_game.player_deck.get_children())-2).queue_free()
-	table_game.player_played_card.emit()
+	table_game.player_played_bonud_card = true
 	table_game.switch_ongoing = false
 	table_game.joker_ongoing = false
 	table_game.doublepoints_ongoing = false

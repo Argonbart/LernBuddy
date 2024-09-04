@@ -1,20 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://bd8go0qykin0m"]
 
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/board_highlighting.gd" id="1_e1sld"]
+[ext_resource type="StyleBox" uid="uid://epcyh0jqqk4h" path="res://segments/tavern/tavern_game/gameboard_visual_styles/card_white.tres" id="2_cwlxv"]
+[ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres" id="3_g35lv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yummw"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0lx3"]
-bg_color = Color(0, 0, 0, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-border_blend = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubl5t"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="GameBoard" type="Control"]
@@ -70,23 +60,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field0"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field0" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -95,12 +68,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field0"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field0/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -143,7 +125,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field1" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -153,23 +135,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field1"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field1" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -178,12 +143,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field1"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field1/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -226,7 +200,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field2" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -236,23 +210,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field2"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field2" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -261,12 +218,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field2"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field2/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -309,7 +275,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field3" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -319,23 +285,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field3"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field3" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -344,12 +293,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field3"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field3/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -392,7 +350,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field4" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -402,23 +360,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field4"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field4" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -427,12 +368,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field4"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field4/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -475,7 +425,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field5" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -485,23 +435,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field5"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field5" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -510,12 +443,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field5"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field5/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -558,7 +500,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field6" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -568,23 +510,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field6"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field6" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -593,12 +518,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field6"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field6/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -641,7 +575,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field7" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -651,23 +585,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field7"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field7" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -676,12 +593,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field7"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field7/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -724,7 +650,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field8" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -734,23 +660,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field8"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field8" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -759,12 +668,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field8"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field8/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -807,7 +725,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field9" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -817,23 +735,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field9"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field9" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -842,12 +743,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field9"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field9/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -890,7 +800,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field10" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -900,23 +810,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field10"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field10" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -925,12 +818,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field10"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field10/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -973,7 +875,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field11" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -983,23 +885,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field11"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field11" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -1008,12 +893,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field11"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field11/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -1056,7 +950,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field12" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -1066,23 +960,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field12"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field12" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -1091,12 +968,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field12"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field12/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -1139,7 +1025,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field13" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -1149,23 +1035,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field13"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field13" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -1174,12 +1043,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field13"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field13/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -1222,7 +1100,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field14" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -1232,23 +1110,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field14"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field14" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -1257,12 +1118,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field14"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field14/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -1305,7 +1175,7 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")
 
 [node name="Field15" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -1315,23 +1185,6 @@ size_flags_vertical = 6
 mouse_filter = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field15"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -17.5
-offset_top = -17.5
-offset_right = 17.5
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
-
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/Fields/Field15" groups=["FieldButton"]]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 0
@@ -1340,12 +1193,21 @@ offset_bottom = 8.0
 flat = true
 
 [node name="Card" type="Panel" parent="MarginContainer/PanelContainer/Fields/Field15"]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 0
-offset_right = 35.0
-offset_bottom = 35.0
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ubl5t")
+theme_override_styles/panel = ExtResource("2_cwlxv")
 
 [node name="Text" type="Label" parent="MarginContainer/PanelContainer/Fields/Field15/Card"]
 custom_minimum_size = Vector2(600, 600)
@@ -1388,4 +1250,4 @@ offset_bottom = 17.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a0lx3")
+theme_override_styles/panel = ExtResource("3_g35lv")

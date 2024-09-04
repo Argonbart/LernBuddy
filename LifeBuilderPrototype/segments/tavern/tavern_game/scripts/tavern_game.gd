@@ -5,6 +5,7 @@ extends Node
 signal player_played_card()
 
 @onready var highlighting_controller = $GameBoard/HighlightController	# Handles all highlighting
+@onready var point_system_controller = $PointSystemController			# Handles all point calculation
 @onready var bonus_card_controller = $BonusCardController				# Handles all bonus cards
 @onready var player_deck = $"../TableGame/Deck"							# Bonus-card deck
 @onready var player_hand_cards = $"../TableGame/PlayerCards"			# Players hand cards
@@ -24,6 +25,8 @@ var colors = {Color("#ea4d53"): "red",
 			  Color("#554dc9"): "blue",
 			  Color("#989595"): "grey",
 			  Color("#7fffd4"): "aquamarine"}
+var player_color = Color("#000000")
+var richard_color = Color("#FFFFFF")
 
 # Card texts (grey bonus cards get text based on effect)
 var card_types = {"red":    "EMOTIONEN\nWie fühlst du dich in Bezug auf das zu reflektierende Thema? Welche positiven oder negativen Gefühle empfindest du?\n[ Fang an zu tippen.. ]",
@@ -60,19 +63,27 @@ var edit_to_hand_cards : Dictionary = {}
 var field_to_preview_cards : Dictionary = {}
 var bonus_cards : Dictionary = {}
 var reflection_card_filled : bool = false
+var reflect_field_is_selected : bool = false
 
 # bonus card variables
 var switch_ongoing : bool = false
 var joker_ongoing : bool = false
 var doublepoints_ongoing : bool = false
 var lock_ongoing : bool = false
+var player_played_bonud_card : bool = false
 
 ############################################ PROCESS #########################################################
 
 func _process(_delta):
 	
+	if !reflection_card_filled and reflect_field_is_selected:
+		if active_card != null:
+			play_card_button.visible = true
+		else:
+			play_card_button.visible = false
+	
 	# Update visibility of play button
-	if !switch_ongoing and !joker_ongoing and !doublepoints_ongoing and !lock_ongoing:
+	if reflection_card_filled and !switch_ongoing and !joker_ongoing and !doublepoints_ongoing and !lock_ongoing:
 		if field_is_selected and active_card != null:
 			play_card_button.visible = true
 		else:
@@ -191,11 +202,12 @@ func initiate_reflection_card():
 	var reflection_card_edit = create_edit_card(colors[colors.keys()[5]])
 	reflection_card_edit.visible = true
 	active_card = reflection_card_edit
+	highlighting_controller.highlight_no_fields()
 	highlighting_controller.highlight_reflect_field_on()
 
 func _play_reflect_card(button):
 	var field = button.get_parent()
-	field_is_selected = true
+	reflect_field_is_selected = true
 	selected_field = field
 
 ############################################ PLAYER #########################################################
@@ -241,6 +253,10 @@ func _draw_button_released(button):
 	_show_next_bonus_card()
 
 func _show_next_bonus_card():
+	
+	if player_played_bonud_card:
+		return
+	
 	update_edit_cards(bonus_cards.values()[len(bonus_cards)-1])
 	
 	# Check what bonus card is being pressed
@@ -301,6 +317,12 @@ func update_edit_cards(edit_card):
 
 # PlayButton pressed
 func _play_card_button_pressed():
+	
+	# play reflection card if not played yet
+	if !reflection_card_filled:
+		play_reflect_card()
+		return
+	
 	if play_card_on_field_allowed(selected_field):
 		if colors[active_card.get_theme_stylebox("panel").bg_color] != "grey":
 			play_card()
@@ -321,16 +343,6 @@ func play_card_on_field_allowed(field):
 # Card played
 func play_card():
 	
-	# play reflection card if not played yet
-	if !reflection_card_filled:
-		play_reflect_card()
-		return
-	
-	# otherwise play card normally
-	play_normal_card()
-
-func play_normal_card():
-	
 	# check if card text is empty
 	if len(active_card.get_child(0).text) == 0:
 		print("Please type something on the card!")
@@ -339,7 +351,7 @@ func play_normal_card():
 	# Play card on the field
 	var field_position = gameboard_fields.find(selected_field)
 	var color_name = colors[active_card.get_theme_stylebox("panel").bg_color]
-	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text")
+	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text", true)
 	
 	# Remove hand and edit cards
 	var active_hand_card = edit_to_hand_cards[active_card]
@@ -347,9 +359,13 @@ func play_normal_card():
 	active_hand_card.queue_free()
 	active_card.queue_free()
 	
+	# Calculate points
+	point_system_controller.calculate_points(gameboard_fields.find(selected_field), null, "Player")
+	
 	# Reset active card and playbutton
 	active_card = null
 	highlighting_controller.highlight_no_fields()
+	player_played_bonud_card = false
 	player_played_card.emit()
 
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
@@ -382,11 +398,16 @@ func create_hand_card(color, icon_path):
 	player_hand_cards.add_child(new_hand_card)
 	edit_to_hand_cards[new_edit_card] = new_hand_card
 
-func create_field_card(field_position, color, icon_path, text, type):
+func create_field_card(field_position, color, icon_path, text, type, played_by_player):
 	
 	# Adjust field card
 	var field_card = gameboard_fields[field_position].find_child("Card")
-	field_card.add_theme_stylebox_override("panel", style_boxes[color])
+	var field_style_box = style_boxes[color].duplicate()
+	field_card.add_theme_stylebox_override("panel", field_style_box)
+	if played_by_player:
+		field_card.get_theme_stylebox("panel").border_color = player_color
+	else:
+		field_card.get_theme_stylebox("panel").border_color = richard_color
 	var field_label = field_card.find_child("Text")
 	field_label.text = text
 	var field_icon = field_card.find_child("Icon")

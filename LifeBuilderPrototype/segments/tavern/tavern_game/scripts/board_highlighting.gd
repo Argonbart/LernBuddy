@@ -14,27 +14,37 @@ func initiate_highlight_fields():
 			if child.get_groups().has("HighlightPanel"):
 				highlight_fields[field] = child
 
+func highlight_field_on(panel):
+	panel.set_material(shader)
+	panel.get_theme_stylebox("panel").border_color.a = 255
+	panel.visible = true
+
+func highlight_field_off(panel):
+	panel.set_material(null)
+	panel.get_theme_stylebox("panel").border_color.a = 0
+	panel.visible = false
+
 func highlight_all_fields():
 	for panel in highlight_fields.values():
-		panel.set_material(shader)
+		highlight_field_on(panel)
 
 func highlight_no_fields():
 	for panel in highlight_fields.values():
-		panel.set_material(null)
+		highlight_field_off(panel)
 
 func highlight_fields_with_cards():
 	for field in highlight_fields.keys():
 		if field_has_card(field):
-			highlight_fields[field].set_material(shader)
+			highlight_field_on(highlight_fields[field])
 		else:
-			highlight_fields[field].set_material(null)
+			highlight_field_off(highlight_fields[field])
 
 func highlight_empty_fields():
 	for field in highlight_fields.keys():
 		if field_has_card(field):
-			highlight_fields[field].set_material(null)
+			highlight_field_off(highlight_fields[field])
 		else:
-			highlight_fields[field].set_material(shader)
+			highlight_field_on(highlight_fields[field])
 
 func field_has_card(field):
 	for child in field.get_children():
@@ -43,7 +53,7 @@ func field_has_card(field):
 	return false
 
 func highlight_reflect_field_on():
-	$"../../ReflectionCardField".get_node("Highlighting").set_material(shader)
+	highlight_field_on($"../../ReflectionCardField".get_node("Highlighting"))
 
 func highlight_reflect_field_off():
-	$"../../ReflectionCardField".get_node("Highlighting").set_material(null)
+	highlight_field_off($"../../ReflectionCardField".get_node("Highlighting"))

@@ -24,7 +24,7 @@ func update_free_fields():
 			free_fields.append(field)
 
 func richard_play_card(field_position, color, text):
-	table_game.create_field_card(field_position, color, table_game.card_icons[color], text, "Text")
+	table_game.create_field_card(field_position, color, table_game.card_icons[color], text, "Text", false)
 
 # Current "Strategy": Random color on a random free field
 func calculate_next_move():
