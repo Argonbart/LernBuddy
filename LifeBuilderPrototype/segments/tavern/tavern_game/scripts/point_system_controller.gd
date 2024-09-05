@@ -1,6 +1,7 @@
 extends Control
 
 @onready var table_game = $".."
+@onready var richard = $"../../Richard"
 
 var gamefield = []
 var gamefield_colors = []
@@ -21,6 +22,7 @@ var doublepoints_field_position : int = -1
 func _ready():
 	initiate_variables()
 	update_gamefield()
+	richard.connect("game_finished", func(): end_game())
 
 func initiate_variables():
 	gamefield_colors.resize(16)
@@ -81,7 +83,8 @@ func calculate_points(card_position, card_player):
 		table_game.richard_points = table_game.richard_points + own_total_points
 		table_game.player_points = table_game.player_points + enemy_total_points
 	
-	print("Turn of ", card_player, " ---> Own points: ", own_total_points, " - Enemy points: ", enemy_total_points)
+	get_node("PlayerPoints").text = str(table_game.player_points)
+	get_node("RichardPoints").text = str(table_game.richard_points)
 
 func check_row():
 	var row_positions = []
@@ -198,3 +201,16 @@ func get_neighbors():
 				var current_position = current_row * 4 + current_column
 				neighbors.append({"position": current_position, "field": gamefield[current_position]})
 	return neighbors
+
+func end_game():
+	table_game.get_node("ScoreBoard").visible = true
+	table_game.get_node("ScoreBoard").get_node("PlayerPointsLabel").text = str(table_game.player_points)
+	table_game.get_node("ScoreBoard").get_node("RichardPointsLabel").text = str(table_game.richard_points)
+	var text = ""
+	if table_game.player_points > table_game.richard_points:
+		text = "Player won!"
+	elif table_game.player_points < table_game.richard_points:
+		text = "Richard won!"
+	else:
+		text = "Draw!"
+	table_game.get_node("ScoreBoard").get_node("WonLabel").text = text

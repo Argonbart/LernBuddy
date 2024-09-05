@@ -24,7 +24,6 @@ var double_field : ReferenceRect = null
 
 # lock
 var locking_field : ReferenceRect = null
-var no_card_field_border_color = Color("#afafaf")
 
 var played_by : String = ""
 
@@ -70,9 +69,9 @@ func delete(field):
 
 func initiate_draw_widget():
 	for color in ["red", "yellow", "green", "blue"]:
-		var option_card = table_game.create_small_card(color, "Icon", table_game.card_icons[color], "")
+		var option_card = create_joker_card(color)
 		var option_button = Button.new()
-		option_button.custom_minimum_size = Vector2(35, 35)
+		option_button.custom_minimum_size = Vector2(100, 100)
 		option_button.flat = true
 		option_button.connect("pressed", func(): _color_selected(color))
 		option_card.add_child(option_button)
@@ -93,6 +92,10 @@ func start_switch():
 
 func cancel_switch():
 	table_game.highlighting_controller.highlight_no_fields()
+	if first_field_to_swap:
+		table_game.highlighting_controller.highlight_switch_one_off(first_field_to_swap)
+	if second_field_to_swap:
+		table_game.highlighting_controller.highlight_switch_one_off(second_field_to_swap)
 	switch_selection_first_card_on = false
 	switch_selection_second_card_on = false
 	table_game.switch_ongoing = false
@@ -109,14 +112,18 @@ func switch_field(field):
 
 func switch_first_field(field):
 	first_field_to_swap = field
-	if !table_game.find_field_card(first_field_to_swap):
+	if !table_game.find_field_card(first_field_to_swap) or field == locking_field:
 		return
 	table_game.highlighting_controller.highlight_all_fields()				#### EXPECT LOCKED CARDS, those should not light up - TODO
+	table_game.highlighting_controller.highlight_switch_one_on(field)
 	switch_selection_first_card_on = false
 	switch_selection_second_card_on = true
 
 func switch_second_field(field):
 	second_field_to_swap = field
+	if table_game.find_field_card(second_field_to_swap) and field == locking_field:
+		return
+	table_game.highlighting_controller.highlight_switch_one_on(field)
 	active_bonus_card = "switch"
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true
@@ -297,3 +304,27 @@ func bonus_card_played_successfully(type):
 
 func currently_playing(player):
 	played_by = player
+
+func create_joker_card(color):
+	
+	# Card Panel
+	var new_small_card = Panel.new()
+	new_small_card.custom_minimum_size = Vector2(100, 100)
+	new_small_card.add_theme_stylebox_override("panel", table_game.style_boxes[color])
+	new_small_card.size_flags_horizontal = Control.SIZE_SHRINK_CENTER | Control.SIZE_EXPAND
+	
+	# Card Icon
+	var new_icon = TextureRect.new()
+	new_icon.texture = load(table_game.card_icons[color])
+	new_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	new_icon.set_anchor(SIDE_TOP, 0.0)
+	new_icon.set_anchor(SIDE_BOTTOM, 1.0)
+	new_icon.set_anchor(SIDE_LEFT, 0.0)
+	new_icon.set_anchor(SIDE_RIGHT, 1.0)
+	new_icon.offset_top = 5.0
+	new_icon.offset_bottom = -5.0
+	new_icon.offset_left = 5.0
+	new_icon.offset_right = -5.0
+	new_small_card.add_child(new_icon)
+
+	return new_small_card

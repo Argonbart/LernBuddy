@@ -1,8 +1,9 @@
-TextureRect
 Panel
+HBoxContainer
+Label
+TextureRect
 Control
 Node
-Label
 Button
 TextEdit
 Container

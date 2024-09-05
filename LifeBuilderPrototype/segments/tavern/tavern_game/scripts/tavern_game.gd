@@ -119,6 +119,7 @@ func initiate_gameboard():
 		initiate_player_cards()
 		initiate_player_deck()
 		bonus_card_controller.initiate_draw_widget()
+		get_node("PointSystemController").visible = true
 
 # Prepare style boxes for cards
 func initiate_style_boxes():
@@ -229,7 +230,7 @@ func initiate_player_cards():
 
 # Prepare player bonus card deck
 func initiate_player_deck():
-	player_bonus_card_effects = generate_random_effects()
+	player_bonus_card_effects = ["doublepoints", "switch", "joker"]#generate_random_effects()
 	for i in range(3):
 		var next_card = create_small_card("grey", "Icon", bonus_card_icons[player_bonus_card_effects[i]], bonus_card_effects[player_bonus_card_effects[i]])
 		next_card.position = Vector2(0 + 2*i, 0 - 2*i)
@@ -369,12 +370,15 @@ func play_card():
 			# remove locked field
 			selected_field.get_node("Locked").queue_free()
 			bonus_card_controller.confirmed_locked_field_position = -1
+			bonus_card_controller.locking_field = null
 	
 	# Play card on the field
 	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text", true)
 	
 	# Remove hand and edit cards
 	var active_hand_card = edit_to_hand_cards[active_card]
+	var score_board_card = active_hand_card.duplicate()
+	var score_board_card_preview = create_big_card(color_name, "Preview", active_card.get_child(0).text)
 	edit_to_hand_cards.erase(active_card)
 	active_hand_card.queue_free()
 	active_card.queue_free()
@@ -382,13 +386,29 @@ func play_card():
 	# Calculate points
 	point_system_controller.calculate_points(gameboard_fields.find(selected_field), "Player")
 	
+	# Add Score Screen card
+	score_board_card.custom_minimum_size = Vector2(50, 50)
+	get_node("ScoreBoard").get_node("ScoreBoardCardsPreview").add_child(score_board_card_preview)
+	score_board_card_preview.visible = false
+	var option_button = Button.new()
+	option_button.custom_minimum_size = Vector2(50, 50)
+	option_button.flat = true
+	option_button.connect("mouse_entered", func(): _hovering_over_scoreboard_card(score_board_card_preview))
+	option_button.connect("mouse_exited", func(): _stop_hovering_over_scoreboard_card(score_board_card_preview))
+	score_board_card.add_child(option_button)
+	get_node("ScoreBoard").get_node("CardsPlayedByPlayer").add_child(score_board_card)
+	
 	# Reset active card and playbutton
 	active_card = null
 	highlighting_controller.highlight_no_fields()
 	player_played_bonud_card = false
 	player_played_card.emit()
-	
-	print("Player Points: ", player_points, " - Richard Points: ", richard_points)
+
+func _hovering_over_scoreboard_card(preview_card):
+	preview_card.visible = true
+
+func _stop_hovering_over_scoreboard_card(preview_card):
+	preview_card.visible = false
 
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
 

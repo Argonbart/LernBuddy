@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal game_finished()
+
 @onready var table_game = $"../TableGame"
 
 var free_fields = []
@@ -14,7 +16,9 @@ func _process(_delta):
 
 func _player_played_card():
 	update_free_fields()
-	#await get_tree().create_timer(1.0).timeout
+	table_game.get_node("RichardsTurnPanel").visible = true
+	await get_tree().create_timer(1.0).timeout
+	table_game.get_node("RichardsTurnPanel").visible = false
 	var next_move = calculate_next_move()
 	richard_play_card(next_move["field"], next_move["color"], next_move["text"])
 
@@ -48,6 +52,9 @@ func richard_play_card(field_position, color, text):
 	
 	# Calculate points
 	table_game.point_system_controller.calculate_points(field_position, "Richard")
+	
+	if len(richard_hand_cards) == 0:
+		game_finished.emit()
 
 # Current "Strategy": Random color on a random free field
 func calculate_next_move():

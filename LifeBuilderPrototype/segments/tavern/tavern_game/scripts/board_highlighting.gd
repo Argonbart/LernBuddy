@@ -57,3 +57,17 @@ func highlight_reflect_field_on():
 
 func highlight_reflect_field_off():
 	highlight_field_off($"../../ReflectionCardField".get_node("Highlighting"))
+
+func highlight_switch_one_on(field):
+	var panel = field.get_node("Highlighting")
+	var new_stylebox = panel.get_theme_stylebox("panel").duplicate()
+	new_stylebox.bg_color = Color("#ffffff")
+	panel.add_theme_stylebox_override("panel", new_stylebox)
+	panel.set_material(shader)
+	panel.visible = true
+
+func highlight_switch_one_off(field):
+	var panel = field.get_node("Highlighting")
+	panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres"))
+	panel.set_material(null)
+	panel.visible = false
