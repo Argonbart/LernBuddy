@@ -356,7 +356,8 @@ func lines_of(played_by_letter, line_length):
 	return_lines_of.append_array(rows_of(played_by_letter, line_length))
 	return_lines_of.append_array(columns_of(played_by_letter, line_length))
 	return_lines_of.append_array(diagonals_of(played_by_letter, line_length))
-	for line in return_lines_of:
+	var return_lines_of_iterate = return_lines_of.duplicate()
+	for line in return_lines_of_iterate:
 		for pos in line:
 			if fields_played_by[pos] != played_by_letter and fields_played_by[pos] != "E":
 				return_lines_of.erase(line)
@@ -410,12 +411,13 @@ func potential_three_lines_for_powermove(array_with_amount_of_player_cards_allow
 	return_lines.append_array(rows_of("R", 2))
 	return_lines.append_array(columns_of("R", 2))
 	return_lines.append_array(diagonals_of("R", 2))
-	for line in return_lines:
+	var return_lines_iterate = return_lines.duplicate()
+	for line in return_lines_iterate:
 		var count_player_cards = 0
 		for pos in line:
 			if fields_played_by[pos] == "P":
 				count_player_cards = count_player_cards + 1
-		if count_player_cards not in array_with_amount_of_player_cards_allowed:
+		if !array_with_amount_of_player_cards_allowed.has(count_player_cards):
 			return_lines.erase(line)
 	return return_lines
 
