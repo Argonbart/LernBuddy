@@ -8,7 +8,9 @@ extends Node
 var bonus_card_playable : bool = false
 var active_bonus_card : String = ""
 var confirmed_locked_field_position : int = -1
+var richard_confirmed_locked_field_position : int = -1
 var locked_by : String = ""
+var locked_by2 : String = ""
 
 # joker
 var delete_field : ReferenceRect = null
@@ -24,6 +26,7 @@ var double_field : ReferenceRect = null
 
 # lock
 var locking_field : ReferenceRect = null
+var locking_field2 : ReferenceRect = null
 
 var played_by : String = ""
 
@@ -36,6 +39,8 @@ func start_joker():
 func cancel_joker():
 	table_game.highlighting_controller.highlight_no_fields()
 	table_game.joker_ongoing = false
+	if delete_field:
+		table_game.highlighting_controller.highlight_bonus_card_off(delete_field)
 
 func joker_field(field):
 	if !table_game.find_field_card(field):
@@ -43,15 +48,18 @@ func joker_field(field):
 		active_bonus_card = ""
 		bonus_card_playable = false
 		table_game.play_card_button.visible = false
+		table_game.highlighting_controller.highlight_bonus_card_off(field)
 	else:
 		delete_field = field
 		active_bonus_card = "joker"
 		bonus_card_playable = true
 		table_game.play_card_button.visible = true
+		table_game.highlighting_controller.highlight_bonus_card_on(field)
 
 func execute_joker():
 	delete(delete_field)
 	draw_widget.visible = true
+	table_game.highlighting_controller.highlight_bonus_card_off(delete_field)
 
 func delete(field):
 	var field_card = field.find_child("Card")
@@ -59,10 +67,10 @@ func delete(field):
 	field_card.get_theme_stylebox("panel").border_color = Color("#CCCCCC")
 	var field_label = field_card.find_child("Text")
 	field_label.text = ""
+	field_label.visible = true
 	var field_icon = field_card.find_child("Icon")
 	field_icon.set_texture(null)
 	field_icon.visible = true
-	field_label.visible = true
 	field_card.remove_from_group("FieldCard")
 	table_game.field_to_preview_cards[field_card].queue_free()
 	table_game.field_to_preview_cards.erase(field_card)
@@ -93,9 +101,9 @@ func start_switch():
 func cancel_switch():
 	table_game.highlighting_controller.highlight_no_fields()
 	if first_field_to_swap:
-		table_game.highlighting_controller.highlight_switch_one_off(first_field_to_swap)
+		table_game.highlighting_controller.highlight_bonus_card_off(first_field_to_swap)
 	if second_field_to_swap:
-		table_game.highlighting_controller.highlight_switch_one_off(second_field_to_swap)
+		table_game.highlighting_controller.highlight_bonus_card_off(second_field_to_swap)
 	switch_selection_first_card_on = false
 	switch_selection_second_card_on = false
 	table_game.switch_ongoing = false
@@ -112,18 +120,18 @@ func switch_field(field):
 
 func switch_first_field(field):
 	first_field_to_swap = field
-	if !table_game.find_field_card(first_field_to_swap) or field == locking_field:
+	if !table_game.find_field_card(first_field_to_swap) or field == locking_field or field == locking_field2:
 		return
 	table_game.highlighting_controller.highlight_all_fields()				#### EXPECT LOCKED CARDS, those should not light up - TODO
-	table_game.highlighting_controller.highlight_switch_one_on(field)
+	table_game.highlighting_controller.highlight_bonus_card_on(field)
 	switch_selection_first_card_on = false
 	switch_selection_second_card_on = true
 
 func switch_second_field(field):
 	second_field_to_swap = field
-	if table_game.find_field_card(second_field_to_swap) and field == locking_field:
+	if (table_game.find_field_card(second_field_to_swap) and field == locking_field) or (table_game.find_field_card(second_field_to_swap) and field == locking_field2):
 		return
-	table_game.highlighting_controller.highlight_switch_one_on(field)
+	table_game.highlighting_controller.highlight_bonus_card_on(field)
 	active_bonus_card = "switch"
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true
@@ -134,6 +142,8 @@ func execute_switch():
 	bonus_card_played_successfully("switch")
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(first_field_to_swap), played_by)
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(second_field_to_swap), played_by)
+	table_game.highlighting_controller.highlight_bonus_card_off(first_field_to_swap)
+	table_game.highlighting_controller.highlight_bonus_card_off(second_field_to_swap)
 
 # Swaps cards inside the fields manually
 func switch_fields(field1, field2):
@@ -172,17 +182,21 @@ func start_doublepoints():
 func cancel_doublepoints():
 	table_game.highlighting_controller.highlight_no_fields()
 	table_game.doublepoints_ongoing = false
+	if double_field:
+		table_game.highlighting_controller.highlight_bonus_card_off(double_field)
 
 func doublepoints_field(field):
 	double_field = field
 	active_bonus_card = "doublepoints"
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true
+	table_game.highlighting_controller.highlight_bonus_card_on(field)
 
 func execute_doublepoints():
 	create_doublepoints_field(double_field)
 	bonus_card_played_successfully("doublepoints")
 	table_game.point_system_controller.doublepoints_field_position = table_game.gameboard_fields.find(double_field)
+	table_game.highlighting_controller.highlight_bonus_card_off(double_field)
 
 func create_doublepoints_field(field):
 	var doublepoints_node = Control.new()
@@ -226,22 +240,29 @@ func start_lock():
 func cancel_lock():
 	table_game.highlighting_controller.highlight_no_fields()
 	table_game.lock_ongoing = false
+	if locking_field:
+		table_game.highlighting_controller.highlight_bonus_card_off(locking_field)
 
 func lock_field(field):
 	locking_field = field
 	active_bonus_card = "lock"
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true
+	table_game.highlighting_controller.highlight_bonus_card_on(field)
 
 func execute_lock():
 	create_locked_field(locking_field)
-	if table_game.find_field_card(locking_field):
-		# lock card
-		pass
-	else:
+	if !table_game.find_field_card(locking_field):
 		confirmed_locked_field_position = table_game.gameboard_fields.find(locking_field)
 		locked_by = played_by
 	bonus_card_played_successfully("lock")
+	table_game.highlighting_controller.highlight_bonus_card_off(locking_field)
+
+func richard_execute_lock():
+	create_locked_field(locking_field2)
+	if !table_game.find_field_card(locking_field2):
+		richard_confirmed_locked_field_position = table_game.gameboard_fields.find(locking_field2)
+		locked_by2 = "Richard"
 
 func create_locked_field(field):
 	var locked_node = Control.new()
@@ -296,7 +317,7 @@ func bonus_card_played_successfully(type):
 	table_game.bonus_cards[type].queue_free()
 	table_game.bonus_cards.erase(type)
 	table_game.player_deck.get_child(len(table_game.player_deck.get_children())-2).queue_free()
-	table_game.player_played_bonud_card = true
+	table_game.player_played_bonus_card = true
 	table_game.switch_ongoing = false
 	table_game.joker_ongoing = false
 	table_game.doublepoints_ongoing = false

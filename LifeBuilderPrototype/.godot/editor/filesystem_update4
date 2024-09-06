@@ -3,11 +3,9 @@ res://ressources/shader/blinking.tres
 res://ressources/shader/blinking.material
 res://segments/tavern/tavern_game/gameboard_visual_styles/card_white.tres
 res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres
+res://segments/tavern/tavern_game/scripts/board_highlighting.gd
+res://segments/tavern/tavern_game/scripts/bonus_card_controller.gd
 res://segments/tavern/tavern_game/scenes/gameboard.tscn
 res://segments/tavern/scenes/tavern_tile_map.tscn
-res://segments/tavern/tavern_game/scripts/bonus_card_controller.gd
-res://segments/tavern/tavern_game/scripts/tavern_game.gd
-res://segments/tavern/tavern_game/scripts/board_highlighting.gd
 res://segments/tavern/tavern_game/scenes/player_cards.tscn
 res://segments/tavern/scripts/richard.gd
-res://segments/tavern/tavern_game/scripts/point_system_controller.gd

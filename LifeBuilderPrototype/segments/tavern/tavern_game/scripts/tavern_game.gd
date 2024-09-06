@@ -70,7 +70,7 @@ var switch_ongoing : bool = false
 var joker_ongoing : bool = false
 var doublepoints_ongoing : bool = false
 var lock_ongoing : bool = false
-var player_played_bonud_card : bool = false
+var player_played_bonus_card : bool = false
 
 # points
 var player_points : int = 0
@@ -230,7 +230,7 @@ func initiate_player_cards():
 
 # Prepare player bonus card deck
 func initiate_player_deck():
-	player_bonus_card_effects = ["doublepoints", "switch", "joker"]#generate_random_effects()
+	player_bonus_card_effects = generate_random_effects()
 	for i in range(3):
 		var next_card = create_small_card("grey", "Icon", bonus_card_icons[player_bonus_card_effects[i]], bonus_card_effects[player_bonus_card_effects[i]])
 		next_card.position = Vector2(0 + 2*i, 0 - 2*i)
@@ -264,7 +264,10 @@ func _draw_button_released(button):
 
 func _show_next_bonus_card():
 	
-	if player_played_bonud_card:
+	if player_played_bonus_card:
+		return
+	
+	if len(bonus_cards) < 1:
 		return
 	
 	update_edit_cards(bonus_cards.values()[len(bonus_cards)-1])
@@ -371,6 +374,9 @@ func play_card():
 			selected_field.get_node("Locked").queue_free()
 			bonus_card_controller.confirmed_locked_field_position = -1
 			bonus_card_controller.locking_field = null
+	elif field_position == bonus_card_controller.richard_confirmed_locked_field_position:
+		if bonus_card_controller.locked_by2 == "Richard":
+			return
 	
 	# Play card on the field
 	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text", true)
@@ -401,7 +407,7 @@ func play_card():
 	# Reset active card and playbutton
 	active_card = null
 	highlighting_controller.highlight_no_fields()
-	player_played_bonud_card = false
+	player_played_bonus_card = false
 	player_played_card.emit()
 
 func _hovering_over_scoreboard_card(preview_card):
