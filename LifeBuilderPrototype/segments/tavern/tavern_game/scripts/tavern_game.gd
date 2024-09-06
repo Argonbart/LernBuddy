@@ -183,7 +183,7 @@ func _field_selected(button):
 	selected_field = field
 
 func _field_deselected():
-	field_is_selected = false
+	pass#field_is_selected = false
 
 func _hovering_over_button(button):
 	var field_card = find_field_card(button.get_parent())
@@ -419,6 +419,8 @@ func _stop_hovering_over_scoreboard_card(preview_card):
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
 
 func play_reflect_card():
+	if len(active_card.get_child(0).text) == 0:
+		return
 	var reflection_field = $ReflectionCardField
 	var reflection_card = reflection_field.get_node("Card")
 	var reflection_button = reflection_field.get_node("Button")

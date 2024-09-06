@@ -43,6 +43,7 @@ func cancel_joker():
 		table_game.highlighting_controller.highlight_bonus_card_off(delete_field)
 
 func joker_field(field):
+	table_game.highlighting_controller.highlight_no_bonus_cards()
 	if !table_game.find_field_card(field):
 		delete_field = null
 		active_bonus_card = ""
@@ -119,6 +120,7 @@ func switch_field(field):
 		return
 
 func switch_first_field(field):
+	table_game.highlighting_controller.highlight_no_bonus_cards()
 	first_field_to_swap = field
 	if !table_game.find_field_card(first_field_to_swap) or field == locking_field or field == locking_field2:
 		return
@@ -128,6 +130,7 @@ func switch_first_field(field):
 	switch_selection_second_card_on = true
 
 func switch_second_field(field):
+	table_game.highlighting_controller.highlight_no_bonus_cards()
 	second_field_to_swap = field
 	if (table_game.find_field_card(second_field_to_swap) and field == locking_field) or (table_game.find_field_card(second_field_to_swap) and field == locking_field2):
 		return
@@ -186,6 +189,7 @@ func cancel_doublepoints():
 		table_game.highlighting_controller.highlight_bonus_card_off(double_field)
 
 func doublepoints_field(field):
+	table_game.highlighting_controller.highlight_no_bonus_cards()
 	double_field = field
 	active_bonus_card = "doublepoints"
 	bonus_card_playable = true
@@ -244,6 +248,7 @@ func cancel_lock():
 		table_game.highlighting_controller.highlight_bonus_card_off(locking_field)
 
 func lock_field(field):
+	table_game.highlighting_controller.highlight_no_bonus_cards()
 	locking_field = field
 	active_bonus_card = "lock"
 	bonus_card_playable = true

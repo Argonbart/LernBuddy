@@ -58,6 +58,10 @@ func highlight_reflect_field_on():
 func highlight_reflect_field_off():
 	highlight_field_off($"../../ReflectionCardField".get_node("Highlighting"))
 
+func highlight_no_bonus_cards():
+	for element in get_parent().get_node("MarginContainer/PanelContainer/Fields").get_children():
+		highlight_bonus_card_off(element)
+
 func highlight_bonus_card_on(field):
 	var panel = field.get_node("Highlighting")
 	var new_stylebox = panel.get_theme_stylebox("panel").duplicate()
