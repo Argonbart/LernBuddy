@@ -21,6 +21,8 @@ var mayor_dialogue_active = false
 func _ready():
 	zoom_target = zoom
 	player = get_tree().get_root().get_node("Player")
+	player.village_camera = self
+	player.village_camera.connect("deactivate_player", func(): player._on_camera_deactivate_player())
 
 func _process(delta):
 	if Input.is_action_just_released("camera"):

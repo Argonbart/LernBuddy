@@ -5,6 +5,7 @@ signal game_finished()
 @onready var table_game = $"../TableGame"
 @onready var bonus_card_label = $"../TableGame/RichardsTurnPanel/RichardsBonusCardLabel"
 
+# arrays
 var free_fields = []
 var fields_played_by = []
 var fields_color = []
@@ -12,14 +13,14 @@ var fields_color = []
 var richard_hand_cards = ["red", "red", "yellow", "yellow", "green", "green", "blue", "blue"]
 var richard_bonus_cards = []
 
-#bonuscards
+# bonus cards
 var bonus_card_used = false
 var joker_counter = 0
 var switch_counter = 0
 var switch_field_position_needed_for_powermove = -1
 var play_doublepoint_field = false
-#var locked_field_pos = -1
 
+# safed plays
 var position_first_pick = -1
 var color_first_pick = null
 var position_second_pick = -1
@@ -61,7 +62,7 @@ func update_fields():
 	fields_played_by.clear()
 	fields_color.clear()
 	for field in table_game.gameboard_fields:
-		if table_game.find_field_card(field):
+		if field.get_node("Card").get_groups().has("FieldCard"):
 			var border_color_of_card = field.get_node("Card").get_theme_stylebox("panel").border_color
 			var color_of_card = table_game.colors[field.get_node("Card").get_theme_stylebox("panel").bg_color]
 			if border_color_of_card == table_game.player_color:
@@ -91,15 +92,18 @@ func richard_play_card(field_position, color, text):
 # Current "Strategy": More Complex
 func calculate_next_move():
 	
+	# reset var for calculation
 	var return_field = -1
 	var return_color = null
 	var return_text = "Richard plays card"
 	
+	# reset output var
 	position_first_pick = -1
 	color_first_pick = null
 	position_second_pick = -1
 	color_second_pick = null
 	
+	# prepare all relevant lines
 	var player_three_lines = lines_of("P", 3)
 	var player_two_lines = lines_of("P", 2)
 	var player_one_lines = lines_of("P", 1)
@@ -112,11 +116,9 @@ func calculate_next_move():
 	var joker_lines = potential_three_lines_for_powermove([1])
 	var switch_line = potential_option_for_switch_powermove()
 	
-	########################
-	
+	# check for richard bonus card plays
 	if len(richard_bonus_cards) > 0:
 		var next_bonus_card = richard_bonus_cards[len(richard_bonus_cards)-1]
-		
 		if next_bonus_card == "joker":
 			if len(joker_lines) > 0 and joker_counter >= 0:
 				delete_element_of_line(joker_lines[randi_range(0, len(joker_lines)-1)])
@@ -164,45 +166,20 @@ func calculate_next_move():
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 	
-	########################
-	update_fields()
-	player_three_lines = lines_of("P", 3)
-	player_two_lines = lines_of("P", 2)
-	player_one_lines = lines_of("P", 1)
-	middle_empty_fields = middle_free_fields()
-	richard_three_lines = lines_of("R", 3)
-	richard_two_lines = lines_of("R", 2)
-	richard_one_lines = lines_of("R", 1)
-	potential_neighbor_plays = neighbors_with_points()
-	########################
-	
+	# prio without bonus cards
 	select_play_pos_randomly() # else random
-	
 	if len(richard_one_lines) > 0: # check for possible line to build
 		select_play_pos_for_line(richard_one_lines[randi_range(0, len(richard_one_lines)-1)])
-	
 	if len(potential_neighbor_plays) > 0: # check for neighbors
 		select_play_pos_for_neighbors(potential_neighbor_plays)
-	
 	if len(richard_two_lines) > 0: # check for Lo2
 		select_play_pos_for_line(richard_two_lines[randi_range(0, len(richard_two_lines)-1)])
-	
 	if len(richard_three_lines) > 0: # check for Lo3
 		select_play_pos_for_line(richard_three_lines[randi_range(0, len(richard_three_lines)-1)])
-	
 	if len(middle_empty_fields) > 0: # check for middle
 		select_play_pos_for_middle_fields(middle_empty_fields)
-	
 	if len(player_three_lines) > 0: # check for potential block (enemy Lo3)
 		select_play_pos_for_line(player_three_lines[randi_range(0, len(player_three_lines)-1)])
-	
-	########################
-	richard_hand_cards.erase(color_first_pick)
-	########################
-	
-	if play_doublepoint_field:
-		play_doublepoint(position_first_pick)
-		play_doublepoint_field = false
 	
 	# Check for lock
 	if position_first_pick == table_game.bonus_card_controller.confirmed_locked_field_position:
@@ -219,12 +196,28 @@ func calculate_next_move():
 			table_game.bonus_card_controller.richard_confirmed_locked_field_position = -1
 			table_game.bonus_card_controller.locking_field2 = null
 	
+	# play doublepoint field if available
+	if play_doublepoint_field:
+		play_doublepoint(position_first_pick)
+		play_doublepoint_field = false
+	
+	# update return values and richards hand
 	if position_first_pick != -1:
 		return_field = position_first_pick
 	if color_first_pick != null:
 		return_color = color_first_pick
+	richard_hand_cards.erase(color_first_pick)
 	
 	return {"field": return_field, "color": return_color, "text": return_text}
+
+####################################### API ZEUG ##################
+
+#func _api_response(message, npc):
+	#if npc == "Richard":
+		# # Generate response
+		#pass
+
+####################################### SELECT POSITION AND LINES FOR POTENTIAL PLAY #############################################
 
 func select_play_pos_randomly():
 	var colors = ["yellow", "red", "green", "blue"]
@@ -341,13 +334,6 @@ func select_play_pos_for_middle_fields(middle_empty_fields):
 	else:
 		play_color = richard_hand_cards[randi_range(0, len(richard_hand_cards)-1)]
 	safe_move(new_pos, play_color)
-
-#####
-
-#func _api_response(message, npc):
-	#if npc == "Richard":
-		# # Generate response
-		#pass
 
 ############################################ LINES OF #########################################################
 
@@ -489,3 +475,5 @@ func lock_line(line_to_lock):
 			var column = pos % 4 + 1
 			bonus_card_label.text = str("Richard used Lock\non (", row, ", ", column, ")")
 			return
+
+#################################################################################################################################

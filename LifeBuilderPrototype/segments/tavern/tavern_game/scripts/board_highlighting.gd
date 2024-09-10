@@ -14,23 +14,23 @@ func initiate_highlight_fields():
 			if child.get_groups().has("HighlightPanel"):
 				highlight_fields[field] = child
 
-func highlight_field_on(panel):
-	panel.set_material(shader)
-	panel.get_theme_stylebox("panel").border_color.a = 255
-	panel.visible = true
+func highlight_field_on(field):
+	field.set_material(shader)
+	field.get_theme_stylebox("panel").border_color.a = 255
+	field.visible = true
 
-func highlight_field_off(panel):
-	panel.set_material(null)
-	panel.get_theme_stylebox("panel").border_color.a = 0
-	panel.visible = false
+func highlight_field_off(field):
+	field.set_material(null)
+	field.get_theme_stylebox("panel").border_color.a = 0
+	field.visible = false
 
 func highlight_all_fields():
-	for panel in highlight_fields.values():
-		highlight_field_on(panel)
+	for field in highlight_fields.values():
+		highlight_field_on(field)
 
 func highlight_no_fields():
-	for panel in highlight_fields.values():
-		highlight_field_off(panel)
+	for field in highlight_fields.values():
+		highlight_field_off(field)
 
 func highlight_fields_with_cards():
 	for field in highlight_fields.keys():
@@ -58,10 +58,6 @@ func highlight_reflect_field_on():
 func highlight_reflect_field_off():
 	highlight_field_off($"../../ReflectionCardField".get_node("Highlighting"))
 
-func highlight_no_bonus_cards():
-	for element in get_parent().get_node("MarginContainer/PanelContainer/Fields").get_children():
-		highlight_bonus_card_off(element)
-
 func highlight_bonus_card_on(field):
 	var panel = field.get_node("Highlighting")
 	var new_stylebox = panel.get_theme_stylebox("panel").duplicate()
@@ -75,3 +71,16 @@ func highlight_bonus_card_off(field):
 	panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres"))
 	panel.set_material(null)
 	panel.visible = false
+
+func highlight_selected_field_on(field):
+	var panel = field.get_node("Highlighting")
+	var new_stylebox = panel.get_theme_stylebox("panel").duplicate()
+	new_stylebox.bg_color = Color("#ffffff")
+	panel.add_theme_stylebox_override("panel", new_stylebox)
+	panel.set_material(shader)
+	panel.visible = true
+
+func highlight_selected_field_off(field):
+	var panel = field.get_node("Highlighting")
+	panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres"))
+	highlight_field_on(field)

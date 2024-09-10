@@ -4,6 +4,7 @@ extends Node
 
 signal player_played_card()
 
+# Nodes
 @onready var highlighting_controller = $GameBoard/HighlightController	# Handles all highlighting
 @onready var point_system_controller = $PointSystemController			# Handles all point calculation
 @onready var bonus_card_controller = $BonusCardController				# Handles all bonus cards
@@ -18,7 +19,7 @@ signal player_played_card()
 # Static card data
 var style_boxes
 
-# All card colors
+# Colors used
 var colors = {Color("#ea4d53"): "red",
 			  Color("#ebbc6d"): "yellow",
 			  Color("#328948"): "green",
@@ -55,13 +56,12 @@ var bonus_card_icons = {"joker": "res://ressources/icons/joker.svg",
 
 # information for game
 var gameboard_fields : Array
-var field_is_selected : bool = false
-var selected_field : ReferenceRect = null
-var active_card : Panel = null
-var player_bonus_card_effects : Array
+var last_selected_field : ReferenceRect = null
+var currently_shown_edit_card : Panel = null
 var edit_to_hand_cards : Dictionary = {}
 var field_to_preview_cards : Dictionary = {}
 var bonus_cards : Dictionary = {}
+var player_bonus_card_effects : Array
 var reflection_card_filled : bool = false
 var reflect_field_is_selected : bool = false
 
@@ -79,20 +79,6 @@ var richard_points : int = 0
 ############################################ PROCESS #########################################################
 
 func _process(_delta):
-	
-	if !reflection_card_filled and reflect_field_is_selected:
-		if active_card != null:
-			play_card_button.visible = true
-		else:
-			play_card_button.visible = false
-	
-	# Update visibility of play button
-	if reflection_card_filled and !switch_ongoing and !joker_ongoing and !doublepoints_ongoing and !lock_ongoing:
-		if field_is_selected and active_card != null:
-			play_card_button.visible = true
-		else:
-			play_card_button.visible = false
-	
 	# Update text for hand cards according to edit
 	for edit_card in edit_to_hand_cards.keys():
 		var edit_card_text = edit_card.get_child(0).text
@@ -134,11 +120,9 @@ func initiate_style_boxes():
 		new_style_box.border_color = Color("#000000")
 		style_boxes[colors[color]] = new_style_box
 
-############################################ FIELD #########################################################
-
 # Prepare fields with buttons
 func initiate_field_buttons():
-	update_fields()
+	gameboard_fields = self.find_child("GameBoard").find_child("MarginContainer").find_child("PanelContainer").find_child("Fields").get_children()
 	for field in gameboard_fields:
 		field.find_child("Card").size_flags_horizontal = Control.SIZE_SHRINK_CENTER | Control.SIZE_EXPAND
 		var field_button = field.find_child("Button")
@@ -147,80 +131,15 @@ func initiate_field_buttons():
 		field_button.connect("mouse_entered", func(): _hovering_over_button(field_button))
 		field_button.connect("mouse_exited", func(): _stop_hovering_over_button(field_button))
 	play_card_button.connect("button_down", func(): _play_card_button_pressed())
-	play_reflect_card_button.connect("button_down", func(): _play_reflect_card(play_reflect_card_button))
-
-func update_fields():
-	gameboard_fields = self.find_child("GameBoard").find_child("MarginContainer").find_child("PanelContainer").find_child("Fields").get_children()
-	field_is_selected = false
-	selected_field = null
-	active_card = null
-
-func _field_selected(button):
-	
-	if !reflection_card_filled:
-		reflect_field_is_selected = false
-		play_card_button.visible = false
-	
-	var field = button.get_parent()
-	
-	if switch_ongoing:
-		bonus_card_controller.switch_field(field)
-		return
-	
-	if joker_ongoing:
-		bonus_card_controller.joker_field(field)
-		return
-	
-	if doublepoints_ongoing:
-		bonus_card_controller.doublepoints_field(field)
-		return
-	
-	if lock_ongoing:
-		bonus_card_controller.lock_field(field)
-		return
-	
-	field_is_selected = true
-	selected_field = field
-
-func _field_deselected():
-	pass#field_is_selected = false
-
-func _hovering_over_button(button):
-	var field_card = find_field_card(button.get_parent())
-	if field_card:
-		field_to_preview_cards[field_card].visible = true
-
-func _stop_hovering_over_button(button):
-	var field_card = find_field_card(button.get_parent())
-	if field_card:
-		field_to_preview_cards[field_card].visible = false
-
-func find_field_card(field):
-	var card = field.get_node("Card")
-	if card.get_groups().has("FieldCard"):
-		return card
-	return null
-
-func find_field_button(field):
-	var button = field.find_child("Button")
-	if button.get_groups().has("FieldButton"):
-		return button
-	return null
+	play_reflect_card_button.connect("button_down", func(): _field_selected(play_reflect_card_button))
 
 # Prepare reflection card
 func initiate_reflection_card():
 	var reflection_card_edit = create_edit_card(colors[colors.keys()[5]])
 	reflection_card_edit.visible = true
-	active_card = reflection_card_edit
+	currently_shown_edit_card = reflection_card_edit
 	highlighting_controller.highlight_no_fields()
 	highlighting_controller.highlight_reflect_field_on()
-
-func _play_reflect_card(button):
-	var field = button.get_parent()
-	reflect_field_is_selected = true
-	selected_field = field
-
-############################################ PLAYER #########################################################
 
 # Prepare player hand cards
 func initiate_player_cards():
@@ -247,6 +166,64 @@ func initiate_player_deck():
 	draw_card_button.connect("button_down", func(): _draw_button_pressed(draw_card_button))
 	draw_card_button.connect("button_up", func(): _draw_button_released(draw_card_button))
 
+############################################ BUTTONS #########################################################
+
+# Clicked on field button
+func _field_selected(button):
+	
+	# Before reflection card was played
+	if !reflection_card_filled:
+		if button == play_reflect_card_button:
+			reflect_field_is_selected = true
+			play_card_button.visible = true
+		else:
+			reflect_field_is_selected = false
+			play_card_button.visible = false
+		return
+	
+	# Update bonus card field if bonus card ongoing
+	var field = button.get_parent()
+	if switch_ongoing:
+		bonus_card_controller.switch_field(field)
+		return
+	if joker_ongoing:
+		bonus_card_controller.joker_field(field)
+		return
+	if doublepoints_ongoing:
+		bonus_card_controller.doublepoints_field(field)
+		return
+	if lock_ongoing:
+		bonus_card_controller.lock_field(field)
+		return
+	
+	# Set current field variables
+	if currently_shown_edit_card != null:
+		play_card_button.visible = true
+	
+	# Selected field visualisation
+	if last_selected_field:
+		highlighting_controller.highlight_selected_field_off(last_selected_field)
+	last_selected_field = field
+	highlighting_controller.highlight_selected_field_on(last_selected_field)
+
+# Clicked away from field button
+func _field_deselected():
+	pass
+
+# Start hovering over field button
+func _hovering_over_button(button):
+	var field_card = button.get_parent().get_node("Card")
+	if field_card.get_groups().has("FieldCard"):
+		field_to_preview_cards[field_card].visible = true
+
+# Stop hovering over field button
+func _stop_hovering_over_button(button):
+	var field_card = button.get_parent().get_node("Card")
+	if field_card.get_groups().has("FieldCard"):
+		field_to_preview_cards[field_card].visible = false
+
+############################################ PLAYER #########################################################
+
 func generate_random_effects():
 	var random_effects = ["switch", "doublepoints", "lock"]
 	random_effects.shuffle()
@@ -262,11 +239,14 @@ func _draw_button_released(button):
 	button.release_focus()
 	_show_next_bonus_card()
 
+# Click on deck to see next bonus card
 func _show_next_bonus_card():
 	
+	# Bonus card already played this turn
 	if player_played_bonus_card:
 		return
 	
+	# No bonus cards left
 	if len(bonus_cards) < 1:
 		return
 	
@@ -278,50 +258,55 @@ func _show_next_bonus_card():
 			bonus_card_controller.cancel_switch()
 		else:
 			bonus_card_controller.start_switch()
+			if last_selected_field:
+				highlighting_controller.highlight_selected_field_off(last_selected_field)
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "joker":
 		if joker_ongoing:
 			bonus_card_controller.cancel_joker()
 		else:
 			bonus_card_controller.start_joker()
+			if last_selected_field:
+				highlighting_controller.highlight_selected_field_off(last_selected_field)
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "doublepoints":
 		if doublepoints_ongoing:
 			bonus_card_controller.cancel_doublepoints()
 		else:
 			bonus_card_controller.start_doublepoints()
+			if last_selected_field:
+				highlighting_controller.highlight_selected_field_off(last_selected_field)
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "lock":
 		if lock_ongoing:
 			bonus_card_controller.cancel_lock()
 		else:
 			bonus_card_controller.start_lock()
+			if last_selected_field:
+				highlighting_controller.highlight_selected_field_off(last_selected_field)
 
+# Hand card clicked
 func _click_hand_card(edit_card):
-	
-	if !reflection_card_filled:
-		return
-	
 	if switch_ongoing:
 		bonus_card_controller.cancel_switch()
-	
 	if joker_ongoing:
 		bonus_card_controller.cancel_joker()
-	
 	if doublepoints_ongoing:
 		bonus_card_controller.cancel_doublepoints()
-	
 	if lock_ongoing:
 		bonus_card_controller.cancel_lock()
-	
 	update_edit_cards(edit_card)
 
+# Update showing edit card
 func update_edit_cards(edit_card):
 	for card in player_edit_cards.get_children():
 		if card == edit_card:
 			edit_card.visible = !edit_card.visible
 			if edit_card.visible:
-				active_card = edit_card
+				currently_shown_edit_card = edit_card
+				if last_selected_field != null:
+					play_card_button.visible = true
 				highlighting_controller.highlight_empty_fields()
 			else:
-				active_card = null
+				currently_shown_edit_card = null
+				play_card_button.visible = false
 				highlighting_controller.highlight_no_fields()
 		else:
 			card.visible = false
@@ -331,39 +316,32 @@ func update_edit_cards(edit_card):
 # PlayButton pressed
 func _play_card_button_pressed():
 	
-	# play reflection card if not played yet
+	# Play reflection card if not played yet
 	if !reflection_card_filled:
 		play_reflect_card()
 		return
 	
-	if play_card_on_field_allowed(selected_field):
-		if colors[active_card.get_theme_stylebox("panel").bg_color] != "grey":
-			play_card()
-	else:
-		print("This move is not allowed!")
-
-func play_card_on_field_allowed(field):
-	if colors[active_card.get_theme_stylebox("panel").bg_color] == "grey":
+	if colors[currently_shown_edit_card.get_theme_stylebox("panel").bg_color] == "grey":
 		if bonus_card_controller.confirm_bonus_card_play():
 			bonus_card_controller.currently_playing("Player")
 			bonus_card_controller.execute_bonus_card()
-			return true
+			return
+	
+	if !last_selected_field.get_node("Card").get_groups().has("FieldCard"):
+		play_card()
 	else:
-		if find_field_card(field):
-			return false
-		else:
-			return true
+		print("This move is not allowed!")
 
 # Card played
 func play_card():
 	
 	# check if card text is empty
-	if len(active_card.get_child(0).text) == 0:
+	if len(currently_shown_edit_card.get_child(0).text) == 0:
 		print("Please type something on the card!")
 		return
 	
-	var field_position = gameboard_fields.find(selected_field)
-	var color_name = colors[active_card.get_theme_stylebox("panel").bg_color]
+	var field_position = gameboard_fields.find(last_selected_field)
+	var color_name = colors[currently_shown_edit_card.get_theme_stylebox("panel").bg_color]
 	
 	# Check for lock
 	if field_position == bonus_card_controller.confirmed_locked_field_position:
@@ -371,7 +349,7 @@ func play_card():
 			return
 		else:
 			# remove locked field
-			selected_field.get_node("Locked").queue_free()
+			last_selected_field.get_node("Locked").queue_free()
 			bonus_card_controller.confirmed_locked_field_position = -1
 			bonus_card_controller.locking_field = null
 	elif field_position == bonus_card_controller.richard_confirmed_locked_field_position:
@@ -379,18 +357,18 @@ func play_card():
 			return
 	
 	# Play card on the field
-	create_field_card(field_position, color_name, card_icons[color_name], active_card.get_child(0).text, "Text", true)
+	create_field_card(field_position, color_name, card_icons[color_name], currently_shown_edit_card.get_child(0).text, "Text", true)
 	
 	# Remove hand and edit cards
-	var active_hand_card = edit_to_hand_cards[active_card]
+	var active_hand_card = edit_to_hand_cards[currently_shown_edit_card]
 	var score_board_card = active_hand_card.duplicate()
-	var score_board_card_preview = create_big_card(color_name, "Preview", active_card.get_child(0).text)
-	edit_to_hand_cards.erase(active_card)
+	var score_board_card_preview = create_big_card(color_name, "Preview", currently_shown_edit_card.get_child(0).text)
+	edit_to_hand_cards.erase(currently_shown_edit_card)
 	active_hand_card.queue_free()
-	active_card.queue_free()
+	currently_shown_edit_card.queue_free()
 	
 	# Calculate points
-	point_system_controller.calculate_points(gameboard_fields.find(selected_field), "Player")
+	point_system_controller.calculate_points(gameboard_fields.find(last_selected_field), "Player")
 	
 	# Add Score Screen card
 	score_board_card.custom_minimum_size = Vector2(50, 50)
@@ -405,7 +383,10 @@ func play_card():
 	get_node("ScoreBoard").get_node("CardsPlayedByPlayer").add_child(score_board_card)
 	
 	# Reset active card and playbutton
-	active_card = null
+	currently_shown_edit_card = null
+	play_card_button.visible = false
+	highlighting_controller.highlight_selected_field_off(last_selected_field)
+	last_selected_field = null
 	highlighting_controller.highlight_no_fields()
 	player_played_bonus_card = false
 	player_played_card.emit()
@@ -419,18 +400,22 @@ func _stop_hovering_over_scoreboard_card(preview_card):
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
 
 func play_reflect_card():
-	if len(active_card.get_child(0).text) == 0:
+	
+	if len(currently_shown_edit_card.get_child(0).text) == 0:
+		print("Please type something on the card!")
 		return
+	
 	var reflection_field = $ReflectionCardField
 	var reflection_card = reflection_field.get_node("Card")
 	var reflection_button = reflection_field.get_node("Button")
-	reflection_card.get_node("Text").text = active_card.get_child(0).text
+	reflection_card.get_node("Text").text = currently_shown_edit_card.get_child(0).text
 	reflection_card.add_theme_stylebox_override("panel", style_boxes["aquamarine"])
-	field_to_preview_cards[reflection_card] = create_preview_card(colors[colors.keys()[5]], active_card.get_child(0).text)
+	field_to_preview_cards[reflection_card] = create_preview_card(colors[colors.keys()[5]], currently_shown_edit_card.get_child(0).text)
 	reflection_button.connect("mouse_entered", func(): _hovering_over_button(reflection_button))
 	reflection_button.connect("mouse_exited", func(): _stop_hovering_over_button(reflection_button))
-	active_card.queue_free()
-	active_card = null
+	currently_shown_edit_card.queue_free()
+	currently_shown_edit_card = null
+	play_card_button.visible = false
 	highlighting_controller.highlight_reflect_field_off()
 	reflection_card_filled = true
 	initiate_gameboard()

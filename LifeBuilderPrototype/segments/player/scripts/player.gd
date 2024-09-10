@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var village_camera : Camera2D
 @onready var player_sprite = $PlayerSprite
 @onready var speed = 200
 
