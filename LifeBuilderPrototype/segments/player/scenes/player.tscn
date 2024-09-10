@@ -246,7 +246,7 @@ script = ExtResource("1_x0f1s")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_tpwj7")
-animation = &"idle"
+animation = &"respawn"
 offset = Vector2(1, -5)
 
 [node name="PlayerCollisionBox" type="CollisionShape2D" parent="."]

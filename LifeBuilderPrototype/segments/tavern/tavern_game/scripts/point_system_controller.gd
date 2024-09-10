@@ -45,8 +45,12 @@ func update_gamefield():
 			played_by_richard[i] = true
 			played_by_player[i] = false
 
+#################################### PREVIEW POINTS ################################################
+
 func preview_move(_card_position, _card_color, _card_player):
 	pass
+
+#################################### CALCULATE POINTS ################################################
 
 func calculate_points(card_position, card_player):
 	
@@ -54,6 +58,7 @@ func calculate_points(card_position, card_player):
 	if !gamefield[card_position]:
 		return
 	
+	# reset variables for calculation
 	own_total_points = 0
 	enemy_total_points = 0
 	current_played_by = null
@@ -61,6 +66,7 @@ func calculate_points(card_position, card_player):
 	row = card_position / 4
 	column = card_position % 4
 	
+	# check which player is active
 	if card_player == "Player":
 		current_played_by = played_by_player
 		current_played_against = played_by_richard
@@ -70,7 +76,8 @@ func calculate_points(card_position, card_player):
 	else:
 		printerr("Invalid Input for \"card_player\"!")
 	
-	check_neighbors(card_position)
+	# update gamefield points
+	check_neighbors()
 	check_row()
 	check_column()
 	check_diagonal()
@@ -83,8 +90,11 @@ func calculate_points(card_position, card_player):
 		table_game.richard_points = table_game.richard_points + own_total_points
 		table_game.player_points = table_game.player_points + enemy_total_points
 	
+	# set points on labels
 	get_node("PlayerPoints").text = str(table_game.player_points)
 	get_node("RichardPoints").text = str(table_game.richard_points)
+
+#################################### CHECK PARTS ################################################
 
 func check_row():
 	var row_positions = []
@@ -130,7 +140,8 @@ func check_column():
 			else:
 				own_total_points = own_total_points + 3
 
-func check_neighbors(card_position):
+func check_neighbors():
+	var card_position = row * 4 + column
 	var neighbors = get_neighbors()
 	for neighbor in neighbors:
 		var own_card_color = gamefield[card_position].get_node("Card").get_theme_stylebox("panel").bg_color

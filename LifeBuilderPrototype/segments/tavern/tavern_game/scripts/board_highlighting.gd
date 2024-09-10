@@ -1,6 +1,6 @@
 extends Node
 
-const shader = preload("res://ressources/shader/blinking.material")
+const shader = preload("res://ressources/shader/blinking.material") # shader der panel alpha von 0-255 alteriert
 var highlight_fields
 
 func _ready():

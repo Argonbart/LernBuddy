@@ -351,7 +351,7 @@ func play_card():
 			# remove locked field
 			last_selected_field.get_node("Locked").queue_free()
 			bonus_card_controller.confirmed_locked_field_position = -1
-			bonus_card_controller.locking_field = null
+			bonus_card_controller.field_locked_by_player = null
 	elif field_position == bonus_card_controller.richard_confirmed_locked_field_position:
 		if bonus_card_controller.locked_by2 == "Richard":
 			return

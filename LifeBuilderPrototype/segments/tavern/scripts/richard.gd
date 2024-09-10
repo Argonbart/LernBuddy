@@ -10,6 +10,7 @@ var free_fields = []
 var fields_played_by = []
 var fields_color = []
 
+# richards cards
 var richard_hand_cards = ["red", "red", "yellow", "yellow", "green", "green", "blue", "blue"]
 var richard_bonus_cards = []
 
@@ -40,6 +41,8 @@ func generate_random_effects():
 	random_effects.append("joker")
 	random_effects.shuffle()
 	return random_effects
+
+######################################### PLAYER PLAYED CARD #########################################
 
 func _player_played_card():
 	update_fields()
@@ -77,6 +80,8 @@ func update_fields():
 			fields_color.append(null)
 			free_fields.append(field)
 
+######################################### RICHARD PLAY CARD #########################################
+
 func richard_play_card(field_position, color, text):
 	
 	table_game.create_field_card(field_position, color, table_game.card_icons[color], text, "Text", false)
@@ -84,10 +89,11 @@ func richard_play_card(field_position, color, text):
 	# Calculate points
 	table_game.point_system_controller.calculate_points(field_position, "Richard")
 	
-	if len(table_game.player_hand_cards.get_children()) == 0 and table_game.bonus_cards.has("joker"):
+	# End game
+	if (len(table_game.player_hand_cards.get_children()) == 0 and table_game.bonus_cards.has("joker")) or (len(richard_hand_cards) == 0):
 		game_finished.emit()
-	elif len(richard_hand_cards) == 0:
-		game_finished.emit()
+
+######################################### CALCULATE MOVE #########################################
 
 # Current "Strategy": More Complex
 func calculate_next_move():
@@ -194,7 +200,7 @@ func calculate_next_move():
 			# remove locked field
 			table_game.gameboard_fields[position_first_pick].get_node("Locked").queue_free()
 			table_game.bonus_card_controller.richard_confirmed_locked_field_position = -1
-			table_game.bonus_card_controller.locking_field2 = null
+			table_game.bonus_card_controller.field_locked_by_richard = null
 	
 	# play doublepoint field if available
 	if play_doublepoint_field:
@@ -469,7 +475,7 @@ func play_doublepoint(pos):
 func lock_line(line_to_lock):
 	for pos in line_to_lock:
 		if fields_played_by[pos] == "E":
-			table_game.bonus_card_controller.locking_field2 = table_game.gameboard_fields[pos]
+			table_game.bonus_card_controller.field_locked_by_richard = table_game.gameboard_fields[pos]
 			table_game.bonus_card_controller.richard_execute_lock()
 			var row = pos / 4 + 1
 			var column = pos % 4 + 1
