@@ -138,8 +138,7 @@ func initiate_reflection_card():
 	var reflection_card_edit = create_edit_card(colors[colors.keys()[5]])
 	reflection_card_edit.visible = true
 	currently_shown_edit_card = reflection_card_edit
-	highlighting_controller.highlight_no_fields()
-	highlighting_controller.highlight_reflect_field_on()
+	highlighting_controller.reflection_card_start()
 
 # Prepare player hand cards
 func initiate_player_cards():
@@ -197,14 +196,11 @@ func _field_selected(button):
 		return
 	
 	# Set current field variables
-	if currently_shown_edit_card != null:
+	if !joker_ongoing and !switch_ongoing and !doublepoints_ongoing and !lock_ongoing and currently_shown_edit_card != null:
 		play_card_button.visible = true
 	
 	# Selected field visualisation
-	if last_selected_field:
-		highlighting_controller.highlight_selected_field_off(last_selected_field)
-	last_selected_field = field
-	highlighting_controller.highlight_selected_field_on(last_selected_field)
+	highlighting_controller.field_selected(field)
 
 # Clicked away from field button
 func _field_deselected():
@@ -258,29 +254,21 @@ func _show_next_bonus_card():
 			bonus_card_controller.cancel_switch()
 		else:
 			bonus_card_controller.start_switch()
-			if last_selected_field:
-				highlighting_controller.highlight_selected_field_off(last_selected_field)
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "joker":
 		if joker_ongoing:
 			bonus_card_controller.cancel_joker()
 		else:
 			bonus_card_controller.start_joker()
-			if last_selected_field:
-				highlighting_controller.highlight_selected_field_off(last_selected_field)
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "doublepoints":
 		if doublepoints_ongoing:
 			bonus_card_controller.cancel_doublepoints()
 		else:
 			bonus_card_controller.start_doublepoints()
-			if last_selected_field:
-				highlighting_controller.highlight_selected_field_off(last_selected_field)
 	elif bonus_cards.keys()[len(bonus_cards)-1] == "lock":
 		if lock_ongoing:
 			bonus_card_controller.cancel_lock()
 		else:
 			bonus_card_controller.start_lock()
-			if last_selected_field:
-				highlighting_controller.highlight_selected_field_off(last_selected_field)
 
 # Hand card clicked
 func _click_hand_card(edit_card):
@@ -303,11 +291,11 @@ func update_edit_cards(edit_card):
 				currently_shown_edit_card = edit_card
 				if last_selected_field != null:
 					play_card_button.visible = true
-				highlighting_controller.highlight_empty_fields()
+				highlighting_controller.handcard_selected()
 			else:
 				currently_shown_edit_card = null
 				play_card_button.visible = false
-				highlighting_controller.highlight_no_fields()
+				highlighting_controller.handcard_not_selected()
 		else:
 			card.visible = false
 
@@ -315,6 +303,8 @@ func update_edit_cards(edit_card):
 
 # PlayButton pressed
 func _play_card_button_pressed():
+	
+	##### /TODO PLAY BUTTON SOMETIMES SHOWING WRONG, GO OVER HIGHLIGHT TO FINISH IT OFF FINALLY ######
 	
 	# Play reflection card if not played yet
 	if !reflection_card_filled:
@@ -325,9 +315,10 @@ func _play_card_button_pressed():
 		if bonus_card_controller.confirm_bonus_card_play():
 			bonus_card_controller.currently_playing("Player")
 			bonus_card_controller.execute_bonus_card()
+			update_edit_cards(currently_shown_edit_card)
 			return
 	
-	if !last_selected_field.get_node("Card").get_groups().has("FieldCard"):
+	if last_selected_field and !last_selected_field.get_node("Card").get_groups().has("FieldCard"):
 		play_card()
 	else:
 		print("This move is not allowed!")
@@ -385,9 +376,8 @@ func play_card():
 	# Reset active card and playbutton
 	currently_shown_edit_card = null
 	play_card_button.visible = false
-	highlighting_controller.highlight_selected_field_off(last_selected_field)
+	highlighting_controller.card_played()
 	last_selected_field = null
-	highlighting_controller.highlight_no_fields()
 	player_played_bonus_card = false
 	player_played_card.emit()
 
@@ -416,7 +406,7 @@ func play_reflect_card():
 	currently_shown_edit_card.queue_free()
 	currently_shown_edit_card = null
 	play_card_button.visible = false
-	highlighting_controller.highlight_reflect_field_off()
+	highlighting_controller.reflection_card_end()
 	reflection_card_filled = true
 	initiate_gameboard()
 
