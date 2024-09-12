@@ -3,6 +3,8 @@ extends Node
 @onready var table_game = $".."
 @onready var draw_widget = $DrawCardPanel
 
+var highlighter
+
 ############################################ BONUS CARD VARIABLES #########################################################
 
 var bonus_card_playable : bool = false
@@ -84,6 +86,7 @@ func initiate_draw_widget():
 		option_button.connect("pressed", func(): _color_selected(color))
 		option_card.add_child(option_button)
 		draw_widget.find_child("DrawOptions").add_child(option_card)
+	highlighter = table_game.highlighting_controller
 
 func _color_selected(color):
 	table_game.create_hand_card(color, table_game.card_icons[color])
@@ -94,9 +97,11 @@ func _color_selected(color):
 ############################################ SWITCH #########################################################
 
 func start_switch():
-	table_game.highlighting_controller.highlight_fields_with_cards()
+	#table_game.highlighting_controller.highlight_all_non_locked_fields(field_locked_by_player, field_locked_by_richard)
 	first_switch_card_is_selected = true
 	table_game.switch_ongoing = true
+	highlighter.switch_played()
+###################################### WIP /TODO AROUND HERE ############################
 
 func cancel_switch():
 	table_game.highlighting_controller.highlight_no_fields()
@@ -122,8 +127,8 @@ func switch_first_field(field):
 	first_switch_field = field
 	if !first_switch_field.get_node("Card").get_groups().has("FieldCard") or field == field_locked_by_player or field == field_locked_by_richard:
 		return
-	table_game.highlighting_controller.highlight_all_fields()				#### EXPECT LOCKED CARDS, those should not light up - TODO
-	table_game.highlighting_controller.highlight_bonus_card_on(field)
+	table_game.highlighting_controller.highlight_all_non_locked_fields(field_locked_by_player, field_locked_by_richard)
+	table_game.highlighting_controller.highlight_bonus_card_on(first_switch_field)
 	first_switch_card_is_selected = false
 	second_switch_card_is_selected = true
 
@@ -131,7 +136,9 @@ func switch_second_field(field):
 	second_switch_field = field
 	if (second_switch_field.get_node("Card").get_groups().has("FieldCard") and field == field_locked_by_player) or (second_switch_field.get_node("Card").get_groups().has("FieldCard") and field == field_locked_by_richard):
 		return
-	table_game.highlighting_controller.highlight_bonus_card_on(field)
+	table_game.highlighting_controller.highlight_no_fields()
+	table_game.highlighting_controller.highlight_bonus_card_on(first_switch_field)
+	table_game.highlighting_controller.highlight_bonus_card_on(second_switch_field)
 	active_bonus_card = "switch"
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true

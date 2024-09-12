@@ -1,5 +1,7 @@
 extends Node
 
+@onready var bonus_card_controller = $"../../BonusCardController"
+
 const shader = preload("res://ressources/shader/blinking.material") # shader der panel alpha von 0-255 alteriert
 var highlight_fields
 
@@ -84,3 +86,13 @@ func highlight_selected_field_off(field):
 	var panel = field.get_node("Highlighting")
 	panel.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres"))
 	highlight_field_on(field)
+
+func highlight_all_non_locked_fields(locked1, locked2):
+	for field in highlight_fields.values():
+		if field != locked1 and field != locked2:
+			highlight_field_on(field)
+
+############################################################################
+
+func switch_played():
+	highlight_all_non_locked_fields(bonus_card_controller.field_locked_by_player, bonus_card_controller.field_locked_by_richard)
