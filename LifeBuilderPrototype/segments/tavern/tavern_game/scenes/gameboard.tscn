@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/board_highlighting.gd" id="1_e1sld"]
 [ext_resource type="StyleBox" uid="uid://epcyh0jqqk4h" path="res://segments/tavern/tavern_game/gameboard_visual_styles/card_white.tres" id="2_cwlxv"]
-[ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres" id="3_g35lv"]
+[ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern/tavern_game/gameboard_visual_styles/white_border.tres" id="3_g35lv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yummw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

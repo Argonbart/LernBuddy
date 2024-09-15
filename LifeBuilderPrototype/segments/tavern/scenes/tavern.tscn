@@ -13,7 +13,7 @@
 [ext_resource type="StyleBox" uid="uid://epcyh0jqqk4h" path="res://segments/tavern/tavern_game/gameboard_visual_styles/card_white.tres" id="9_cpqpe"]
 [ext_resource type="Texture2D" uid="uid://ruwooljbkmql" path="res://ressources/sprites/Richard.png" id="10_08oq8"]
 [ext_resource type="Material" uid="uid://d0imauablx4ox" path="res://ressources/shader/blinking.material" id="10_f0ca3"]
-[ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern/tavern_game/gameboard_visual_styles/highlighting.tres" id="10_vmtwt"]
+[ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern/tavern_game/gameboard_visual_styles/white_border.tres" id="10_vmtwt"]
 [ext_resource type="PackedScene" uid="uid://dfijr3iv2qyjv" path="res://segments/tavern/tavern_game/scenes/ergebnis_screen.tscn" id="11_lu3mr"]
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/point_system_controller.gd" id="13_b14mq"]
 
