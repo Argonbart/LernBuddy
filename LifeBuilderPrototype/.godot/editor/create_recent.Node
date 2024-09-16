@@ -1,9 +1,11 @@
-Panel
-HBoxContainer
-Label
 TextureRect
+Panel
+Label
 Control
+Camera2D
 Node
+TileMap
+HBoxContainer
 Button
 TextEdit
 Container

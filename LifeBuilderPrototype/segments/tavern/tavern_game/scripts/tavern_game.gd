@@ -15,6 +15,8 @@ signal player_played_card()
 @onready var play_card_button = $GameBoard/PlayCardButton				# Button to play card
 @onready var play_reflect_card_button = $ReflectionCardField/Button		# Button to play reflect card
 @onready var draw_card_button											# Button to draw bonus-card
+@onready var richard_text_box = $RichardTextBox							# Richard Text Bubble
+@onready var player_hand_image = $PlayerHand							# Player Hand PNG
 
 # Static card data
 var style_boxes
@@ -195,12 +197,14 @@ func _field_selected(button):
 		bonus_card_controller.lock_field(field)
 		return
 	
+	last_selected_field = field
+	
 	# Set current field variables
 	if !joker_ongoing and !switch_ongoing and !doublepoints_ongoing and !lock_ongoing and currently_shown_edit_card != null:
 		play_card_button.visible = true
 	
 	# Selected field visualisation
-	highlighting_controller.field_selected(field)
+	highlighting_controller.field_selected(last_selected_field.get_node("Highlighting"))
 
 # Clicked away from field button
 func _field_deselected():
@@ -319,7 +323,11 @@ func _play_card_button_pressed():
 			return
 	
 	if last_selected_field and !last_selected_field.get_node("Card").get_groups().has("FieldCard"):
-		play_card()
+		var first_tween = create_tween()
+		highlighting_controller.card_played()
+		get_node("RichardsTurnPanel").visible = true
+		first_tween.tween_property(player_hand_image, "position", Vector2(gameboard_fields[gameboard_fields.find(last_selected_field)].position.x - 20, gameboard_fields[gameboard_fields.find(last_selected_field)].position.y), 1.0)
+		first_tween.tween_callback(func(): await get_tree().create_timer(0.2).timeout ; player_hand_image.position = Vector2(130, 200) ; play_card() ; get_node("RichardsTurnPanel").visible = false)
 	else:
 		print("This move is not allowed!")
 
@@ -328,7 +336,9 @@ func play_card():
 	
 	# check if card text is empty
 	if len(currently_shown_edit_card.get_child(0).text) == 0:
-		print("Please type something on the card!")
+		change_richard_text("Please type something on the card!")
+		await get_tree().create_timer(2.0).timeout
+		remove_richard_text()
 		return
 	
 	var field_position = gameboard_fields.find(last_selected_field)
@@ -409,6 +419,15 @@ func play_reflect_card():
 	highlighting_controller.reflection_card_end()
 	reflection_card_filled = true
 	initiate_gameboard()
+
+######################
+
+func change_richard_text(new_text):
+	richard_text_box.get_node("Panel").get_node("Label").text = new_text
+	richard_text_box.visible = true
+
+func remove_richard_text():
+	richard_text_box.visible = false
 
 ############################################ CARD CREATION METHODS #########################################################
 

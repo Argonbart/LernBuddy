@@ -1,7 +1,7 @@
 extends Control
 
 @onready var table_game = $".."
-@onready var richard = $"../../Richard"
+@onready var richard = $"../Richard"
 
 var gamefield = []
 var gamefield_colors = []
@@ -91,8 +91,8 @@ func calculate_points(card_position, card_player):
 		table_game.player_points = table_game.player_points + enemy_total_points
 	
 	# set points on labels
-	get_node("PlayerPoints").text = str(table_game.player_points)
-	get_node("RichardPoints").text = str(table_game.richard_points)
+	get_node("PlayerPointsPanel").get_node("PlayerPoints").text = str(table_game.player_points)
+	get_node("RichardPointsPanel").get_node("RichardPoints").text = str(table_game.richard_points)
 
 #################################### CHECK PARTS ################################################
 

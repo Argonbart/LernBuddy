@@ -28,6 +28,10 @@ gdscript/warnings/integer_division=0
 window/size/viewport_height=640
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray()
+
 [input]
 
 left={

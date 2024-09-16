@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 signal game_finished()
 
-@onready var table_game = $"../TableGame"
-@onready var bonus_card_label = $"../TableGame/RichardsTurnPanel/RichardsBonusCardLabel"
+@onready var table_game = $"../"
+@onready var bonus_card_label = $"../RichardsTurnPanel/RichardsBonusCardLabel"
+@onready var richard_hand_image = $"../RichardHand"
 
 # arrays
 var free_fields = []
@@ -58,7 +59,12 @@ func _player_played_card():
 	else:
 		await get_tree().create_timer(1.0).timeout
 	table_game.get_node("RichardsTurnPanel").visible = false
-	richard_play_card(next_move["field"], next_move["color"], next_move["text"])
+	
+	var first_tween = create_tween()
+	table_game.highlighting_controller.card_played()
+	get_parent().get_node("RichardsTurnPanel").visible = true
+	first_tween.tween_property(richard_hand_image, "position", Vector2(table_game.gameboard_fields[next_move["field"]].position.x + 55, table_game.gameboard_fields[next_move["field"]].position.y + 30), 1.0)
+	first_tween.tween_callback(func(): await get_tree().create_timer(0.5).timeout ; richard_hand_image.position = Vector2(70, -70) ; richard_play_card(next_move["field"], next_move["color"], next_move["text"]) ; get_parent().get_node("RichardsTurnPanel").visible = false)
 
 func update_fields():
 	free_fields.clear()

@@ -197,14 +197,8 @@ func reflection_card_end():
 ############################## NORMAL CARD PLAY ##################################
 
 func field_selected(field):
-	var old_field
-	var new_field
-	if table_game.last_selected_field:
-		old_field = table_game.last_selected_field.get_node("Highlighting")
-		focus_field(old_field)
-	table_game.last_selected_field = field
-	new_field = table_game.last_selected_field.get_node("Highlighting")
-	select_field(new_field)
+	neutral_all_fields()
+	select_field(field)
 
 func handcard_selected():
 	focus_fields_with_no_cards()
