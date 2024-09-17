@@ -50,13 +50,16 @@ func set_field_to_selected_highlight(field): # == 2
 	field.set_material(shader)
 
 func neutral_field(field):
-	highlight_status[highlight_fields.find(field)] = 0
+	if highlight_fields.find(field) != -1:
+		highlight_status[highlight_fields.find(field)] = 0
 
 func focus_field(field):
-	highlight_status[highlight_fields.find(field)] = 1
+	if highlight_fields.find(field) != -1:
+		highlight_status[highlight_fields.find(field)] = 1
 
 func select_field(field):
-	highlight_status[highlight_fields.find(field)] = 2
+	if highlight_fields.find(field) != -1:
+		highlight_status[highlight_fields.find(field)] = 2
 
 func neutral_all_fields():
 	for field in highlight_fields:

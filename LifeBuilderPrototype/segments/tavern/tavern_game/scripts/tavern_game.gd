@@ -17,6 +17,7 @@ signal player_played_card()
 @onready var draw_card_button											# Button to draw bonus-card
 @onready var richard_text_box = $RichardTextBox							# Richard Text Bubble
 @onready var player_hand_image = $PlayerHand							# Player Hand PNG
+@onready var player_hand_with_card_image = $PlayerHandWithCard			# Player Hand With Card PNG
 
 # Static card data
 var style_boxes
@@ -326,8 +327,8 @@ func _play_card_button_pressed():
 		var first_tween = create_tween()
 		highlighting_controller.card_played()
 		get_node("RichardsTurnPanel").visible = true
-		first_tween.tween_property(player_hand_image, "position", Vector2(gameboard_fields[gameboard_fields.find(last_selected_field)].position.x - 20, gameboard_fields[gameboard_fields.find(last_selected_field)].position.y), 1.0)
-		first_tween.tween_callback(func(): await get_tree().create_timer(0.2).timeout ; player_hand_image.position = Vector2(130, 200) ; play_card() ; get_node("RichardsTurnPanel").visible = false)
+		first_tween.tween_property(player_hand_with_card_image, "position", Vector2(gameboard_fields[gameboard_fields.find(last_selected_field)].position.x, gameboard_fields[gameboard_fields.find(last_selected_field)].position.y), 1.0)
+		first_tween.tween_callback(func(): await get_tree().create_timer(0.2).timeout ; player_hand_with_card_image.position = Vector2(130, 200) ; play_card() ; get_node("RichardsTurnPanel").visible = false)
 	else:
 		print("This move is not allowed!")
 

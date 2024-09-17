@@ -5,6 +5,7 @@ signal game_finished()
 @onready var table_game = $"../"
 @onready var bonus_card_label = $"../RichardsTurnPanel/RichardsBonusCardLabel"
 @onready var richard_hand_image = $"../RichardHand"
+@onready var richard_hand_with_card_image = $"../RichardHandWithCard"
 
 # arrays
 var free_fields = []
@@ -63,8 +64,8 @@ func _player_played_card():
 	var first_tween = create_tween()
 	table_game.highlighting_controller.card_played()
 	get_parent().get_node("RichardsTurnPanel").visible = true
-	first_tween.tween_property(richard_hand_image, "position", Vector2(table_game.gameboard_fields[next_move["field"]].position.x + 55, table_game.gameboard_fields[next_move["field"]].position.y + 30), 1.0)
-	first_tween.tween_callback(func(): await get_tree().create_timer(0.5).timeout ; richard_hand_image.position = Vector2(70, -70) ; richard_play_card(next_move["field"], next_move["color"], next_move["text"]) ; get_parent().get_node("RichardsTurnPanel").visible = false)
+	first_tween.tween_property(richard_hand_with_card_image, "position", Vector2(table_game.gameboard_fields[next_move["field"]].position.x, table_game.gameboard_fields[next_move["field"]].position.y), 1.0)
+	first_tween.tween_callback(func(): await get_tree().create_timer(0.5).timeout ; richard_hand_with_card_image.position = Vector2(70, -140) ; richard_play_card(next_move["field"], next_move["color"], next_move["text"]) ; get_parent().get_node("RichardsTurnPanel").visible = false)
 
 func update_fields():
 	free_fields.clear()
@@ -177,6 +178,16 @@ func calculate_next_move():
 				lock_line(richard_two_lines[randi_range(0, len(richard_two_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
+	
+	# prepare all relevant lines
+	player_three_lines = lines_of("P", 3)
+	player_two_lines = lines_of("P", 2)
+	player_one_lines = lines_of("P", 1)
+	middle_empty_fields = middle_free_fields()
+	richard_three_lines = lines_of("R", 3)
+	richard_two_lines = lines_of("R", 2)
+	richard_one_lines = lines_of("R", 1)
+	potential_neighbor_plays = neighbors_with_points()
 	
 	# prio without bonus cards
 	select_play_pos_randomly() # else random
@@ -401,6 +412,7 @@ func delete_element_of_line(player_line):
 	var deletion = possible_deletion[randi_range(0, len(possible_deletion)-1)]
 	var row = deletion / 4 + 1
 	var column = deletion % 4 + 1
+	table_game.bonus_card_controller.currently_playing("Richard")
 	table_game.bonus_card_controller.delete(table_game.gameboard_fields[deletion])
 	bonus_card_label.text = str("Richard used Joker on (", row, ", ", column, ")")
 
@@ -448,6 +460,7 @@ func switch_powermove(powermove_line):
 	else:
 		printerr("powerline in switch_powermove has 2 or more player cards")
 	
+	table_game.bonus_card_controller.currently_playing("Richard")
 	table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[pos_to_swap_on_line]), "Richard")
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[switch_field_position_needed_for_powermove]), "Richard")
@@ -462,6 +475,7 @@ func switch_randomly():
 	var array = range(16)
 	array.erase(pos_to_swap_on_line)
 	switch_field_position_needed_for_powermove = array[randi_range(0, len(array)-1)]
+	table_game.bonus_card_controller.currently_playing("Richard")
 	table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[pos_to_swap_on_line]), "Richard")
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[switch_field_position_needed_for_powermove]), "Richard")
@@ -472,6 +486,7 @@ func switch_randomly():
 	bonus_card_label.text = str("Richard used Switch on\n(", row1, ", ", column1, ") and (", row2, ", ", column2, ")")
 
 func play_doublepoint(pos):
+	table_game.bonus_card_controller.currently_playing("Richard")
 	table_game.bonus_card_controller.create_doublepoints_field(table_game.gameboard_fields[pos])
 	table_game.point_system_controller.doublepoints_field_position = table_game.gameboard_fields.find(table_game.gameboard_fields[pos])
 	var row = pos / 4 + 1
@@ -481,6 +496,7 @@ func play_doublepoint(pos):
 func lock_line(line_to_lock):
 	for pos in line_to_lock:
 		if fields_played_by[pos] == "E":
+			table_game.bonus_card_controller.currently_playing("Richard")
 			table_game.bonus_card_controller.field_locked_by_richard = table_game.gameboard_fields[pos]
 			table_game.bonus_card_controller.richard_execute_lock()
 			var row = pos / 4 + 1

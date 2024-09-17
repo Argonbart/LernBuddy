@@ -2,6 +2,7 @@ extends Node
 
 @onready var table_game = $".."
 @onready var draw_widget = $DrawCardPanel
+@onready var block_panel = $"../RichardsTurnPanel"
 
 var highlighter
 
@@ -31,6 +32,8 @@ var field_locked_by_player : ReferenceRect = null
 var field_locked_by_richard : ReferenceRect = null
 
 var played_by : String = ""
+var hand
+var hand_return
 
 ############################################ JOKER #########################################################
 
@@ -52,10 +55,15 @@ func joker_field(field):
 
 func execute_joker():
 	delete(joker_field_to_delete)
-	draw_widget.visible = true
 	highlighter.joker_execute()
 
 func delete(field):
+	var first_tween = create_tween()
+	block_panel.visible = true
+	first_tween.tween_property(hand, "position", Vector2(field.position.x, field.position.y), 1.0)
+	first_tween.tween_callback(func(): await get_tree().create_timer(1.0).timeout ; hand.position = hand_return ; delete2(field) ; block_panel.visible = false)
+
+func delete2(field):
 	var field_card = field.find_child("Card")
 	field_card.add_theme_stylebox_override("panel", load("res://segments/tavern/tavern_game/cards_colors_style_boxes/empty_card.tres"))
 	field_card.get_theme_stylebox("panel").border_color = Color("#CCCCCC")
@@ -68,6 +76,9 @@ func delete(field):
 	field_card.remove_from_group("FieldCard")
 	table_game.field_to_preview_cards[field_card].queue_free()
 	table_game.field_to_preview_cards.erase(field_card)
+	if played_by == "Player":
+		await get_tree().create_timer(0.5).timeout
+		draw_widget.visible = true
 
 func initiate_draw_widget():
 	for color in ["red", "yellow", "green", "blue"]:
@@ -136,6 +147,12 @@ func execute_switch():
 
 # Swaps cards inside the fields manually
 func switch_fields(field1, field2):
+	var first_tween = create_tween()
+	block_panel.visible = true
+	first_tween.tween_property(hand, "position", Vector2(field1.position.x, field1.position.y), 1.0)
+	first_tween.tween_callback(func(): await get_tree().create_timer(1.0).timeout ; var second_tween = create_tween() ; second_tween.tween_property(hand, "position", Vector2(field2.position.x, field2.position.y), 1.0) ; await get_tree().create_timer(2.0).timeout ; hand.position = hand_return ; switch_fields2(field1, field2) ; block_panel.visible = false)
+
+func switch_fields2(field1, field2):
 	var field_to_preview_cards = table_game.field_to_preview_cards
 	var card1 = field1.find_child("Card")
 	var card2 = field2.find_child("Card")
@@ -186,6 +203,12 @@ func execute_doublepoints():
 	highlighter.doublepoints_executed()
 
 func create_doublepoints_field(field):
+	var first_tween = create_tween()
+	block_panel.visible = true
+	first_tween.tween_property(hand, "position", Vector2(field.position.x, field.position.y), 1.0)
+	first_tween.tween_callback(func(): await get_tree().create_timer(1.0).timeout ; hand.position = hand_return ; create_doublepoints_field2(field) ; block_panel.visible = false)
+
+func create_doublepoints_field2(field):
 	var doublepoints_node = Control.new()
 	doublepoints_node.name = "DoublePoints"
 	doublepoints_node.custom_minimum_size = Vector2(35, 35)
@@ -250,6 +273,12 @@ func richard_execute_lock():
 		locked_by2 = "Richard"
 
 func create_locked_field(field):
+	var first_tween = create_tween()
+	block_panel.visible = true
+	first_tween.tween_property(hand, "position", Vector2(field.position.x, field.position.y), 1.0)
+	first_tween.tween_callback(func(): await get_tree().create_timer(1.0).timeout ; hand.position = hand_return ; create_locked_field2(field) ; block_panel.visible = false)
+
+func create_locked_field2(field):
 	var locked_node = Control.new()
 	locked_node.name = "Locked"
 	locked_node.custom_minimum_size = Vector2(35, 35)
@@ -310,6 +339,12 @@ func bonus_card_played_successfully(type):
 
 func currently_playing(player):
 	played_by = player
+	if played_by == "Player":
+		hand = $"../PlayerHand"
+		hand_return = Vector2(130, 200)
+	elif played_by == "Richard":
+		hand = $"../RichardHand"
+		hand_return = Vector2(70, -140)
 
 func create_joker_card(color):
 	

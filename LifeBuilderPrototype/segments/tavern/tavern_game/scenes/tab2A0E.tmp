@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cu4rpxwmecr2h"]
+[gd_scene load_steps=25 format=3 uid="uid://cu4rpxwmecr2h"]
 
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/tavern_game.gd" id="1_am1sw"]
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://segments/tavern/tavern_game/scenes/gameboard.tscn" id="2_457tb"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/point_system_controller.gd" id="9_ip82h"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/richard.gd" id="11_7bgha"]
 [ext_resource type="Texture2D" uid="uid://ruwooljbkmql" path="res://ressources/sprites/Richard.png" id="12_m1xuj"]
-[ext_resource type="Texture2D" uid="uid://bmcjf30tqnlgm" path="res://ressources/icons/pointing_hand.png" id="13_375c1"]
 [ext_resource type="Texture2D" uid="uid://f3o0cvokhy07" path="res://ressources/icons/hand.png" id="13_meyit"]
 [ext_resource type="StyleBox" uid="uid://dmyoljv7hd5i1" path="res://segments/tavern/tavern_game/cards_colors_style_boxes/blue_card.tres" id="14_6hq4e"]
 
@@ -2697,22 +2696,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chpm8"]
-bg_color = Color(0, 0, 0, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsyi0"]
-bg_color = Color(0, 0, 0, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 0)
-
 [node name="TableGame" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -3161,30 +3144,13 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="PlayerHand" type="Panel" parent="."]
-custom_minimum_size = Vector2(33, 33)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 48.0
-offset_top = 129.5
-offset_right = 81.0
-offset_bottom = 162.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_chpm8")
-
-[node name="PlayerHand1" type="TextureRect" parent="PlayerHand"]
+[node name="PlayerHand" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -10.0
-offset_top = 3.0
-offset_right = 62.0
-offset_bottom = 75.0
-texture = ExtResource("13_375c1")
+offset_left = 130.0
+offset_top = 200.0
+offset_right = 202.0
+offset_bottom = 272.0
+texture = ExtResource("13_meyit")
 expand_mode = 1
 
 [node name="PlayerHandWithCard" type="Panel" parent="."]
@@ -3213,31 +3179,14 @@ offset_bottom = 72.5
 texture = ExtResource("13_meyit")
 expand_mode = 1
 
-[node name="RichardHand" type="Panel" parent="."]
-custom_minimum_size = Vector2(33, 33)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -87.0
-offset_top = -173.5
-offset_right = -54.0
-offset_bottom = -140.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gsyi0")
-
-[node name="RichardHand1" type="TextureRect" parent="RichardHand"]
+[node name="RichardHand" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 29.0
-offset_right = 115.0
-offset_bottom = 101.0
+offset_left = 70.0
+offset_top = -70.0
+offset_right = 142.0
+offset_bottom = 2.0
 rotation = 3.14159
-texture = ExtResource("13_375c1")
+texture = ExtResource("13_meyit")
 expand_mode = 1
 
 [node name="RichardHandWithCard" type="Panel" parent="."]
