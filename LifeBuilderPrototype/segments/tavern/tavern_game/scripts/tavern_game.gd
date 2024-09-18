@@ -55,7 +55,8 @@ var bonus_card_effects = {"joker": "Entferne eine gegnerische Karte aus dem Spie
 var bonus_card_icons = {"joker": "res://ressources/icons/joker.svg",
 						 "switch": "res://ressources/icons/switch.svg", 
 						 "doublepoints": "res://ressources/icons/doublepoints.png",
-						 "lock": "res://ressources/icons/lock.svg"}
+						 "lock": "res://ressources/icons/lock.svg",
+						 "quadropoints": "res://ressources/icons/quadropoints.png"}
 
 # information for game
 var gameboard_fields : Array
@@ -78,6 +79,9 @@ var player_played_bonus_card : bool = false
 # points
 var player_points : int = 0
 var richard_points : int = 0
+
+# timing
+var turn_time = 1.0
 
 ############################################ PROCESS #########################################################
 
@@ -309,8 +313,6 @@ func update_edit_cards(edit_card):
 # PlayButton pressed
 func _play_card_button_pressed():
 	
-	##### /TODO PLAY BUTTON SOMETIMES SHOWING WRONG, GO OVER HIGHLIGHT TO FINISH IT OFF FINALLY ######
-	
 	# Play reflection card if not played yet
 	if !reflection_card_filled:
 		play_reflect_card()
@@ -327,10 +329,16 @@ func _play_card_button_pressed():
 		var first_tween = create_tween()
 		highlighting_controller.card_played()
 		get_node("RichardsTurnPanel").visible = true
-		first_tween.tween_property(player_hand_with_card_image, "position", Vector2(gameboard_fields[gameboard_fields.find(last_selected_field)].position.x, gameboard_fields[gameboard_fields.find(last_selected_field)].position.y), 1.0)
-		first_tween.tween_callback(func(): await get_tree().create_timer(0.2).timeout ; player_hand_with_card_image.position = Vector2(130, 200) ; play_card() ; get_node("RichardsTurnPanel").visible = false)
+		first_tween.tween_property(player_hand_with_card_image, "position", Vector2(gameboard_fields[gameboard_fields.find(last_selected_field)].position.x, gameboard_fields[gameboard_fields.find(last_selected_field)].position.y), 0.8 * turn_time)
+		first_tween.connect("finished", func(): _play_card_tween_finished())
 	else:
 		print("This move is not allowed!")
+
+func _play_card_tween_finished():
+	await get_tree().create_timer(0.2 * turn_time).timeout
+	player_hand_with_card_image.position = Vector2(130, 200)
+	play_card()
+	get_node("RichardsTurnPanel").visible = false
 
 # Card played
 func play_card():
@@ -414,6 +422,7 @@ func play_reflect_card():
 	field_to_preview_cards[reflection_card] = create_preview_card(colors[colors.keys()[5]], currently_shown_edit_card.get_child(0).text)
 	reflection_button.connect("mouse_entered", func(): _hovering_over_button(reflection_button))
 	reflection_button.connect("mouse_exited", func(): _stop_hovering_over_button(reflection_button))
+	reflection_button.disabled = true
 	currently_shown_edit_card.queue_free()
 	currently_shown_edit_card = null
 	play_card_button.visible = false

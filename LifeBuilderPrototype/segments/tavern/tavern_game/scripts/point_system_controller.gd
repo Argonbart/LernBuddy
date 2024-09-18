@@ -17,7 +17,7 @@ var row
 var column
 
 # bonus cards
-var doublepoints_field_position : int = -1
+var doublepoints_field_positions = []
 
 func _ready():
 	initiate_variables()
@@ -106,17 +106,16 @@ func check_row():
 		row_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
 		row_positions.append(current_position)
 	
+	var multiplier = 1
 	if len(row_colors) == 4:
+		for element in row_positions:
+			for doublepoints_field_position in doublepoints_field_positions:
+				if element == doublepoints_field_position:
+					multiplier = multiplier * 2
 		if array_has_duplicates(row_colors):
-			if doublepoints_field_position in row_positions:
-				own_total_points = own_total_points + 4
-			else:
-				own_total_points = own_total_points + 2
+			own_total_points = own_total_points + 2 * multiplier
 		else:
-			if doublepoints_field_position in row_positions:
-				own_total_points = own_total_points + 6
-			else:
-				own_total_points = own_total_points + 3
+			own_total_points = own_total_points + 3 * multiplier
 
 func check_column():
 	var column_positions = []
@@ -128,17 +127,16 @@ func check_column():
 		column_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
 		column_positions.append(current_position)
 	
+	var multiplier = 1
 	if len(column_colors) == 4:
+		for element in column_positions:
+			for doublepoints_field_position in doublepoints_field_positions:
+				if element == doublepoints_field_position:
+					multiplier = multiplier * 2
 		if array_has_duplicates(column_colors):
-			if doublepoints_field_position in column_positions:
-				own_total_points = own_total_points + 4
-			else:
-				own_total_points = own_total_points + 2
+			own_total_points = own_total_points + 2 * multiplier
 		else:
-			if doublepoints_field_position in column_positions:
-				own_total_points = own_total_points + 6
-			else:
-				own_total_points = own_total_points + 3
+			own_total_points = own_total_points + 3 * multiplier
 
 func check_neighbors():
 	var card_position = row * 4 + column
@@ -146,16 +144,28 @@ func check_neighbors():
 	for neighbor in neighbors:
 		var own_card_color = gamefield[card_position].get_node("Card").get_theme_stylebox("panel").bg_color
 		var neighbor_card_color = neighbor["field"].get_node("Card").get_theme_stylebox("panel").bg_color
+		var multiplier = 1
 		if neighbor_card_color == own_card_color and current_played_by[neighbor["position"]] == true:				# played card is next to own card of same color
-			if doublepoints_field_position == card_position or doublepoints_field_position == neighbor["position"]:
-				enemy_total_points = enemy_total_points + 2
-			else:
-				enemy_total_points = enemy_total_points + 1
+			if card_position in doublepoints_field_positions:
+				for doublepoints_field_position in doublepoints_field_positions:
+					if card_position == doublepoints_field_position:
+						multiplier = multiplier * 2
+			if neighbor["position"] in doublepoints_field_positions:
+				for doublepoints_field_position in doublepoints_field_positions:
+					if neighbor["position"] == doublepoints_field_position:
+						multiplier = multiplier * 2
+			enemy_total_points = enemy_total_points + 1 * multiplier
+		multiplier = 1
 		if neighbor_card_color == own_card_color and current_played_against[neighbor["position"]] == true:			# played card is next to enemy card of same color
-			if doublepoints_field_position == card_position or doublepoints_field_position == neighbor["position"]:
-				own_total_points = own_total_points + 2
-			else:
-				own_total_points = own_total_points + 1
+			if card_position in doublepoints_field_positions:
+				for doublepoints_field_position in doublepoints_field_positions:
+					if card_position == doublepoints_field_position:
+						multiplier = multiplier * 2
+			if neighbor["position"] in doublepoints_field_positions:
+				for doublepoints_field_position in doublepoints_field_positions:
+					if neighbor["position"] == doublepoints_field_position:
+						multiplier = multiplier * 2
+			own_total_points = own_total_points + 1 * multiplier
 
 func check_diagonal():
 	
@@ -178,17 +188,16 @@ func check_diagonal():
 			diagonal_colors.append(gamefield[current_position].get_node("Card").get_theme_stylebox("panel").bg_color)
 			diagonal_positions.append(current_position)
 		
+		var multiplier = 1
 		if len(diagonal_colors) == 4:
+			for element in diagonal_positions:
+				for doublepoints_field_position in doublepoints_field_positions:
+					if element == doublepoints_field_position:
+						multiplier = multiplier * 2
 			if array_has_duplicates(diagonal_colors):
-				if doublepoints_field_position in diagonal_positions:
-					own_total_points = own_total_points + 4
-				else:
-					own_total_points = own_total_points + 2
+				own_total_points = own_total_points + 2 * multiplier
 			else:
-				if doublepoints_field_position in diagonal_positions:
-					own_total_points = own_total_points + 6
-				else:
-					own_total_points = own_total_points + 3
+				own_total_points = own_total_points + 3 * multiplier
 
 func array_has_duplicates(array):
 	for element in array:

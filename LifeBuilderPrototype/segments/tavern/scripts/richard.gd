@@ -55,7 +55,7 @@ func _player_played_card():
 	var next_move = calculate_next_move()
 	table_game.get_node("RichardsTurnPanel").visible = true
 	if bonus_card_used:
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(1.0).timeout
 		bonus_card_used = false
 	else:
 		await get_tree().create_timer(1.0).timeout
@@ -64,8 +64,14 @@ func _player_played_card():
 	var first_tween = create_tween()
 	table_game.highlighting_controller.card_played()
 	get_parent().get_node("RichardsTurnPanel").visible = true
-	first_tween.tween_property(richard_hand_with_card_image, "position", Vector2(table_game.gameboard_fields[next_move["field"]].position.x, table_game.gameboard_fields[next_move["field"]].position.y), 1.0)
-	first_tween.tween_callback(func(): await get_tree().create_timer(0.5).timeout ; richard_hand_with_card_image.position = Vector2(70, -140) ; richard_play_card(next_move["field"], next_move["color"], next_move["text"]) ; get_parent().get_node("RichardsTurnPanel").visible = false)
+	first_tween.tween_property(richard_hand_with_card_image, "position", Vector2(table_game.gameboard_fields[next_move["field"]].position.x, table_game.gameboard_fields[next_move["field"]].position.y), 0.8 * table_game.turn_time)
+	first_tween.connect("finished", func(): _played_card_tween_finished(next_move))
+
+func _played_card_tween_finished(next_move):
+	await get_tree().create_timer(0.2 * table_game.turn_time).timeout
+	richard_hand_with_card_image.position = Vector2(70, -80)
+	richard_play_card(next_move["field"], next_move["color"], next_move["text"])
+	get_parent().get_node("RichardsTurnPanel").visible = false
 
 func update_fields():
 	free_fields.clear()
@@ -219,6 +225,7 @@ func calculate_next_move():
 			table_game.bonus_card_controller.richard_confirmed_locked_field_position = -1
 			table_game.bonus_card_controller.field_locked_by_richard = null
 	
+	
 	# play doublepoint field if available
 	if play_doublepoint_field:
 		play_doublepoint(position_first_pick)
@@ -252,7 +259,11 @@ func select_play_pos_randomly():
 	var play_color = colors[randi_range(0, len(colors)-1)]
 	while play_color not in richard_hand_cards:
 		play_color = colors[randi_range(0, len(colors)-1)]
-	safe_move(free_field_positions[randi_range(0, len(free_field_positions)-1)], play_color)
+	var play_position = free_field_positions[randi_range(0, len(free_field_positions)-1)]
+	while play_position == table_game.bonus_card_controller.confirmed_locked_field_position:
+		play_position = free_field_positions[randi_range(0, len(free_field_positions)-1)]
+	if play_position != table_game.bonus_card_controller.confirmed_locked_field_position:
+		safe_move(play_position, play_color)
 
 # select the best option of playable neighbor points
 func select_play_pos_for_neighbors(neighbors_dict):
@@ -270,7 +281,8 @@ func select_play_pos_for_neighbors(neighbors_dict):
 			if colors[i] in richard_hand_cards:
 				highest_points = points[i]
 				highest_points_at = i
-	safe_move(positions[highest_points_at], colors[highest_points_at])
+	if positions[highest_points_at] != table_game.bonus_card_controller.confirmed_locked_field_position:
+		safe_move(positions[highest_points_at], colors[highest_points_at])
 
 # returns all positions that would give neighbor points when played
 func neighbors_with_points():
@@ -323,7 +335,8 @@ func select_play_pos_for_line(line):
 				play_color = valid_colors[randi_range(0, len(valid_colors)-1)]
 			else:
 				play_color = richard_hand_cards[randi_range(0, len(richard_hand_cards)-1)]
-			safe_move(pos, play_color)
+			if pos != table_game.bonus_card_controller.confirmed_locked_field_position:
+				safe_move(pos, play_color)
 
 func safe_move(new_position, new_color):
 	if (position_first_pick == -1 and color_first_pick != null) or (position_first_pick != -1 and color_first_pick == null) or (position_second_pick == -1 and color_second_pick != null) or (position_second_pick != -1 and color_second_pick == null):
@@ -356,7 +369,8 @@ func select_play_pos_for_middle_fields(middle_empty_fields):
 		play_color = valid_colors[randi_range(0, len(valid_colors)-1)]
 	else:
 		play_color = richard_hand_cards[randi_range(0, len(richard_hand_cards)-1)]
-	safe_move(new_pos, play_color)
+	if new_pos != table_game.bonus_card_controller.confirmed_locked_field_position:
+		safe_move(new_pos, play_color)
 
 ############################################ LINES OF #########################################################
 
@@ -471,7 +485,7 @@ func switch_powermove(powermove_line):
 	bonus_card_label.text = str("Richard used Switch on\n(", row1, ", ", column1, ") and (", row2, ", ", column2, ")")
 
 func switch_randomly():
-	var pos_to_swap_on_line = randi_range(0, 16)
+	var pos_to_swap_on_line = randi_range(0, 15)
 	var array = range(16)
 	array.erase(pos_to_swap_on_line)
 	switch_field_position_needed_for_powermove = array[randi_range(0, len(array)-1)]
@@ -488,7 +502,6 @@ func switch_randomly():
 func play_doublepoint(pos):
 	table_game.bonus_card_controller.currently_playing("Richard")
 	table_game.bonus_card_controller.create_doublepoints_field(table_game.gameboard_fields[pos])
-	table_game.point_system_controller.doublepoints_field_position = table_game.gameboard_fields.find(table_game.gameboard_fields[pos])
 	var row = pos / 4 + 1
 	var column = pos % 4 + 1
 	bonus_card_label.text = str("Richard used DoublePoints\non (", row, ", ", column, ")")
