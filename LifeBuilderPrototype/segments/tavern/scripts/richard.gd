@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal richard_finished_turn()
 signal game_finished()
 
 @onready var table_game = $"../"
@@ -72,6 +73,7 @@ func _played_card_tween_finished(next_move):
 	richard_hand_with_card_image.position = Vector2(70, -80)
 	richard_play_card(next_move["field"], next_move["color"], next_move["text"])
 	get_parent().get_node("RichardsTurnPanel").visible = false
+	richard_finished_turn.emit()
 
 func update_fields():
 	free_fields.clear()

@@ -3322,9 +3322,3 @@ offset_bottom = 101.0
 rotation = 3.14159
 texture = ExtResource("13_meyit")
 expand_mode = 1
-
-[node name="Useless" type="TextEdit" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0

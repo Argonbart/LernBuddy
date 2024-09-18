@@ -127,6 +127,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field0"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field1" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -201,6 +211,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field1"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field2" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -277,6 +297,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field2"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field3" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -351,6 +381,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field3"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field4" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -427,6 +467,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field4"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field5" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -501,6 +551,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field5"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field6" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -577,6 +637,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field6"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field7" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -651,6 +721,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field7"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field8" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -727,6 +807,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field8"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field9" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -801,6 +891,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field9"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field10" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -877,6 +977,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field10"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field11" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -951,6 +1061,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field11"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field12" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -1027,6 +1147,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field12"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field13" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -1101,6 +1231,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field13"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Field14" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
@@ -1177,6 +1317,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
 
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field14"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Field15" type="ReferenceRect" parent="MarginContainer/PanelContainer/Fields"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
@@ -1251,3 +1401,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("3_g35lv")
+
+[node name="PreviewPoints" type="Label" parent="MarginContainer/PanelContainer/Fields/Field15"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 700.0
+offset_bottom = 700.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1

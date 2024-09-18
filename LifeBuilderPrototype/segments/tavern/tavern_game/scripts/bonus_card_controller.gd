@@ -146,9 +146,9 @@ func switch_second_field(field):
 
 func execute_switch():
 	switch_fields(first_switch_field, second_switch_field)
-	bonus_card_played_successfully("switch")
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(first_switch_field), played_by)
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(second_switch_field), played_by)
+	bonus_card_played_successfully("switch")
 	highlighter.switch_executed()
 
 # Swaps cards inside the fields manually
@@ -363,6 +363,7 @@ func execute_bonus_card():
 		execute_lock()
 
 func bonus_card_played_successfully(type):
+	await get_tree().create_timer(1.1 * table_game.turn_time).timeout # to ensure hand animations finish moving
 	highlighter.bonus_card_played()
 	table_game.bonus_cards[type].queue_free()
 	table_game.bonus_cards.erase(type)
@@ -372,6 +373,9 @@ func bonus_card_played_successfully(type):
 	table_game.joker_ongoing = false
 	table_game.doublepoints_ongoing = false
 	table_game.lock_ongoing = false
+	table_game.bonus_card_played = true
+	if table_game.normal_card_played:
+		table_game.end_turn()
 
 func currently_playing(player):
 	played_by = player

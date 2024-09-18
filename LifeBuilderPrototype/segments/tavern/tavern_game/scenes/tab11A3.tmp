@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cu4rpxwmecr2h"]
+[gd_scene load_steps=30 format=3 uid="uid://cu4rpxwmecr2h"]
 
 [ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/tavern_game.gd" id="1_am1sw"]
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://segments/tavern/tavern_game/scenes/gameboard.tscn" id="2_457tb"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bmcjf30tqnlgm" path="res://ressources/icons/pointing_hand.png" id="13_375c1"]
 [ext_resource type="Texture2D" uid="uid://f3o0cvokhy07" path="res://ressources/icons/hand.png" id="13_meyit"]
 [ext_resource type="StyleBox" uid="uid://dmyoljv7hd5i1" path="res://segments/tavern/tavern_game/cards_colors_style_boxes/blue_card.tres" id="14_6hq4e"]
+[ext_resource type="Script" path="res://segments/tavern/tavern_game/scenes/always_scrollable_text_edit.gd" id="16_24i4a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81eem"]
 texture = ExtResource("2_ayfwd")
@@ -2730,14 +2731,6 @@ offset_right = 342.0
 offset_bottom = 281.0
 script = ExtResource("1_am1sw")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -203.0
-offset_top = -158.0
-offset_right = 422.0
-offset_bottom = 294.0
-mouse_filter = 1
-
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-2, -8)
 tile_set = SubResource("TileSet_of0e2")
@@ -3323,8 +3316,14 @@ rotation = 3.14159
 texture = ExtResource("13_meyit")
 expand_mode = 1
 
-[node name="Useless" type="TextEdit" parent="."]
-visible = false
+[node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = -82.0
+offset_top = 39.0
+offset_right = 1398.0
+offset_bottom = 979.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 200
+text = "asdasdasdasdasdadt4t432t42saasdasd988564asdasdasdasdasdadt4t432t42saasdasd988564"
+wrap_mode = 1
+script = ExtResource("16_24i4a")

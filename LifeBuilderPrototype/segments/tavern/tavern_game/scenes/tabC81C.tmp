@@ -2730,14 +2730,6 @@ offset_right = 342.0
 offset_bottom = 281.0
 script = ExtResource("1_am1sw")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -203.0
-offset_top = -158.0
-offset_right = 422.0
-offset_bottom = 294.0
-mouse_filter = 1
-
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-2, -8)
 tile_set = SubResource("TileSet_of0e2")
@@ -3323,8 +3315,7 @@ rotation = 3.14159
 texture = ExtResource("13_meyit")
 expand_mode = 1
 
-[node name="Useless" type="TextEdit" parent="."]
-visible = false
+[node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0

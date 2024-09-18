@@ -47,8 +47,48 @@ func update_gamefield():
 
 #################################### PREVIEW POINTS ################################################
 
-func preview_move(_card_position, _card_color, _card_player):
-	pass
+func preview_move(field):
+	for element in table_game.gameboard_fields:
+		element.get_node("PreviewPoints").text = ""
+	if field in table_game.gameboard_fields:
+		var temp = return_calculate_points(table_game.gameboard_fields.find(table_game.last_selected_field))
+		field.get_node("PreviewPoints").text = str(temp)
+
+func return_calculate_points(card_position):
+	
+	update_gamefield()
+	if !gamefield[card_position]:
+		return
+	
+	var gamefield_old = gamefield
+	var gamefield_new = []
+	for element_old in gamefield_old:
+		var element_new = element_old.duplicate()
+		gamefield_new.append(element_new)
+	gamefield = gamefield_new
+	gamefield[card_position].get_node("Card").add_theme_stylebox_override("panel", gamefield[card_position].get_node("Card").get_theme_stylebox("panel").duplicate())
+	gamefield[card_position].get_node("Card").get_theme_stylebox("panel").bg_color = table_game.currently_shown_edit_card.get_theme_stylebox("panel").bg_color
+	gamefield[card_position].get_node("Card").get_theme_stylebox("panel").border_color = table_game.currently_shown_edit_card.get_theme_stylebox("panel").border_color
+	gamefield[card_position].get_node("Card").add_to_group("FieldCard")
+	
+	# reset variables for calculation
+	own_total_points = 0
+	enemy_total_points = 0
+	current_played_by = null
+	current_played_against = null
+	row = card_position / 4
+	column = card_position % 4
+
+	current_played_by = played_by_player
+	current_played_against = played_by_richard
+	
+	# update gamefield points
+	check_neighbors()
+	check_row()
+	check_column()
+	check_diagonal()
+	
+	return own_total_points
 
 #################################### CALCULATE POINTS ################################################
 
