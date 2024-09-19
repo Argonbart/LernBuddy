@@ -1,11 +1,13 @@
-extends Node
+extends Area2D
 
-@onready var player : Node2D
-
-var player_nearby = false
+var player : Node2D
+var player_nearby : bool
 
 func _ready():
 	player = get_tree().get_root().get_node("Player")
+	player_nearby = false
+	self.connect("body_entered", player_close)
+	self.connect("body_exited", player_not_close)
 
 func _process(_delta):
 	if player_nearby and Input.is_action_just_pressed("interact"):
@@ -14,10 +16,10 @@ func _process(_delta):
 		player.scale = Vector2(1.0, 1.0)
 		player.speed = 200
 
-func _on_body_entered(body):
+func player_close(body):
 	if body.name == "Player":
 		player_nearby = true
 
-func _on_body_exited(body):
+func player_not_close(body):
 	if body.name == "Player":
 		player_nearby = false

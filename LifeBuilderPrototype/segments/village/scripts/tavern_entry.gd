@@ -10,7 +10,7 @@ func _ready():
 func _process(_delta):
 	if player_nearby and Input.is_action_just_pressed("interact"):
 		SceneSwitcher.switch_scene("res://segments/tavern/scenes/tavern.tscn")
-		player.position = Vector2(260, 570)
+		player.position = Vector2(900, 380)
 		player.scale = Vector2(2.0, 2.0)
 		player.speed = 300
 

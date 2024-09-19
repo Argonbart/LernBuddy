@@ -1,52 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=10 format=3 uid="uid://cq5lgla7on08e"]
 
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_camera.gd" id="2_vsa6c"]
 [ext_resource type="PackedScene" uid="uid://c5pvjgy8syrst" path="res://segments/tavern/scenes/tavern_tile_map.tscn" id="3_4stuk"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_exit.gd" id="4_og8pp"]
-[ext_resource type="Script" path="res://segments/tavern/tavern_game/scripts/table_game_start_stop.gd" id="4_v2fo0"]
-[ext_resource type="PackedScene" uid="uid://cu4rpxwmecr2h" path="res://segments/tavern/tavern_game/scenes/table_game.tscn" id="5_ff771"]
-[ext_resource type="Script" path="res://segments/tavern/scripts/richard.gd" id="9_ateck"]
-[ext_resource type="Texture2D" uid="uid://ruwooljbkmql" path="res://ressources/sprites/Richard.png" id="10_08oq8"]
-[ext_resource type="PackedScene" uid="uid://dfijr3iv2qyjv" path="res://segments/tavern/tavern_game/scenes/ergebnis_screen.tscn" id="11_lu3mr"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/table_game_enter.gd" id="4_v2fo0"]
+[ext_resource type="PackedScene" uid="uid://cu4rpxwmecr2h" path="res://segments/tavern_game/scenes/table_game.tscn" id="5_3i1ny"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/board_enter.gd" id="6_1332m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrnru"]
-size = Vector2(280, 201)
+size = Vector2(69, 53)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l370q"]
-atlas = ExtResource("10_08oq8")
-region = Rect2(0, 336, 32, 48)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcvq7"]
+size = Vector2(88, 68)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6mubf"]
-atlas = ExtResource("10_08oq8")
-region = Rect2(32, 336, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gv53n"]
-atlas = ExtResource("10_08oq8")
-region = Rect2(64, 336, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tviuj"]
-atlas = ExtResource("10_08oq8")
-region = Rect2(96, 336, 32, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_x3m1y"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l370q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6mubf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gv53n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tviuj")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8q36"]
+size = Vector2(99, 82.25)
 
 [node name="Taverne" type="Node"]
 
@@ -59,62 +27,23 @@ script = ExtResource("2_vsa6c")
 script = ExtResource("4_og8pp")
 
 [node name="ExitCollision" type="CollisionShape2D" parent="Exit"]
-position = Vector2(257, 603)
+position = Vector2(909.5, 355.5)
 shape = SubResource("RectangleShape2D_mrnru")
 
 [node name="Table" type="Area2D" parent="."]
 script = ExtResource("4_v2fo0")
 
 [node name="TableCollision" type="CollisionShape2D" parent="Table"]
-position = Vector2(243, 208.5)
-shape = SubResource("RectangleShape2D_mrnru")
+position = Vector2(735, 264)
+shape = SubResource("RectangleShape2D_qcvq7")
 
-[node name="TableGame" parent="." instance=ExtResource("5_ff771")]
+[node name="Board" type="Area2D" parent="."]
+position = Vector2(749, 352)
+script = ExtResource("6_1332m")
 
-[node name="Richard" type="CharacterBody2D" parent="."]
-script = ExtResource("9_ateck")
+[node name="BoardCollision" type="CollisionShape2D" parent="Board"]
+position = Vector2(101.5, -72.125)
+shape = SubResource("RectangleShape2D_n8q36")
 
-[node name="RichardSprite" type="AnimatedSprite2D" parent="Richard"]
-position = Vector2(430, 163)
-scale = Vector2(1.65625, 1.65625)
-sprite_frames = SubResource("SpriteFrames_x3m1y")
-animation = &"idle"
-frame_progress = 0.901352
-speed_scale = 0.5
-
-[node name="PlayerWon" type="Panel" parent="."]
+[node name="TableGame" parent="." instance=ExtResource("5_3i1ny")]
 visible = false
-offset_left = 93.0
-offset_top = 132.0
-offset_right = 394.0
-offset_bottom = 287.0
-
-[node name="Label" type="Label" parent="PlayerWon"]
-layout_mode = 0
-offset_right = 6020.0
-offset_bottom = 3100.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 800
-text = "Player Won!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="PlayerWon"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="ErgebnisScreen" parent="." instance=ExtResource("11_lu3mr")]
-visible = false
-offset_left = 84.0
-offset_top = 116.0
-offset_right = 555.0
-offset_bottom = 393.0
-scale = Vector2(0.675, 0.675)
-
-[connection signal="body_entered" from="Exit" to="Exit" method="_on_body_entered"]
-[connection signal="body_exited" from="Exit" to="Exit" method="_on_body_exited"]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://gx7xw74c3vkm"]
+
+[ext_resource type="PackedScene" uid="uid://b5j6jl8qnw7tj" path="res://segments/tavern_board/scenes/tavern_board_background.tscn" id="1_2372w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fm3w"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[node name="Board" type="Node"]
+
+[node name="Background" parent="." instance=ExtResource("1_2372w")]
+offset_left = 176.0
+offset_top = 137.0
+offset_right = 216.0
+offset_bottom = 177.0
+
+[node name="Note1" type="Panel" parent="."]
+offset_left = 44.0
+offset_top = 70.0
+offset_right = 145.0
+offset_bottom = 152.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
+
+[node name="Note2" type="Panel" parent="."]
+offset_left = 377.0
+offset_top = 50.0
+offset_right = 478.0
+offset_bottom = 290.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
+
+[node name="Note3" type="Panel" parent="."]
+offset_left = 170.0
+offset_top = 93.0
+offset_right = 342.0
+offset_bottom = 247.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
+
+[node name="Note4" type="Panel" parent="."]
+offset_left = 50.0
+offset_top = 212.0
+offset_right = 148.0
+offset_bottom = 291.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(285, 194)
+zoom = Vector2(2, 2)
