@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cu4rpxwmecr2h"]
+[gd_scene load_steps=27 format=3 uid="uid://cu4rpxwmecr2h"]
 
 [ext_resource type="Script" path="res://segments/tavern_game/scripts/tavern_game.gd" id="1_am1sw"]
 [ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://segments/tavern_game/scenes/gameboard.tscn" id="2_457tb"]
@@ -15,8 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://bmcjf30tqnlgm" path="res://ressources/icons/pointing_hand.png" id="13_375c1"]
 [ext_resource type="Texture2D" uid="uid://f3o0cvokhy07" path="res://ressources/icons/hand.png" id="13_meyit"]
 [ext_resource type="StyleBox" uid="uid://dmyoljv7hd5i1" path="res://segments/tavern_game/cards_colors_style_boxes/blue_card.tres" id="14_6hq4e"]
-[ext_resource type="Texture2D" uid="uid://cu40fjlp1sgy2" path="res://ressources/icons/return_to_tavern_button.png" id="16_ta2by"]
-[ext_resource type="Texture2D" uid="uid://bg537rbri0tlx" path="res://ressources/icons/return_to_tavern_button_pressed.png" id="17_mfgr4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rucw"]
 bg_color = Color(0.12549, 0.619608, 0.145098, 1)
@@ -284,9 +282,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -232.0
+offset_left = -200.0
 offset_top = -150.0
-offset_right = 226.0
+offset_right = 200.0
 offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -726,13 +724,3 @@ visible = false
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
-
-[node name="ReturnToTavernButton" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = -59.0
-offset_top = -35.0
-offset_right = 453.0
-offset_bottom = 477.0
-scale = Vector2(0.05, 0.05)
-texture_normal = ExtResource("16_ta2by")
-texture_pressed = ExtResource("17_mfgr4")

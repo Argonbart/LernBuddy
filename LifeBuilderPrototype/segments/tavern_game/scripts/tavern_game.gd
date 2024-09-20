@@ -12,15 +12,18 @@ signal player_played_card()
 @onready var player_hand_cards = $"../TableGame/PlayerCards"			# Players hand cards
 @onready var field_cards_preview = $"../TableGame/BigCardsOnField"		# Preview cards (left)
 @onready var player_edit_cards = $"../TableGame/EditCards"				# Edit cards (right)
+@onready var reflection_field = $ReflectionCardField					# Field to place reflect card
+@onready var play_reflect_card_button = $ReflectionCardField/Button		# Button to play reflect card
 @onready var play_card_button = $GameBoard/PlayCardButton				# Button to play card
 @onready var end_turn_button = $GameBoard/EndTurnButton					# Button to end turn after normal card (if bonus card not played yet)
-@onready var play_reflect_card_button = $ReflectionCardField/Button		# Button to play reflect card
 @onready var draw_card_button											# Button to draw bonus-card
+@onready var return_to_tavern_button = $ReturnToTavernButton			# Button to return to tavern
 @onready var richard_text_box = $RichardTextBox							# Richard Text Bubble
 @onready var player_hand_image = $PlayerHand							# Player Hand PNG
 @onready var player_hand_with_card_image = $PlayerHandWithCard			# Player Hand With Card PNG
 @onready var richard = $Richard											# Richard play logic script
 @onready var scrollable_text_edit : TextEdit = $Useless
+@onready var player : Node2D
 
 # Static card data
 var style_boxes
@@ -83,6 +86,7 @@ var bonus_cards : Dictionary = {}
 var player_bonus_card_effects : Array
 var reflection_card_filled : bool = false
 var reflect_field_is_selected : bool = false
+var game_finished : bool = true
 
 var normal_card_played : bool = false
 var bonus_card_played : bool = false
@@ -104,6 +108,17 @@ var turn_time = 1.0
 ############################################ PROCESS #########################################################
 
 func _process(_delta):
+	
+	# Space to play next card
+	if play_card_button.visible == true and Input.is_action_just_pressed("space"):
+		_play_card_button_pressed()
+		$Useless.grab_focus()
+	
+	# Space to end turn if nothing playable active
+	if end_turn_button.visible == true and play_card_button.visible == false and Input.is_action_just_pressed("space"):
+		end_turn()
+		$Useless.grab_focus()
+	
 	# Update text for hand cards according to edit
 	for edit_card in edit_to_hand_cards.keys():
 		var edit_card_text = edit_card.get_child(0).text
@@ -126,6 +141,7 @@ func _gui_input(event: InputEvent) -> void:
 
 # Loaded when entering tavern
 func _ready():
+	player = get_tree().get_root().get_node("Player")
 	initiate_gameboard()
 
 # Prepare game without player cards, after filling reflection card initiate player cards
@@ -171,6 +187,8 @@ func initiate_field_buttons():
 	end_turn_button.connect("button_up", func(): _end_turn_without_playing_bonus_card())
 	play_reflect_card_button.connect("button_down", func(): _field_selected(play_reflect_card_button))
 	richard.connect("richard_finished_turn", func(): _richard_finished_turn())
+	richard.connect("game_finished", func(): _game_finished())
+	return_to_tavern_button.connect("button_up", func(): _return_to_tavern())
 
 # Prepare reflection card
 func initiate_reflection_card():
@@ -178,6 +196,9 @@ func initiate_reflection_card():
 	reflection_card_edit.visible = true
 	currently_shown_edit_card = reflection_card_edit
 	highlighting_controller.reflection_card_start()
+	reflect_field_is_selected = true
+	play_card_button.visible = true
+	currently_shown_edit_card.get_child(0).grab_focus()
 
 # Prepare player hand cards
 func initiate_player_cards():
@@ -360,6 +381,11 @@ func _play_card_button_pressed():
 			update_edit_cards(currently_shown_edit_card)
 			return
 	
+	# check if card text is empty
+	if len(currently_shown_edit_card.get_child(0).text) == 0:
+		show_message("Please type something on the card!")
+		return
+	
 	if last_selected_field and !last_selected_field.get_node("Card").get_groups().has("FieldCard") and !normal_card_played:
 		var first_tween = create_tween()
 		highlighting_controller.card_played()
@@ -377,27 +403,15 @@ func _play_card_tween_finished():
 
 # Card played
 func play_card():
-	
-	# check if card text is empty
-	if len(currently_shown_edit_card.get_child(0).text) == 0:
-		show_message("Please type something on the card!")
-		return
-	
 	var field_position = gameboard_fields.find(last_selected_field)
 	var color_name = colors[currently_shown_edit_card.get_theme_stylebox("panel").bg_color]
 	
 	# Check for lock
-	if field_position == bonus_card_controller.confirmed_locked_field_position:
-		if bonus_card_controller.locked_by != "Player":
-			return
-		else:
-			# remove locked field
-			last_selected_field.get_node("LockedByPlayer").queue_free()
-			bonus_card_controller.confirmed_locked_field_position = -1
-			bonus_card_controller.field_locked_by_player = null
-	elif field_position == bonus_card_controller.richard_confirmed_locked_field_position:
-		if bonus_card_controller.locked_by2 == "Richard":
-			return
+	if last_selected_field == bonus_card_controller.field_locked_by_player:
+		last_selected_field.get_node("LockedByPlayer").queue_free()
+		bonus_card_controller.field_locked_by_player = null
+	elif last_selected_field == bonus_card_controller.field_locked_by_richard:
+		return
 	
 	# Play card on the field
 	create_field_card(field_position, color_name, card_icons[color_name], currently_shown_edit_card.get_child(0).text, "Text", true)
@@ -430,7 +444,6 @@ func play_card():
 	play_card_button.visible = false
 	highlighting_controller.card_played()
 	last_selected_field = null
-	player_played_bonus_card = false
 	end_turn_button.visible = true
 	normal_card_played = true
 	if bonus_card_played:
@@ -440,13 +453,18 @@ func _end_turn_without_playing_bonus_card():
 	end_turn()
 
 func end_turn():
+	player_played_bonus_card = false
 	end_turn_button.visible = false
 	player_played_card.emit()
 
 func _richard_finished_turn():
 	normal_card_played = false
 	bonus_card_played = false
-	show_message("Your Turn!")
+	if !game_finished:
+		show_message("Your Turn!")
+
+func _game_finished():
+	game_finished = true
 
 func _hovering_over_scoreboard_card(preview_card):
 	preview_card.visible = true
@@ -458,11 +476,11 @@ func _stop_hovering_over_scoreboard_card(preview_card):
 
 func play_reflect_card():
 	
+	# check if card text is empty
 	if len(currently_shown_edit_card.get_child(0).text) == 0:
-		print("Please type something on the card!")
+		show_message("Please type something on the card!")
 		return
-	
-	var reflection_field = $ReflectionCardField
+
 	var reflection_card = reflection_field.get_node("Card")
 	var reflection_button = reflection_field.get_node("Button")
 	reflection_card.get_node("Text").text = currently_shown_edit_card.get_child(0).text
@@ -485,6 +503,12 @@ func show_message(new_text):
 	richard_text_box.visible = true
 	await get_tree().create_timer(2.0).timeout
 	richard_text_box.visible = false
+
+func _return_to_tavern():
+	SceneSwitcher.switch_scene("res://segments/tavern/scenes/tavern.tscn")
+	player.position = Vector2(740, 315)
+	player.scale = Vector2(2.0, 2.0)
+	player.speed = 300
 
 ############################################ CARD CREATION METHODS #########################################################
 

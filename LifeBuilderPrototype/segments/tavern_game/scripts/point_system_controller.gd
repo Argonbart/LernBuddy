@@ -34,16 +34,11 @@ func initiate_variables():
 
 func update_gamefield():
 	gamefield = table_game.gameboard_fields
-	for field in gamefield:
-		#print("bg: ", field.get_node("Card").get_theme_stylebox("panel").bg_color)
-		print("border: ", field.get_node("Card").get_theme_stylebox("panel").border_color)
-	print(range(len(gamefield)))
 	for i in range(len(gamefield)):
 		var field = gamefield[i]
 		var field_border_color = field.get_node("Card").get_theme_stylebox("panel").border_color
 		var field_bg_color = field.get_node("Card").get_theme_stylebox("panel").bg_color
 		gamefield_colors[i] = field_bg_color
-		print("---> ", field_border_color, " - ", field_bg_color)
 		if field_border_color == table_game.player_color:
 			played_by_player[i] = true
 			played_by_richard[i] = false
@@ -66,11 +61,6 @@ func preview_move(field):
 func return_calculate_points(card_position):
 	
 	update_gamefield()
-	print("~~~~")
-	print("played_by_player: ", played_by_player)
-	print("played_by_richard: ", played_by_richard)
-	print("~~~~")
-	
 	if !gamefield[card_position]:
 		return
 	
@@ -100,20 +90,10 @@ func return_calculate_points(card_position):
 	current_played_against = played_by_richard
 	
 	# update gamefield points
-	print("----")
-	print("edit_bg_color: ", table_game.currently_shown_edit_card.get_theme_stylebox("panel").bg_color)
-	print("pos: ", gamefield[card_position], " - color: ", gamefield_colors[card_position])
-	print("pos: ", gamefield[0], " - color: ", gamefield_colors[0])
-	print("----")
-	print("own: ", own_total_points, " - enemy: ", enemy_total_points)
 	check_neighbors()
-	print("own: ", own_total_points, " - enemy: ", enemy_total_points)
 	check_row()
-	print("own: ", own_total_points, " - enemy: ", enemy_total_points)
 	check_column()
-	print("own: ", own_total_points, " - enemy: ", enemy_total_points)
 	check_diagonal()
-	print("own: ", own_total_points, " - enemy: ", enemy_total_points)
 	
 	return own_total_points - enemy_total_points
 
@@ -122,10 +102,6 @@ func return_calculate_points(card_position):
 func calculate_points(card_position, card_player):
 	
 	update_gamefield()
-	print("~~~~")
-	print("played_by_player: ", played_by_player)
-	print("played_by_richard: ", played_by_richard)
-	print("~~~~")
 	if !gamefield[card_position]:
 		return
 	

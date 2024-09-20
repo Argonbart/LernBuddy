@@ -50,7 +50,7 @@ func generate_random_effects():
 func _player_played_card():
 	update_fields()
 	bonus_card_label.text = ""
-	if len(free_fields) == 0 or (len(free_fields) == 1 and table_game.gameboard_fields.find(free_fields[0]) == table_game.bonus_card_controller.confirmed_locked_field_position) or (len(free_fields) == 2 and table_game.gameboard_fields.find(free_fields[0]) == table_game.bonus_card_controller.confirmed_locked_field_position and table_game.gameboard_fields.find(free_fields[1]) == table_game.bonus_card_controller.richard_confirmed_locked_field_position) or (len(free_fields) == 2 and table_game.gameboard_fields.find(free_fields[0]) == table_game.bonus_card_controller.richard_confirmed_locked_field_position and table_game.gameboard_fields.find(free_fields[1]) == table_game.bonus_card_controller.confirmed_locked_field_position):
+	if len(free_fields) == 0 or (len(free_fields) == 1 and table_game.gameboard_fields[free_fields[0]] == table_game.bonus_card_controller.field_locked_by_player):
 		game_finished.emit()
 		return
 	var next_move = await calculate_next_move()
@@ -164,9 +164,16 @@ func calculate_next_move():
 				richard_hand_cards.append(color_options[randi_range(0, len(color_options)-1)])
 		elif next_bonus_card == "switch":
 			if len(switch_line) > 0 and switch_counter >= 0:
-				await switch_powermove(switch_line)
-				richard_bonus_cards.pop_back()
-				bonus_card_used = true
+				var lock_found = false
+				for element in switch_line:
+					if table_game.gameboard_fields[element] == table_game.bonus_card_controller.field_locked_by_player or table_game.gameboard_fields[element] == table_game.bonus_card_controller.field_locked_by_richard:
+						lock_found = true
+				if !lock_found:
+					await switch_powermove(switch_line)
+					richard_bonus_cards.pop_back()
+					bonus_card_used = true
+				else:
+					switch_counter = switch_counter + 1
 			elif switch_counter >= 2:
 				await switch_randomly()
 				richard_bonus_cards.pop_back()
@@ -186,6 +193,8 @@ func calculate_next_move():
 				await lock_line(richard_two_lines[randi_range(0, len(richard_two_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
+	
+	update_fields()
 	
 	# prepare all relevant lines
 	player_three_lines = lines_of("P", 3)
@@ -213,21 +222,12 @@ func calculate_next_move():
 		select_play_pos_for_line(player_three_lines[randi_range(0, len(player_three_lines)-1)])
 	
 	# Check for lock
-	if position_first_pick == table_game.bonus_card_controller.confirmed_locked_field_position:
-		if table_game.bonus_card_controller.locked_by == "Player":
-			position_first_pick = position_second_pick
-			color_first_pick = color_second_pick
-	elif position_first_pick == table_game.bonus_card_controller.richard_confirmed_locked_field_position:
-		if table_game.bonus_card_controller.locked_by2 != "Richard":
-			position_first_pick = position_second_pick
-			color_first_pick = color_second_pick
-		else:
-			print("got here")
-			# remove locked field
-			table_game.gameboard_fields[position_first_pick].get_node("LockedByRichard").queue_free()
-			table_game.bonus_card_controller.richard_confirmed_locked_field_position = -1
-			table_game.bonus_card_controller.field_locked_by_richard = null
-	
+	if table_game.gameboard_fields[position_first_pick] == table_game.bonus_card_controller.field_locked_by_player:
+		position_first_pick = position_second_pick
+		color_first_pick = color_second_pick
+	elif table_game.gameboard_fields[position_first_pick] == table_game.bonus_card_controller.field_locked_by_richard:
+		table_game.gameboard_fields[position_first_pick].get_node("LockedByRichard").queue_free()
+		table_game.bonus_card_controller.field_locked_by_richard = null
 	
 	# play doublepoint field if available
 	if play_doublepoint_field:
@@ -263,9 +263,9 @@ func select_play_pos_randomly():
 	while play_color not in richard_hand_cards:
 		play_color = colors[randi_range(0, len(colors)-1)]
 	var play_position = free_field_positions[randi_range(0, len(free_field_positions)-1)]
-	while play_position == table_game.bonus_card_controller.confirmed_locked_field_position:
+	while play_position == table_game.gameboard_fields.find(table_game.bonus_card_controller.field_locked_by_player):
 		play_position = free_field_positions[randi_range(0, len(free_field_positions)-1)]
-	if play_position != table_game.bonus_card_controller.confirmed_locked_field_position:
+	if play_position != table_game.gameboard_fields.find(table_game.bonus_card_controller.field_locked_by_player):
 		safe_move(play_position, play_color)
 
 # select the best option of playable neighbor points
@@ -284,7 +284,7 @@ func select_play_pos_for_neighbors(neighbors_dict):
 			if colors[i] in richard_hand_cards:
 				highest_points = points[i]
 				highest_points_at = i
-	if positions[highest_points_at] != table_game.bonus_card_controller.confirmed_locked_field_position:
+	if positions[highest_points_at] != table_game.gameboard_fields.find(table_game.bonus_card_controller.field_locked_by_player):
 		safe_move(positions[highest_points_at], colors[highest_points_at])
 
 # returns all positions that would give neighbor points when played
@@ -338,7 +338,7 @@ func select_play_pos_for_line(line):
 				play_color = valid_colors[randi_range(0, len(valid_colors)-1)]
 			else:
 				play_color = richard_hand_cards[randi_range(0, len(richard_hand_cards)-1)]
-			if pos != table_game.bonus_card_controller.confirmed_locked_field_position:
+			if pos != table_game.gameboard_fields.find(table_game.bonus_card_controller.field_locked_by_player):
 				safe_move(pos, play_color)
 
 func safe_move(new_position, new_color):
@@ -372,7 +372,7 @@ func select_play_pos_for_middle_fields(middle_empty_fields):
 		play_color = valid_colors[randi_range(0, len(valid_colors)-1)]
 	else:
 		play_color = richard_hand_cards[randi_range(0, len(richard_hand_cards)-1)]
-	if new_pos != table_game.bonus_card_controller.confirmed_locked_field_position:
+	if new_pos != table_game.gameboard_fields.find(table_game.bonus_card_controller.field_locked_by_player):
 		safe_move(new_pos, play_color)
 
 ############################################ LINES OF #########################################################
@@ -493,6 +493,11 @@ func switch_randomly():
 	array.erase(pos_to_swap_on_line)
 	switch_field_position_needed_for_powermove = array[randi_range(0, len(array)-1)]
 	table_game.bonus_card_controller.currently_playing("Richard")
+	while (table_game.gameboard_fields[pos_to_swap_on_line] == table_game.bonus_card_controller.field_locked_by_player or table_game.gameboard_fields[pos_to_swap_on_line] == table_game.bonus_card_controller.field_locked_by_richard or table_game.gameboard_fields[switch_field_position_needed_for_powermove] == table_game.bonus_card_controller.field_locked_by_player or table_game.gameboard_fields[switch_field_position_needed_for_powermove] == table_game.bonus_card_controller.field_locked_by_richard):
+		pos_to_swap_on_line = randi_range(0, 15)
+		array = range(16)
+		array.erase(pos_to_swap_on_line)
+		switch_field_position_needed_for_powermove = array[randi_range(0, len(array)-1)]
 	await table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
 	var row1 = pos_to_swap_on_line / 4 + 1
 	var column1 = pos_to_swap_on_line % 4 + 1

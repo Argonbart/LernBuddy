@@ -17,10 +17,6 @@ var highlighter
 
 var bonus_card_playable : bool = false
 var active_bonus_card : String = ""
-var confirmed_locked_field_position : int = -1
-var richard_confirmed_locked_field_position : int = -1
-var locked_by : String = ""
-var locked_by2 : String = ""
 
 # joker
 var joker_field_to_delete : ReferenceRect = null
@@ -51,9 +47,13 @@ func start_joker():
 func cancel_joker():
 	table_game.joker_ongoing = false
 	highlighter.joker_canceled()
+	joker_field_to_delete = null
 
 func joker_field(field):
 	if field.get_node("Card").get_groups().has("FieldCard"):
+		if field == field_locked_by_player or field == field_locked_by_richard:
+			table_game.show_message("This field is locked!")
+			return
 		joker_field_to_delete = field
 		active_bonus_card = "joker"
 		bonus_card_playable = true
@@ -125,6 +125,10 @@ func cancel_switch():
 	highlighter.switch_canceled()
 
 func switch_field(field):
+	
+	if field == field_locked_by_player or field == field_locked_by_richard:
+		table_game.show_message("This field is locked!")
+		return
 	
 	if first_switch_card_is_selected:
 		switch_first_field(field)
@@ -222,6 +226,7 @@ func start_doublepoints():
 func cancel_doublepoints():
 	table_game.doublepoints_ongoing = false
 	highlighter.doublepoints_canceled()
+	double_field = null
 
 func doublepoints_field(field):
 	double_field = field
@@ -256,6 +261,12 @@ func create_doublepoints_field2(field):
 		field.get_node("DoublePoints").get_node("X2").text = "X4"
 		return
 	
+	var lock_color
+	if played_by == "Player":
+		lock_color = table_game.player_color
+	if played_by == "Richard":
+		lock_color = table_game.richard_color
+	
 	var doublepoints_node = Control.new()
 	doublepoints_node.name = "DoublePoints"
 	doublepoints_node.custom_minimum_size = Vector2(35, 35)
@@ -265,7 +276,8 @@ func create_doublepoints_field2(field):
 	border_panel.name = "Border"
 	border_panel.custom_minimum_size = Vector2(37, 37)
 	border_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern_game/gameboard_visual_styles/bonus_card_border.tres"))
+	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern_game/gameboard_visual_styles/bonus_card_border.tres").duplicate())
+	border_panel.get_theme_stylebox("panel").border_color = lock_color
 	border_panel.anchor_left = 0.5
 	border_panel.anchor_top = 0.5
 	border_panel.anchor_right = 0.5
@@ -297,9 +309,12 @@ func start_lock():
 func cancel_lock():
 	table_game.lock_ongoing = false
 	highlighter.lock_canceled()
+	field_locked_by_player = null
 
 func lock_field(field):
 	field_locked_by_player = field
+	if field_locked_by_player not in table_game.gameboard_fields:
+		return
 	active_bonus_card = "lock"
 	bonus_card_playable = true
 	table_game.play_card_button.visible = true
@@ -307,9 +322,6 @@ func lock_field(field):
 
 func execute_lock():
 	await create_locked_field(field_locked_by_player)
-	if !field_locked_by_player.get_node("Card").get_groups().has("FieldCard"):
-		confirmed_locked_field_position = table_game.gameboard_fields.find(field_locked_by_player)
-		locked_by = "Player"
 	if field_locked_by_player == field_locked_by_richard:
 		remove_lock()
 	else:
@@ -318,9 +330,6 @@ func execute_lock():
 
 func richard_execute_lock():
 	await create_locked_field(field_locked_by_richard)
-	if !field_locked_by_richard.get_node("Card").get_groups().has("FieldCard"):
-		richard_confirmed_locked_field_position = table_game.gameboard_fields.find(field_locked_by_richard)
-		locked_by2 = "Richard"
 	if field_locked_by_player == field_locked_by_richard:
 		remove_lock()
 
@@ -340,10 +349,13 @@ func _create_locked_field_tween_finished(field):
 
 func create_locked_field2(field):
 	var locked_node = Control.new()
+	var lock_color
 	if played_by == "Player":
 		locked_node.name = "LockedByPlayer"
+		lock_color = table_game.player_color
 	if played_by == "Richard":
 		locked_node.name = "LockedByRichard"
+		lock_color = table_game.richard_color
 	locked_node.custom_minimum_size = Vector2(35, 35)
 	locked_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
@@ -351,7 +363,8 @@ func create_locked_field2(field):
 	border_panel.name = "Border"
 	border_panel.custom_minimum_size = Vector2(37, 37)
 	border_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern_game/gameboard_visual_styles/bonus_card_border.tres"))
+	border_panel.add_theme_stylebox_override("panel", load("res://segments/tavern_game/gameboard_visual_styles/bonus_card_border.tres").duplicate())
+	border_panel.get_theme_stylebox("panel").border_color = lock_color
 	border_panel.anchor_left = 0.5
 	border_panel.anchor_top = 0.5
 	border_panel.anchor_right = 0.5
@@ -377,8 +390,6 @@ func create_locked_field2(field):
 func remove_lock():
 	field_locked_by_player.get_node("LockedByPlayer").queue_free()
 	field_locked_by_richard.get_node("LockedByRichard").queue_free()
-	confirmed_locked_field_position = -1
-	richard_confirmed_locked_field_position = -1
 	field_locked_by_player = null
 	field_locked_by_richard = null
 

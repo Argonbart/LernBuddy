@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://gx7xw74c3vkm"]
+[gd_scene load_steps=6 format=3 uid="uid://gx7xw74c3vkm"]
 
+[ext_resource type="Script" path="res://segments/tavern_board/scripts/tavern_board.gd" id="1_0uf12"]
 [ext_resource type="PackedScene" uid="uid://b5j6jl8qnw7tj" path="res://segments/tavern_board/scenes/tavern_board_background.tscn" id="1_2372w"]
+[ext_resource type="Texture2D" uid="uid://cu40fjlp1sgy2" path="res://ressources/icons/return_to_tavern_button.png" id="2_a2slr"]
+[ext_resource type="Texture2D" uid="uid://bg537rbri0tlx" path="res://ressources/icons/return_to_tavern_button_pressed.png" id="3_vlxh2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fm3w"]
 bg_color = Color(1, 1, 1, 1)
@@ -11,6 +14,7 @@ border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
 [node name="Board" type="Node"]
+script = ExtResource("1_0uf12")
 
 [node name="Background" parent="." instance=ExtResource("1_2372w")]
 offset_left = 176.0
@@ -49,3 +53,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(285, 194)
 zoom = Vector2(2, 2)
+
+[node name="ReturnToTavernButton" type="TextureButton" parent="."]
+offset_left = 11.0
+offset_top = 43.0
+offset_right = 523.0
+offset_bottom = 555.0
+scale = Vector2(0.05, 0.05)
+texture_normal = ExtResource("2_a2slr")
+texture_pressed = ExtResource("3_vlxh2")

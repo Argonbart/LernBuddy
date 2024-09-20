@@ -18,7 +18,7 @@ func _process(_delta):
 		if is_active:
 			if Input.is_action_pressed("right") or Input.is_action_pressed("left") or Input.is_action_pressed("up") or Input.is_action_pressed("down"):
 				player_sprite.play("run")
-			elif Input.is_action_pressed("jump"):
+			elif Input.is_action_pressed("space"):
 				player_sprite.play("jump")
 			else:
 				player_sprite.play("idle")
