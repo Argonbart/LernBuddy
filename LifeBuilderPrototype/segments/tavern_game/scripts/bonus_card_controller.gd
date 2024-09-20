@@ -9,6 +9,7 @@ signal delete_return()
 @onready var table_game = $".."
 @onready var draw_widget = $DrawCardPanel
 @onready var block_panel = $"../RichardsTurnPanel"
+@onready var empty_card = $EmptyCard
 
 var highlighter
 
@@ -153,8 +154,6 @@ func switch_second_field(field):
 
 func execute_switch():
 	await switch_fields(first_switch_field, second_switch_field)
-	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(first_switch_field), played_by)
-	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(second_switch_field), played_by)
 	highlighter.switch_executed()
 	bonus_card_played_successfully("switch")
 
@@ -195,18 +194,24 @@ func switch_fields2(field1, field2):
 		field_to_preview_cards[card1] = field_to_preview_cards[card2]
 	var index1 = card1.get_index()
 	var index2 = card2.get_index()
+	var empty_card_temp = empty_card.duplicate()
+	empty_card_temp.visible = true
+	empty_card_temp.name = "Card"
 	field1.remove_child(card1)
 	field2.remove_child(card2)
-	field1.add_child(card2)
-	field2.add_child(card1)
-	field1.move_child(card2, index2)
-	field2.move_child(card1, index1)
-	card1.owner = field2
-	card2.owner = field1
-	for child in card1.get_children():
-		child.owner = card1
-	for child in card2.get_children():
-		child.owner = card2
+	add_card_to_field(empty_card_temp, field1, index2)
+	add_card_to_field(card1, field2, index1)
+	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(field2), played_by)
+	field1.remove_child(empty_card_temp)
+	add_card_to_field(card2, field1, index2)
+	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(field1), played_by)
+
+func add_card_to_field(card, field, index):
+	field.add_child(card)
+	field.move_child(card, index)
+	card.owner = field
+	for child in card.get_children():
+		child.owner = card
 
 ############################################ DOUBLE POINTS #########################################################
 
@@ -318,7 +323,6 @@ func richard_execute_lock():
 		locked_by2 = "Richard"
 	if field_locked_by_player == field_locked_by_richard:
 		remove_lock()
-	print("finished executing")
 
 func create_locked_field(field):
 	block_panel.visible = true
@@ -332,7 +336,6 @@ func _create_locked_field_tween_finished(field):
 	hand.position = hand_return
 	create_locked_field2(field)
 	block_panel.visible = false
-	print("finished creating")
 	create_locked_field_return.emit()
 
 func create_locked_field2(field):
@@ -395,7 +398,6 @@ func execute_bonus_card():
 		await execute_lock()
 
 func bonus_card_played_successfully(type):
-	await get_tree().create_timer(1.1 * table_game.turn_time).timeout # to ensure hand animations finish moving
 	highlighter.bonus_card_played()
 	table_game.bonus_cards[type].queue_free()
 	table_game.bonus_cards.erase(type)

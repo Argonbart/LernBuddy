@@ -494,8 +494,6 @@ func switch_randomly():
 	switch_field_position_needed_for_powermove = array[randi_range(0, len(array)-1)]
 	table_game.bonus_card_controller.currently_playing("Richard")
 	await table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
-	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[pos_to_swap_on_line]), "Richard")
-	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[switch_field_position_needed_for_powermove]), "Richard")
 	var row1 = pos_to_swap_on_line / 4 + 1
 	var column1 = pos_to_swap_on_line % 4 + 1
 	var row2 = switch_field_position_needed_for_powermove / 4 + 1
@@ -515,7 +513,6 @@ func lock_line(line_to_lock):
 			table_game.bonus_card_controller.currently_playing("Richard")
 			table_game.bonus_card_controller.field_locked_by_richard = table_game.gameboard_fields[pos]
 			await table_game.bonus_card_controller.richard_execute_lock()
-			print("past command")
 			var row = pos / 4 + 1
 			var column = pos % 4 + 1
 			bonus_card_label.text = str("Richard used Lock\non (", row, ", ", column, ")")

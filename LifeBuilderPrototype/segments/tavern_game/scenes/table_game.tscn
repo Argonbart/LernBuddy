@@ -305,6 +305,38 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 
+[node name="EmptyCard" type="Panel" parent="BonusCardController"]
+visible = false
+custom_minimum_size = Vector2(35, 35)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_v8fg3")
+
+[node name="Text" type="Label" parent="BonusCardController/EmptyCard"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+autowrap_mode = 3
+clip_text = true
+
+[node name="Icon" type="TextureRect" parent="BonusCardController/EmptyCard"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+mouse_filter = 2
+expand_mode = 1
+
 [node name="PointSystemController" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
