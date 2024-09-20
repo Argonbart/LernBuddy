@@ -1,5 +1,11 @@
 extends Node
 
+signal create_locked_field_return()
+signal create_doublepoints_field_return()
+signal switch_fields_return1()
+signal switch_fields_return2()
+signal delete_return()
+
 @onready var table_game = $".."
 @onready var draw_widget = $DrawCardPanel
 @onready var block_panel = $"../RichardsTurnPanel"
@@ -54,20 +60,22 @@ func joker_field(field):
 		highlighter.joker_field_selected()
 
 func execute_joker():
-	delete(joker_field_to_delete)
+	await delete(joker_field_to_delete)
 	highlighter.joker_execute()
 
 func delete(field):
-	var first_tween = create_tween()
 	block_panel.visible = true
+	var first_tween = create_tween()
 	first_tween.tween_property(hand, "position", Vector2(field.position.x, field.position.y), 0.8 * table_game.turn_time)
 	first_tween.connect("finished", func(): _delete_tween_finished(field))
+	await delete_return
 
 func _delete_tween_finished(field):
 	await get_tree().create_timer(0.2 * table_game.turn_time).timeout
 	hand.position = hand_return
 	delete2(field)
 	block_panel.visible = false
+	delete_return.emit()
 
 func delete2(field):
 	var field_card = field.find_child("Card")
@@ -83,7 +91,6 @@ func delete2(field):
 	table_game.field_to_preview_cards[field_card].queue_free()
 	table_game.field_to_preview_cards.erase(field_card)
 	if played_by == "Player":
-		await get_tree().create_timer(0.5).timeout
 		draw_widget.visible = true
 
 func initiate_draw_widget():
@@ -145,30 +152,34 @@ func switch_second_field(field):
 	highlighter.switch_second_card_selected()
 
 func execute_switch():
-	switch_fields(first_switch_field, second_switch_field)
+	await switch_fields(first_switch_field, second_switch_field)
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(first_switch_field), played_by)
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(second_switch_field), played_by)
-	bonus_card_played_successfully("switch")
 	highlighter.switch_executed()
+	bonus_card_played_successfully("switch")
 
 # Swaps cards inside the fields manually
 func switch_fields(field1, field2):
-	var first_tween = create_tween()
 	block_panel.visible = true
+	var first_tween = create_tween()
 	first_tween.tween_property(hand, "position", Vector2(field1.position.x, field1.position.y), 0.4 * table_game.turn_time)
 	first_tween.connect("finished", func(): _switch_fields_tween_finished(field1, field2))
+	await switch_fields_return1
 
 func _switch_fields_tween_finished(field1, field2):
 	await get_tree().create_timer(0.1 * table_game.turn_time).timeout
 	var second_tween = create_tween()
 	second_tween.tween_property(hand, "position", Vector2(field2.position.x, field2.position.y), 0.4 * table_game.turn_time)
 	second_tween.connect("finished", func(): _switch_fields_tween_finished2(field1, field2))
+	await switch_fields_return2
+	switch_fields_return1.emit()
 
 func _switch_fields_tween_finished2(field1, field2):
 	await get_tree().create_timer(0.1 * table_game.turn_time).timeout
 	hand.position = hand_return
 	switch_fields2(field1, field2)
 	block_panel.visible = false
+	switch_fields_return2.emit()
 
 func switch_fields2(field1, field2):
 	var field_to_preview_cards = table_game.field_to_preview_cards
@@ -215,22 +226,24 @@ func doublepoints_field(field):
 	highlighter.doublepoints_selected()
 
 func execute_doublepoints():
-	create_doublepoints_field(double_field)
-	bonus_card_played_successfully("doublepoints")
+	await create_doublepoints_field(double_field)
 	highlighter.doublepoints_executed()
+	bonus_card_played_successfully("doublepoints")
 
 func create_doublepoints_field(field):
-	var first_tween = create_tween()
 	block_panel.visible = true
+	var first_tween = create_tween()
 	first_tween.tween_property(hand, "position", Vector2(field.position.x, field.position.y), 0.8 * table_game.turn_time)
 	first_tween.connect("finished", func(): _create_doublepoints_field_tween_finished(field))
+	await create_doublepoints_field_return
 
 func _create_doublepoints_field_tween_finished(field):
 	await get_tree().create_timer(0.2 * table_game.turn_time).timeout
 	hand.position = hand_return
 	create_doublepoints_field2(field)
-	block_panel.visible = false
 	table_game.point_system_controller.doublepoints_field_positions.append(table_game.gameboard_fields.find(field))
+	block_panel.visible = false
+	create_doublepoints_field_return.emit()
 
 func create_doublepoints_field2(field):
 	
@@ -288,47 +301,42 @@ func lock_field(field):
 	highlighter.lock_selected()
 
 func execute_lock():
-	create_locked_field(field_locked_by_player)
+	await create_locked_field(field_locked_by_player)
 	if !field_locked_by_player.get_node("Card").get_groups().has("FieldCard"):
 		confirmed_locked_field_position = table_game.gameboard_fields.find(field_locked_by_player)
 		locked_by = "Player"
 	if field_locked_by_player == field_locked_by_richard:
 		remove_lock()
+	else:
+		highlighter.lock_executed()
 	bonus_card_played_successfully("lock")
-	highlighter.lock_executed()
 
 func richard_execute_lock():
-	create_locked_field(field_locked_by_richard)
-	await get_tree().create_timer(1.0 * table_game.turn_time).timeout
+	await create_locked_field(field_locked_by_richard)
 	if !field_locked_by_richard.get_node("Card").get_groups().has("FieldCard"):
 		richard_confirmed_locked_field_position = table_game.gameboard_fields.find(field_locked_by_richard)
 		locked_by2 = "Richard"
 	if field_locked_by_player == field_locked_by_richard:
 		remove_lock()
-
-func remove_lock():
-	field_locked_by_player.get_node("LockedByPlayer").queue_free()
-	field_locked_by_richard.get_node("LockedByRichard").queue_free()
-	confirmed_locked_field_position = -1
-	richard_confirmed_locked_field_position = -1
-	field_locked_by_player = null
-	field_locked_by_richard = null
+	print("finished executing")
 
 func create_locked_field(field):
-	var first_tween = create_tween()
 	block_panel.visible = true
+	var first_tween = create_tween()
 	first_tween.tween_property(hand, "position", Vector2(field.position.x, field.position.y), 0.8 * table_game.turn_time)
 	first_tween.connect("finished", func(): _create_locked_field_tween_finished(field))
+	await create_locked_field_return
 
 func _create_locked_field_tween_finished(field):
 	await get_tree().create_timer(0.2 * table_game.turn_time).timeout
 	hand.position = hand_return
 	create_locked_field2(field)
 	block_panel.visible = false
+	print("finished creating")
+	create_locked_field_return.emit()
 
 func create_locked_field2(field):
 	var locked_node = Control.new()
-	print(played_by)
 	if played_by == "Player":
 		locked_node.name = "LockedByPlayer"
 	if played_by == "Richard":
@@ -363,6 +371,14 @@ func create_locked_field2(field):
 	field.add_child(locked_node)
 	field.move_child(locked_node, 2)
 
+func remove_lock():
+	field_locked_by_player.get_node("LockedByPlayer").queue_free()
+	field_locked_by_richard.get_node("LockedByRichard").queue_free()
+	confirmed_locked_field_position = -1
+	richard_confirmed_locked_field_position = -1
+	field_locked_by_player = null
+	field_locked_by_richard = null
+
 ###########################################################################################################
 
 func confirm_bonus_card_play():
@@ -370,13 +386,13 @@ func confirm_bonus_card_play():
 
 func execute_bonus_card():
 	if active_bonus_card == "joker":
-		execute_joker()
+		await execute_joker()
 	elif active_bonus_card == "switch":
-		execute_switch()
+		await execute_switch()
 	elif active_bonus_card == "doublepoints":
-		execute_doublepoints()
+		await execute_doublepoints()
 	elif active_bonus_card == "lock":
-		execute_lock()
+		await execute_lock()
 
 func bonus_card_played_successfully(type):
 	await get_tree().create_timer(1.1 * table_game.turn_time).timeout # to ensure hand animations finish moving

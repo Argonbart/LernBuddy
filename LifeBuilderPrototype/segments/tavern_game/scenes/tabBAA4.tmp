@@ -1,0 +1,693 @@
+[gd_scene load_steps=27 format=3 uid="uid://cu4rpxwmecr2h"]
+
+[ext_resource type="Script" path="res://segments/tavern_game/scripts/tavern_game.gd" id="1_am1sw"]
+[ext_resource type="PackedScene" uid="uid://bd8go0qykin0m" path="res://segments/tavern_game/scenes/gameboard.tscn" id="2_457tb"]
+[ext_resource type="PackedScene" uid="uid://bjtvxq2kyqf6v" path="res://segments/tavern_game/scenes/tavern_game_background.tscn" id="2_qh033"]
+[ext_resource type="PackedScene" uid="uid://bxoix41d028yc" path="res://segments/tavern_game/scenes/deck.tscn" id="3_y5qq6"]
+[ext_resource type="PackedScene" uid="uid://dtg661hui0ojm" path="res://segments/tavern_game/scenes/player_cards.tscn" id="4_fvo5j"]
+[ext_resource type="StyleBox" uid="uid://epcyh0jqqk4h" path="res://segments/tavern_game/gameboard_visual_styles/card_white.tres" id="5_v8fg3"]
+[ext_resource type="Material" uid="uid://d0imauablx4ox" path="res://ressources/shader/blinking.material" id="6_df5yk"]
+[ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern_game/gameboard_visual_styles/white_border.tres" id="7_yo6q0"]
+[ext_resource type="Script" path="res://segments/tavern_game/scripts/bonus_card_controller.gd" id="8_svf2d"]
+[ext_resource type="Script" path="res://segments/tavern_game/scripts/point_system_controller.gd" id="9_ip82h"]
+[ext_resource type="Script" path="res://segments/tavern_game/scripts/richard.gd" id="11_7bgha"]
+[ext_resource type="Texture2D" uid="uid://ruwooljbkmql" path="res://ressources/sprites/Richard.png" id="12_m1xuj"]
+[ext_resource type="Texture2D" uid="uid://bmcjf30tqnlgm" path="res://ressources/icons/pointing_hand.png" id="13_375c1"]
+[ext_resource type="Texture2D" uid="uid://f3o0cvokhy07" path="res://ressources/icons/hand.png" id="13_meyit"]
+[ext_resource type="StyleBox" uid="uid://dmyoljv7hd5i1" path="res://segments/tavern_game/cards_colors_style_boxes/blue_card.tres" id="14_6hq4e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rucw"]
+bg_color = Color(0.12549, 0.619608, 0.145098, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6rwht"]
+bg_color = Color(0.638896, 0.390267, 0.774186, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fkqb"]
+bg_color = Color(0, 0, 0, 0.686275)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l370q"]
+atlas = ExtResource("12_m1xuj")
+region = Rect2(0, 336, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mubf"]
+atlas = ExtResource("12_m1xuj")
+region = Rect2(32, 336, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv53n"]
+atlas = ExtResource("12_m1xuj")
+region = Rect2(64, 336, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tviuj"]
+atlas = ExtResource("12_m1xuj")
+region = Rect2(96, 336, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72px3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l370q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mubf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv53n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tviuj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxmox"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_chpm8"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsyi0"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 0)
+
+[node name="TableGame" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 136.0
+offset_top = 136.0
+offset_right = 342.0
+offset_bottom = 281.0
+script = ExtResource("1_am1sw")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -203.0
+offset_top = -158.0
+offset_right = 422.0
+offset_bottom = 294.0
+mouse_filter = 1
+
+[node name="Background" parent="." instance=ExtResource("2_qh033")]
+
+[node name="GameBoard" parent="." instance=ExtResource("2_457tb")]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="PlayCardButton" type="Button" parent="GameBoard"]
+visible = false
+layout_mode = 0
+offset_left = 230.0
+offset_right = 1150.0
+offset_bottom = 449.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_0rucw")
+text = "PLAY"
+
+[node name="EndTurnButton" type="Button" parent="GameBoard"]
+visible = false
+layout_mode = 0
+offset_left = 230.0
+offset_top = 135.0
+offset_right = 1150.0
+offset_bottom = 584.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+theme_override_styles/normal = SubResource("StyleBoxFlat_6rwht")
+text = "NEXT"
+
+[node name="Deck" parent="." instance=ExtResource("3_y5qq6")]
+offset_left = -52.0
+offset_top = 160.0
+offset_right = -12.0
+offset_bottom = 200.0
+
+[node name="PlayerCards" parent="." instance=ExtResource("4_fvo5j")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = 30.0
+offset_right = 431.0
+offset_bottom = 65.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="BigCardsOnField" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -110.0
+offset_top = 30.0
+offset_right = -10.0
+offset_bottom = 130.0
+
+[node name="EditCards" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -42.5
+offset_right = 99.0
+offset_bottom = 57.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ReflectionCardField" type="ReferenceRect" parent="."]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_left = 270.0
+offset_top = 160.0
+offset_right = 305.0
+offset_bottom = 195.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="Button" type="Button" parent="ReflectionCardField" groups=["FieldButton"]]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+flat = true
+
+[node name="Card" type="Panel" parent="ReflectionCardField" groups=["FieldCard"]]
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -16.5
+offset_right = 16.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("5_v8fg3")
+
+[node name="Text" type="Label" parent="ReflectionCardField/Card"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+scale = Vector2(0.05, 0.05)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+autowrap_mode = 3
+clip_text = true
+
+[node name="Icon" type="TextureRect" parent="ReflectionCardField/Card"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+mouse_filter = 2
+expand_mode = 1
+
+[node name="Highlighting" type="Panel" parent="ReflectionCardField" groups=["HighlightPanel"]]
+material = ExtResource("6_df5yk")
+custom_minimum_size = Vector2(37, 37)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.5
+offset_top = -17.5
+offset_right = 17.5
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("7_yo6q0")
+
+[node name="BonusCardController" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_svf2d")
+
+[node name="DrawCardPanel" type="Panel" parent="BonusCardController"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DrawOptions" parent="BonusCardController/DrawCardPanel" instance=ExtResource("4_fvo5j")]
+custom_minimum_size = Vector2(600, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -25.0
+offset_right = 450.0
+offset_bottom = 75.0001
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="PointSystemController" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -10.0
+offset_top = 18.0
+offset_right = 30.0
+offset_bottom = 58.0
+mouse_filter = 2
+script = ExtResource("9_ip82h")
+
+[node name="RichardPointsPanel" type="Panel" parent="PointSystemController"]
+layout_mode = 0
+offset_left = -102.0
+offset_top = -53.0
+offset_right = -52.0
+offset_bottom = -3.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fkqb")
+
+[node name="RichardPoints" type="Label" parent="PointSystemController/RichardPointsPanel"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_top = 9.0
+offset_right = 1000.0
+offset_bottom = 827.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 600
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichardPointsText" type="Label" parent="PointSystemController/RichardPointsPanel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 1000.0
+offset_bottom = 222.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 140
+text = "Richard Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPointsPanel" type="Panel" parent="PointSystemController"]
+layout_mode = 0
+offset_left = -102.0
+offset_top = 129.0
+offset_right = -52.0
+offset_bottom = 179.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fkqb")
+
+[node name="PlayerPoints" type="Label" parent="PointSystemController/PlayerPointsPanel"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_top = 9.0
+offset_right = 1000.0
+offset_bottom = 827.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 600
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPointsText" type="Label" parent="PointSystemController/PlayerPointsPanel"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 1000.0
+offset_bottom = 222.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 140
+text = "Player Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Richard" type="CharacterBody2D" parent="."]
+visible = false
+position = Vector2(-460, -168)
+script = ExtResource("11_7bgha")
+
+[node name="RichardSprite" type="AnimatedSprite2D" parent="Richard"]
+position = Vector2(430, 163)
+scale = Vector2(1.65625, 1.65625)
+sprite_frames = SubResource("SpriteFrames_72px3")
+animation = &"idle"
+speed_scale = 0.5
+
+[node name="ScoreBoard" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.0
+offset_top = -187.5
+offset_right = 269.0
+offset_bottom = 194.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WonLabel" type="Label" parent="ScoreBoard"]
+custom_minimum_size = Vector2(6000, 1500)
+layout_mode = 0
+offset_left = 99.0
+offset_top = 99.0
+offset_right = 6099.0
+offset_bottom = 1599.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 800
+text = "Someone won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayedCardsLabel" type="Label" parent="ScoreBoard"]
+custom_minimum_size = Vector2(3000, 500)
+layout_mode = 0
+offset_left = 169.0
+offset_top = 159.0
+offset_right = 3409.0
+offset_bottom = 659.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 200
+text = "Player played the following cards:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardsPlayedByPlayer" type="HBoxContainer" parent="ScoreBoard"]
+custom_minimum_size = Vector2(600, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = 34.0
+offset_right = 499.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="ScoreBoardCardsPreview" type="Control" parent="ScoreBoard"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 199.0
+offset_top = 214.0
+offset_right = 299.0
+offset_bottom = 314.0
+
+[node name="PlayerPointsTextLabel" type="Label" parent="ScoreBoard"]
+custom_minimum_size = Vector2(2000, 500)
+layout_mode = 0
+offset_left = 79.0
+offset_top = 229.0
+offset_right = 2079.0
+offset_bottom = 729.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 200
+text = "Player Points:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPointsLabel" type="Label" parent="ScoreBoard"]
+custom_minimum_size = Vector2(2000, 500)
+layout_mode = 0
+offset_left = 79.0
+offset_top = 249.0
+offset_right = 2079.0
+offset_bottom = 1067.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 600
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichardPointsTextLabel" type="Label" parent="ScoreBoard"]
+custom_minimum_size = Vector2(2000, 500)
+layout_mode = 0
+offset_left = 319.0
+offset_top = 229.0
+offset_right = 2319.0
+offset_bottom = 729.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 200
+text = "Richard Points:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichardPointsLabel" type="Label" parent="ScoreBoard"]
+custom_minimum_size = Vector2(2000, 500)
+layout_mode = 0
+offset_left = 319.0
+offset_top = 249.0
+offset_right = 2319.0
+offset_bottom = 1067.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 600
+text = "13"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichardsTurnPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxmox")
+
+[node name="RichardsTurnLabel" type="Label" parent="RichardsTurnPanel"]
+visible = false
+custom_minimum_size = Vector2(6000, 1500)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 90.0
+offset_right = 6050.0
+offset_bottom = 1590.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 800
+text = "Richard's Turn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichardsBonusCardLabel" type="Label" parent="RichardsTurnPanel"]
+visible = false
+custom_minimum_size = Vector2(6000, 1500)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 140.0
+offset_right = 6050.0
+offset_bottom = 1640.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 400
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(99, 81)
+zoom = Vector2(2.7, 2.7)
+
+[node name="RichardTextBox" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 118.0
+offset_right = 43.0
+offset_bottom = 158.0
+
+[node name="Panel" type="Panel" parent="RichardTextBox"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -70.0
+offset_right = 260.0
+offset_bottom = -22.0
+
+[node name="Label" type="Label" parent="RichardTextBox/Panel"]
+layout_mode = 0
+offset_right = 6340.0
+offset_bottom = 960.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PlayerHand" type="Panel" parent="."]
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0
+offset_top = 129.5
+offset_right = 81.0
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_chpm8")
+
+[node name="PlayerHand1" type="TextureRect" parent="PlayerHand"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = 3.0
+offset_right = 62.0
+offset_bottom = 75.0
+texture = ExtResource("13_375c1")
+expand_mode = 1
+
+[node name="PlayerHandWithCard" type="Panel" parent="."]
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 46.5
+offset_top = 147.0
+offset_right = 79.5
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("14_6hq4e")
+
+[node name="PlayerHand2" type="TextureRect" parent="PlayerHandWithCard"]
+layout_mode = 0
+offset_left = -19.5
+offset_top = 0.5
+offset_right = 52.5
+offset_bottom = 72.5
+texture = ExtResource("13_meyit")
+expand_mode = 1
+
+[node name="RichardHand" type="Panel" parent="."]
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -173.5
+offset_right = -54.0
+offset_bottom = -140.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gsyi0")
+
+[node name="RichardHand1" type="TextureRect" parent="RichardHand"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 29.0
+offset_right = 115.0
+offset_bottom = 101.0
+rotation = 3.14159
+texture = ExtResource("13_375c1")
+expand_mode = 1
+
+[node name="RichardHandWithCard" type="Panel" parent="."]
+custom_minimum_size = Vector2(33, 33)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -209.5
+offset_right = -66.0
+offset_bottom = -176.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("14_6hq4e")
+
+[node name="RichardHand2" type="TextureRect" parent="RichardHandWithCard"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 29.0
+offset_right = 126.0
+offset_bottom = 101.0
+rotation = 3.14159
+texture = ExtResource("13_meyit")
+expand_mode = 1
+
+[node name="Useless" type="TextEdit" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

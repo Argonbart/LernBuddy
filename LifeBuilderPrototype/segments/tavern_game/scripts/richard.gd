@@ -53,7 +53,7 @@ func _player_played_card():
 	if len(free_fields) == 0 or (len(free_fields) == 1 and table_game.gameboard_fields.find(free_fields[0]) == table_game.bonus_card_controller.confirmed_locked_field_position) or (len(free_fields) == 2 and table_game.gameboard_fields.find(free_fields[0]) == table_game.bonus_card_controller.confirmed_locked_field_position and table_game.gameboard_fields.find(free_fields[1]) == table_game.bonus_card_controller.richard_confirmed_locked_field_position) or (len(free_fields) == 2 and table_game.gameboard_fields.find(free_fields[0]) == table_game.bonus_card_controller.richard_confirmed_locked_field_position and table_game.gameboard_fields.find(free_fields[1]) == table_game.bonus_card_controller.confirmed_locked_field_position):
 		game_finished.emit()
 		return
-	var next_move = calculate_next_move()
+	var next_move = await calculate_next_move()
 	table_game.get_node("RichardsTurnPanel").visible = true
 	if bonus_card_used:
 		await get_tree().create_timer(1.0).timeout
@@ -142,19 +142,19 @@ func calculate_next_move():
 		var next_bonus_card = richard_bonus_cards[len(richard_bonus_cards)-1]
 		if next_bonus_card == "joker":
 			if len(joker_lines) > 0 and joker_counter >= 0:
-				delete_element_of_line(joker_lines[randi_range(0, len(joker_lines)-1)])
+				await delete_element_of_line(joker_lines[randi_range(0, len(joker_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			elif len(player_three_lines) > 0 and joker_counter >= 1:
-				delete_element_of_line(player_three_lines[randi_range(0, len(player_three_lines)-1)])
+				await delete_element_of_line(player_three_lines[randi_range(0, len(player_three_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			elif len(player_two_lines) > 0 and joker_counter >= 2:
-				delete_element_of_line(player_two_lines[randi_range(0, len(player_two_lines)-1)])
+				await delete_element_of_line(player_two_lines[randi_range(0, len(player_two_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			elif joker_counter >= 3:
-				delete_element_of_line(player_one_lines[randi_range(0, len(player_one_lines)-1)])
+				await delete_element_of_line(player_one_lines[randi_range(0, len(player_one_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			else:
@@ -164,11 +164,11 @@ func calculate_next_move():
 				richard_hand_cards.append(color_options[randi_range(0, len(color_options)-1)])
 		elif next_bonus_card == "switch":
 			if len(switch_line) > 0 and switch_counter >= 0:
-				switch_powermove(switch_line)
+				await switch_powermove(switch_line)
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			elif switch_counter >= 2:
-				switch_randomly()
+				await switch_randomly()
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			else:
@@ -179,11 +179,11 @@ func calculate_next_move():
 			bonus_card_used = true
 		elif next_bonus_card == "lock":
 			if len(player_two_lines) > 0:
-				lock_line(player_two_lines[randi_range(0, len(player_two_lines)-1)])
+				await lock_line(player_two_lines[randi_range(0, len(player_two_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 			elif len(richard_two_lines) > 0:
-				lock_line(richard_two_lines[randi_range(0, len(richard_two_lines)-1)])
+				await lock_line(richard_two_lines[randi_range(0, len(richard_two_lines)-1)])
 				richard_bonus_cards.pop_back()
 				bonus_card_used = true
 	
@@ -222,6 +222,7 @@ func calculate_next_move():
 			position_first_pick = position_second_pick
 			color_first_pick = color_second_pick
 		else:
+			print("got here")
 			# remove locked field
 			table_game.gameboard_fields[position_first_pick].get_node("LockedByRichard").queue_free()
 			table_game.bonus_card_controller.richard_confirmed_locked_field_position = -1
@@ -230,7 +231,7 @@ func calculate_next_move():
 	
 	# play doublepoint field if available
 	if play_doublepoint_field:
-		play_doublepoint(position_first_pick)
+		await play_doublepoint(position_first_pick)
 		play_doublepoint_field = false
 	
 	# update return values and richards hand
@@ -429,7 +430,7 @@ func delete_element_of_line(player_line):
 	var row = deletion / 4 + 1
 	var column = deletion % 4 + 1
 	table_game.bonus_card_controller.currently_playing("Richard")
-	table_game.bonus_card_controller.delete(table_game.gameboard_fields[deletion])
+	await table_game.bonus_card_controller.delete(table_game.gameboard_fields[deletion])
 	bonus_card_label.text = str("Richard used Joker on (", row, ", ", column, ")")
 
 func potential_three_lines_for_powermove(array_with_amount_of_player_cards_allowed):
@@ -477,7 +478,7 @@ func switch_powermove(powermove_line):
 		printerr("powerline in switch_powermove has 2 or more player cards")
 	
 	table_game.bonus_card_controller.currently_playing("Richard")
-	table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
+	await table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[pos_to_swap_on_line]), "Richard")
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[switch_field_position_needed_for_powermove]), "Richard")
 	var row1 = pos_to_swap_on_line / 4 + 1
@@ -492,7 +493,7 @@ func switch_randomly():
 	array.erase(pos_to_swap_on_line)
 	switch_field_position_needed_for_powermove = array[randi_range(0, len(array)-1)]
 	table_game.bonus_card_controller.currently_playing("Richard")
-	table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
+	await table_game.bonus_card_controller.switch_fields(table_game.gameboard_fields[pos_to_swap_on_line], table_game.gameboard_fields[switch_field_position_needed_for_powermove])
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[pos_to_swap_on_line]), "Richard")
 	table_game.point_system_controller.calculate_points(table_game.gameboard_fields.find(table_game.gameboard_fields[switch_field_position_needed_for_powermove]), "Richard")
 	var row1 = pos_to_swap_on_line / 4 + 1
@@ -503,7 +504,7 @@ func switch_randomly():
 
 func play_doublepoint(pos):
 	table_game.bonus_card_controller.currently_playing("Richard")
-	table_game.bonus_card_controller.create_doublepoints_field(table_game.gameboard_fields[pos])
+	await table_game.bonus_card_controller.create_doublepoints_field(table_game.gameboard_fields[pos])
 	var row = pos / 4 + 1
 	var column = pos % 4 + 1
 	bonus_card_label.text = str("Richard used DoublePoints\non (", row, ", ", column, ")")
@@ -513,7 +514,8 @@ func lock_line(line_to_lock):
 		if fields_played_by[pos] == "E":
 			table_game.bonus_card_controller.currently_playing("Richard")
 			table_game.bonus_card_controller.field_locked_by_richard = table_game.gameboard_fields[pos]
-			table_game.bonus_card_controller.richard_execute_lock()
+			await table_game.bonus_card_controller.richard_execute_lock()
+			print("past command")
 			var row = pos / 4 + 1
 			var column = pos % 4 + 1
 			bonus_card_label.text = str("Richard used Lock\non (", row, ", ", column, ")")

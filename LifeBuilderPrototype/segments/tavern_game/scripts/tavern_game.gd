@@ -356,7 +356,7 @@ func _play_card_button_pressed():
 	if colors[currently_shown_edit_card.get_theme_stylebox("panel").bg_color] == "grey":
 		if bonus_card_controller.confirm_bonus_card_play():
 			bonus_card_controller.currently_playing("Player")
-			bonus_card_controller.execute_bonus_card()
+			await bonus_card_controller.execute_bonus_card()
 			update_edit_cards(currently_shown_edit_card)
 			return
 	
