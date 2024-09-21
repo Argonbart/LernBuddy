@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal richard_finished_turn()
 signal game_finished()
+signal api_response_ready()
 
 @onready var table_game = $"../"
 @onready var bonus_card_label = $"../RichardsTurnPanel/RichardsBonusCardLabel"
@@ -30,10 +31,17 @@ var color_first_pick = null
 var position_second_pick = -1
 var color_second_pick = null
 
+# api stuff
+var return_field = -1
+var return_color = null
+var return_text = "Richard plays card"
+var last_player_text = ""
+
 func _process(_delta):
 	self.get_child(0).play("idle")
 
 func _ready():
+	GeminiAPI.connect("next_response", _api_response)
 	richard_bonus_cards = generate_random_effects()
 	table_game.connect("player_played_card", func(): _player_played_card())
 
@@ -50,7 +58,7 @@ func generate_random_effects():
 func _player_played_card():
 	update_fields()
 	bonus_card_label.text = ""
-	if len(free_fields) == 0 or (len(free_fields) == 1 and table_game.gameboard_fields[free_fields[0]] == table_game.bonus_card_controller.field_locked_by_player):
+	if len(free_fields) == 0 or (len(free_fields) == 1 and free_fields[0] == table_game.bonus_card_controller.field_locked_by_player):
 		game_finished.emit()
 		return
 	var next_move = await calculate_next_move()
@@ -114,9 +122,9 @@ func richard_play_card(field_position, color, text):
 func calculate_next_move():
 	
 	# reset var for calculation
-	var return_field = -1
-	var return_color = null
-	var return_text = "Richard plays card"
+	return_field = -1
+	return_color = null
+	return_text = "Richard plays card"
 	
 	# reset output var
 	position_first_pick = -1
@@ -241,14 +249,29 @@ func calculate_next_move():
 		return_color = color_first_pick
 	richard_hand_cards.erase(color_first_pick)
 	
+	send_api_request(last_player_text)
+	await api_response_ready
+	
 	return {"field": return_field, "color": return_color, "text": return_text}
 
 ####################################### API ZEUG ##################
 
-#func _api_response(message, npc):
-	#if npc == "Richard":
-		# # Generate response
-		#pass
+func send_api_request(player_card_text):
+	if return_color == "yellow":
+		GeminiAPI.next_promt(player_card_text, "Richard-Yellow")
+	elif return_color == "red":
+		GeminiAPI.next_promt(player_card_text, "Richard-Red")
+	elif return_color == "green":
+		GeminiAPI.next_promt(player_card_text, "Richard-Green")
+	elif return_color == "blue":
+		GeminiAPI.next_promt(player_card_text, "Richard-Blue")
+	else:
+		printerr("Invalid return color on api call in richard.gd")
+
+func _api_response(message, npc):
+	if npc == "Richard-Yellow" or npc == "Richard-Red" or npc == "Richard-Green" or npc == "Richard-Blue":
+		return_text = message
+		api_response_ready.emit()
 
 ####################################### SELECT POSITION AND LINES FOR POTENTIAL PLAY #############################################
 

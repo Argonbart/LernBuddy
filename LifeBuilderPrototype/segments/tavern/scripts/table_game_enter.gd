@@ -11,6 +11,7 @@ func _ready():
 
 func _process(_delta):
 	if player_nearby and Input.is_action_just_pressed("interact"):
+		GeminiAPI.start_richard_game()
 		SceneSwitcher.switch_scene("res://segments/tavern_game/scenes/table_game.tscn")
 		player.position = Vector2(900, 380)
 		player.scale = Vector2(2.0, 2.0)

@@ -104,18 +104,19 @@ var richard_points : int = 0
 
 # timing
 var turn_time = 1.0
+var start_message = 0
 
 ############################################ PROCESS #########################################################
 
 func _process(_delta):
 	
 	# Space to play next card
-	if play_card_button.visible == true and Input.is_action_just_pressed("space"):
+	if play_card_button.visible == true and Input.is_action_just_pressed("playcard"):
 		_play_card_button_pressed()
 		$Useless.grab_focus()
 	
 	# Space to end turn if nothing playable active
-	if end_turn_button.visible == true and play_card_button.visible == false and Input.is_action_just_pressed("space"):
+	if end_turn_button.visible == true and play_card_button.visible == false and Input.is_action_just_pressed("playcard"):
 		end_turn()
 		$Useless.grab_focus()
 	
@@ -141,6 +142,8 @@ func _gui_input(event: InputEvent) -> void:
 
 # Loaded when entering tavern
 func _ready():
+	show_message("Waiting for Richard..")
+	await GeminiAPI.main_topic_set
 	player = get_tree().get_root().get_node("Player")
 	initiate_gameboard()
 
@@ -368,10 +371,9 @@ func update_edit_cards(edit_card):
 
 # PlayButton pressed
 func _play_card_button_pressed():
-	
 	# Play reflection card if not played yet
 	if !reflection_card_filled:
-		play_reflect_card()
+		await play_reflect_card()
 		return
 	
 	if colors[currently_shown_edit_card.get_theme_stylebox("panel").bg_color] == "grey":
@@ -393,7 +395,7 @@ func _play_card_button_pressed():
 		first_tween.tween_property(player_hand_with_card_image, "position", Vector2(gameboard_fields[gameboard_fields.find(last_selected_field)].position.x, gameboard_fields[gameboard_fields.find(last_selected_field)].position.y), 0.8 * turn_time)
 		first_tween.connect("finished", func(): _play_card_tween_finished())
 	else:
-		print("This move is not allowed!")
+		show_message("You cannot play on another card!")
 
 func _play_card_tween_finished():
 	await get_tree().create_timer(0.2 * turn_time).timeout
@@ -415,6 +417,7 @@ func play_card():
 	
 	# Play card on the field
 	create_field_card(field_position, color_name, card_icons[color_name], currently_shown_edit_card.get_child(0).text, "Text", true)
+	richard.last_player_text = currently_shown_edit_card.get_child(0).text
 	
 	# Remove hand and edit cards
 	var active_hand_card = edit_to_hand_cards[currently_shown_edit_card]
@@ -475,7 +478,6 @@ func _stop_hovering_over_scoreboard_card(preview_card):
 ############################################ REFLECTION CARD FOR BEGINNING #########################################################
 
 func play_reflect_card():
-	
 	# check if card text is empty
 	if len(currently_shown_edit_card.get_child(0).text) == 0:
 		show_message("Please type something on the card!")
@@ -493,16 +495,33 @@ func play_reflect_card():
 	currently_shown_edit_card = null
 	play_card_button.visible = false
 	highlighting_controller.reflection_card_end()
+	await show_message("Richard's topic today is:\n" + str(GeminiAPI.main_topic))
 	reflection_card_filled = true
 	initiate_gameboard()
 
 ######################
 
 func show_message(new_text):
-	richard_text_box.get_node("Panel").get_node("Label").text = new_text
-	richard_text_box.visible = true
-	await get_tree().create_timer(2.0).timeout
-	richard_text_box.visible = false
+	if start_message == 0:
+		richard_text_box.get_node("Panel").get_node("Label").text = new_text
+		richard_text_box.add_theme_font_size_override("font_size", 300)
+		richard_text_box.visible = true
+		await get_tree().create_timer(2.0).timeout
+		richard_text_box.visible = false
+		start_message = 1
+	elif start_message == 1:
+		richard_text_box.get_node("Panel").get_node("Label").text = new_text
+		richard_text_box.get_child(0).get_child(0).set("theme_override_font_sizes/font_size", 150)
+		richard_text_box.visible = true
+		await get_tree().create_timer(5.0).timeout
+		richard_text_box.visible = false
+		start_message = 2
+	else:
+		richard_text_box.get_node("Panel").get_node("Label").text = new_text
+		richard_text_box.add_theme_font_size_override("font_size", 300)
+		richard_text_box.visible = true
+		await get_tree().create_timer(2.0).timeout
+		richard_text_box.visible = false
 
 func _return_to_tavern():
 	SceneSwitcher.switch_scene("res://segments/tavern/scenes/tavern.tscn")

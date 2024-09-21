@@ -1,12 +1,8 @@
-res://segments/tavern_game/scenes/table_game.tscn
+res://segments/tavern/scenes/tavern.tscn
 res://ressources/shader/blinking.tres
 res://ressources/shader/blinking.material
-res://segments/tavern_game/scenes/gameboard.tscn
-res://segments/tavern_game/scripts/point_system_controller.gd
-res://segments/tavern_game/scripts/tavern_game.gd
-res://segments/tavern_game/scripts/bonus_card_controller.gd
+res://segments/start/scripts/api.gd
+res://segments/tavern_game/scenes/table_game.tscn
 res://segments/tavern_game/scripts/richard.gd
-res://segments/player/scripts/player.gd
-res://segments/village/scripts/tavern_entry.gd
-res://segments/tavern_board/scenes/tavern_board.tscn
-res://segments/tavern_board/scripts/tavern_board.gd
+res://segments/tavern_game/scripts/tavern_game.gd
+res://segments/tavern/scripts/table_game_enter.gd
