@@ -22,7 +22,70 @@ offset_top = 137.0
 offset_right = 216.0
 offset_bottom = 177.0
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Background"]
+visible = false
+layout_mode = 0
+offset_left = -109.0
+offset_top = -32.0
+offset_right = -36.0
+offset_bottom = 59.0
+text = "Spielziel
+Beim Spielen von Perspektivenkarten geht es darum, sich mit seinem Projektprozess auseinanderzusetzen und diesen mit Hilfe seiner Spielkarten aus neuen Perspektiven zu betrachten. Während man sich so mit seinem Reflexionsthema auseinandersetzt, gilt es die Karten klug auszulegen und so mehr Punkte als der Gegenspieler zu sammeln."
+
+[node name="Label" type="RichTextLabel" parent="Background"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = -43.0
+offset_right = 9289.0
+offset_bottom = 5857.0
+scale = Vector2(0.03, 0.03)
+theme_override_colors/default_color = Color(0.188235, 0.188235, 0.188235, 1)
+theme_override_font_sizes/normal_font_size = 200
+text = "Spielziel
+Beim Spielen von Perspektivenkarten geht es darum, sich mit seinem Projektprozess auseinanderzusetzen und diesen mit Hilfe seiner Spielkarten aus neuen Perspektiven zu betrachten. Während man sich so mit seinem Reflexionsthema auseinandersetzt, gilt es die Karten klug auszulegen und so mehr Punkte als der Gegenspieler zu sammeln.
+
+Spielbrett und Aufbau
+Perspektivenkarten wird auf einem 4 x 4 großem Spielbrett gespielt, die Karten werden im Verlauf des Spiels auf die 16 Spielfelder ausgespielt.
+Beide Spieler*innen starten mit jeweils 8 Perspektivenkarten (2 pro Kartentyp) auf der Hand. Außerdem erhalten beide Spieler*innen 3 Effektkarten, eine dieser 3 Effektkarten ist der Color Joker. Zu Spielbeginn bekommen beide Spieler*innen eine Effektkarte auf die Hand, während die übrigen 2 verdeckt auf dem Nachziehstapel liegen.
+
+Die Karten
+(HINWEIS: Die Bedeutung / Effekte der Karten können auch während einer Partie auf den Karten nachgelesen werden.)
+Vor Spielbeginn legen Spieler*innen ein Thema fest, über das sie reflektieren möchten. Das kann beispielsweise der aktuellen Arbeitsschritt, eine konkrete Erfahrung oder ein potenzieller Plan für die Zukunft sein. Dieses Reflexionsthema wird auf einer gesonderten Themenkarte festgehalten und bleibt während des Spiels sichtbar vor den Spieler*innen liegen.
+Die namensgebenden Perspektivenkarten sind in 4 Typen unterteilt, die jeweils eine Perspektive repräsentieren:
+Rote Karten für Emotionen - Wie fühlst du dich in Bezug auf das Reflexionsthema? Welche Emotionen wurden bei dir ausgelöst, oder welche empfindest du jetzt noch?
+Gelbe Karten für Fakten - Welche neutralen Informationen, Daten, Hintergründe, etc. gehören zu deinem Reflexionsthema?
+Grüne Karten für Optimismus - Welche Vorteile und Möglichkeiten eröffnen sich durch das Reflexionsthema?
+Blaue Karten für Kreativität - Was sind weitere Assoziationen mit deinem Reflexionsthema? Welche Chancen für die Zukunft, oder unerwartete Zusammenhänge kann es geben?
+
+Außerdem gibt es 4 Effektkarten, diese sind:
+Lock - Mit Lock wird ein Feld abgeschlossen. Ein abgeschlossenes Feld ist vor den Effekten von Switch und Color Joker geschützt. Wenn Lock auf ein leeres Feld gespielt wird, bleibt dieses Feld permanent reserviert, sodass nur der/die Besitzer*in der Lock Karte darauf eine Perspektivenkarte spielen kann. Der Lock Effekt kann nur entfernt werden, indem eine weitere Lock Effektkarte auf das gleiche Feld gespielt wird.
+Switch - Mit Switch wird eine beliebige Perspektivenkarte auf dem Spielbrett ausgewählt, und auf ein anderes (nicht abgeschlossenes) Feld gespielt. Dabei sind 2 Fälle zu unterscheiden:
+Wenn das gewählte Feld für die Perspektivenkarte leer ist, wird sie auf die Position des leeren Feldes gelegt und als neu ausgespielt gewertet.
+Wenn das gewählte Feld für die Perspektivenkarte bereits belegt ist, werden die Positionen der beiden Karten vertauscht. Beide Perspektivenkarten werden in der Reihenfolge in der sie ausgewählt wurden als neu ausgespielt gewertet.
+Color Joker - Mit Color Joker wird eine Perspektivenkarte des/der Gegenspielers*in aus dem Spiel entfernt. Außerdem bekommt der/die ausspielende Spieler*in eine neue Perspektivenkarte beliebigen Typs auf die Hand.
+Double Points - Ein Feld mit Double Points verdoppelt die erzielten Punkte, welche dieses Feld involvieren, beide Spieler*innen können diesen Effekt auf das gleiche Feld anwenden, um Punkte effektiv zu vervierfachen. Auf dem Spielbrett kann dieser Effekt von beiden Spieler*innen genutzt werden.
+
+Zu Spielbeginn erhalten beide Spieler*innen je einen Color Joker und zwei zufällige Effektkarten, die vierte Effektkarte befindet sich nicht im Spiel. Durch das zufällige verteilen der Effektkarten können die beiden Spieler*innen verschiede Effektkarten besitzen.
+Punktevergabe
+Punkte werden direkt nach dem Ausspielen jeder Karte für das gesamte Feld berechnet.
+1 Punkt für das Legen einer Perspektivenkarte, sodass sie an eine gegnerische Perspektivenkarte gleichen Typs angrenzt
+1 Punkt für den Gegenspieler für das legen einer Perspektivenkarte, sodass sie an eine eigene Perspektivenkarte gleichen Typs angrenzt
+2 Punkte für eine Reihe (horizontal, vertikal, oder diagonal) aus 4 eigenen Perspektivenkarten
+3 Punkte für eine Reihe (horizontal, vertikal, oder diagonal) aus 4 eigenen Perspektivenkarten bestehend aus den 4 verschiedenen Typen
+
+Spielablauf 
+Vor Spielbeginn wird die Themenkarte mit dem Reflexionsthema beschriftet. Diese bleibt das ganze Spiel über sichtbar vor den Spielern platziert.
+In einer Partie Perspektivenkarten sind beide Spieler*innen abwechselnd am Zug. Ein Spielzug ist für beide Spieler*innen identisch. Es muss eine Perspektivenkarte gespielt werden, zusätzlich darf eine Effektkarte – bis zu 3 Mal im gesamten Spiel – gespielt werden. Spieler*innen können sich aussuchen, welchen Kartentyp sie zuerst spielen möchten.
+Effektkarten werden gespielt indem die entsprechende Karte auf der Hand angeklickt wird, gefolgt von einem Klick auf das Feld auf das die Karte gespielt werden soll, und abschließend mit dem \"Play\" Knopf bestätigt. Falls eine Effektkarte gespielt wird, wird eine neue Effektkarte vom Nachziehstapel auf die Hand genommen.
+Zum Ausspielen einer Perspektivenkarte, können Spieler*innen aus ihren Handkarten eine beliebige der vier möglichen Perspektiven auswählen. Nach der Auswahl einer Perspektive durch einen Mausklick, wird diese in Großansicht gezeigt. Nun muss die Karte von den Spieler*innen mit einer Aussage über ihr Reflexionsthema aus der gewählten Perspektive befüllt werden. Im Anschluss kann die Perspektivenkarte genauso wie die Effektkarte gespielt werden.
+Nachdem eine Perspektivenkarte ausgespielt wurde kann der Zug mit dem \"Next\" Knopf beendet werden. Alternativ wird der Spielzug automatisch beendet wenn bereits eine Perspektivenkarte und eine Effektkarte ausgespielt wurden.
+Nach dem Ausspielen jeder Karte, werden die verdienten Punkte berechnet und am oberen Bildschirmrand angezeigt.
+
+Spielende
+Das Spiel ist vorbei sobald beide Spieler all ihre Perspektivenkarten ausgespielt haben. Die von den Spieler*innen formulierten Perspektiven können danach noch einmal alle eingesehen und verglichen werden."
+
 [node name="Note1" type="Panel" parent="."]
+visible = false
 offset_left = 44.0
 offset_top = 70.0
 offset_right = 145.0
@@ -30,6 +93,7 @@ offset_bottom = 152.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
 
 [node name="Note2" type="Panel" parent="."]
+visible = false
 offset_left = 377.0
 offset_top = 50.0
 offset_right = 478.0
@@ -37,6 +101,7 @@ offset_bottom = 290.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
 
 [node name="Note3" type="Panel" parent="."]
+visible = false
 offset_left = 170.0
 offset_top = 93.0
 offset_right = 342.0
@@ -44,6 +109,7 @@ offset_bottom = 247.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8fm3w")
 
 [node name="Note4" type="Panel" parent="."]
+visible = false
 offset_left = 50.0
 offset_top = 212.0
 offset_right = 148.0
