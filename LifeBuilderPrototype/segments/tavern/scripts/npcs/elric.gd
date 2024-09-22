@@ -1,5 +1,9 @@
 extends Area2D
 
+signal elric_dialogue_toggled()
+
+@onready var elric_dialogue = $"../DialogueWindow"
+
 var player : Node2D
 var player_nearby : bool
 
@@ -8,14 +12,17 @@ func _ready():
 	player_nearby = false
 	self.connect("body_entered", player_close)
 	self.connect("body_exited", player_not_close)
+	self.connect("elric_dialogue_toggled", player.dialogue_toggled)
+	initiate_elric_dialogue()
+
+func initiate_elric_dialogue():
+	elric_dialogue.set_npc("Elric", Color("#00ffff"))
+	elric_dialogue.set_text("Ich bin Elric!")
 
 func _process(_delta):
 	if player_nearby and Input.is_action_just_pressed("interact"):
-		GeminiAPI.start_richard_game()
-		SceneSwitcher.switch_scene("res://segments/tavern_game/scenes/table_game.tscn")
-		player.position = Vector2(900, 380)
-		player.scale = Vector2(2.0, 2.0)
-		player.speed = 300
+		elric_dialogue.toggle_dialogue()
+		elric_dialogue_toggled.emit()
 
 func player_close(body):
 	if body.name == "Player":

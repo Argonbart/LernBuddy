@@ -5,3 +5,11 @@ res://segments/tavern/scenes/dialogue_window.tscn
 res://segments/tavern/scripts/dialogue_window.gd
 res://segments/tavern/scenes/tavern_tile_map.tscn
 res://segments/tavern/scenes/tavern.tscn
+res://segments/tavern/scripts/tavern_exit.gd
+res://segments/tavern/scripts/npcs/elric.gd
+res://segments/player/scripts/player.gd
+res://segments/tavern/scripts/npcs/brynna.gd
+res://segments/tavern/scripts/npcs/gorun.gd
+res://segments/tavern/scripts/npcs/selene.gd
+res://segments/tavern/scripts/npcs/richard_dialogue.gd
+res://segments/tavern/scripts/npcs/talia.gd

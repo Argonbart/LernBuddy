@@ -47,6 +47,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_68yr7")
 [node name="NameLabel" type="Label" parent="VBoxContainer/HBoxContainer/NamePanel"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
+offset_right = 200.0
+offset_bottom = 50.0
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

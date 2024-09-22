@@ -10,7 +10,7 @@
 [ext_resource type="StyleBox" uid="uid://c5gtpfmm05s0d" path="res://segments/tavern_game/gameboard_visual_styles/white_border.tres" id="7_yo6q0"]
 [ext_resource type="Script" path="res://segments/tavern_game/scripts/bonus_card_controller.gd" id="8_svf2d"]
 [ext_resource type="Script" path="res://segments/tavern_game/scripts/point_system_controller.gd" id="9_ip82h"]
-[ext_resource type="Script" path="res://segments/tavern_game/scripts/richard.gd" id="11_7bgha"]
+[ext_resource type="Script" path="res://segments/tavern_game/scripts/richard_table_game.gd" id="11_7bgha"]
 [ext_resource type="Texture2D" uid="uid://ruwooljbkmql" path="res://ressources/sprites/Richard.png" id="12_m1xuj"]
 [ext_resource type="Texture2D" uid="uid://bmcjf30tqnlgm" path="res://ressources/icons/pointing_hand.png" id="13_375c1"]
 [ext_resource type="Texture2D" uid="uid://f3o0cvokhy07" path="res://ressources/icons/hand.png" id="13_meyit"]

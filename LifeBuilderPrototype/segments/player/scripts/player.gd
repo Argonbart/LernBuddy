@@ -55,6 +55,9 @@ func _on_mayor_dialogue_started():
 func _on_mayor_dialogue_finished():
 	is_active = true
 
+func dialogue_toggled():
+	is_active = !is_active
+
 func _on_camera_activate_player():
 	process_mode = Node.PROCESS_MODE_INHERIT
 	just_respawned = true

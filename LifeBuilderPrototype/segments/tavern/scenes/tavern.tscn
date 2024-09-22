@@ -1,21 +1,24 @@
-[gd_scene load_steps=160 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=169 format=3 uid="uid://cq5lgla7on08e"]
 
+[ext_resource type="PackedScene" uid="uid://7d42mtr1yrlh" path="res://segments/tavern/scenes/dialogue_window.tscn" id="2_6imud"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_camera.gd" id="2_vsa6c"]
 [ext_resource type="PackedScene" uid="uid://c5pvjgy8syrst" path="res://segments/tavern/scenes/tavern_tile_map.tscn" id="3_4stuk"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_exit.gd" id="4_og8pp"]
-[ext_resource type="Script" path="res://segments/tavern/scripts/table_game_enter.gd" id="4_v2fo0"]
 [ext_resource type="PackedScene" uid="uid://cu4rpxwmecr2h" path="res://segments/tavern_game/scenes/table_game.tscn" id="5_3i1ny"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/board_enter.gd" id="6_1332m"]
 [ext_resource type="Texture2D" uid="uid://cvr5u2013xm8s" path="res://ressources/sprites/Tavern/npc1-3 move.png" id="7_wf7bh"]
 [ext_resource type="Texture2D" uid="uid://bixh0rtvfh8xn" path="res://ressources/sprites/Tavern/npc1-3 emotes.png" id="8_xaukc"]
 [ext_resource type="Texture2D" uid="uid://bat13vxy54fxy" path="res://ressources/sprites/Tavern/npc4 move.png" id="9_wsu67"]
 [ext_resource type="Texture2D" uid="uid://c504evu4xxodi" path="res://ressources/sprites/Tavern/npc4 emotes.png" id="10_nglx2"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/npcs/elric.gd" id="12_h2yv3"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/npcs/brynna.gd" id="13_bihkj"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/npcs/gorun.gd" id="14_wwydl"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/npcs/selene.gd" id="15_4p4hq"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/npcs/richard_dialogue.gd" id="16_o78p2"]
+[ext_resource type="Script" path="res://segments/tavern/scripts/npcs/talia.gd" id="17_bvgjs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrnru"]
 size = Vector2(69, 53)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcvq7"]
-size = Vector2(88, 68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8q36"]
 size = Vector2(99, 82.25)
@@ -1910,6 +1913,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tcn5o"]
 size = Vector2(23, 26)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v731m"]
+size = Vector2(74.5, 70.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfaaq"]
+size = Vector2(62.5, 70.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfeg4"]
+size = Vector2(54.5, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jig66"]
+size = Vector2(55, 70.5)
+
 [node name="Taverne" type="Node"]
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -1923,13 +1938,6 @@ script = ExtResource("4_og8pp")
 [node name="ExitCollision" type="CollisionShape2D" parent="Exit"]
 position = Vector2(909.5, 355.5)
 shape = SubResource("RectangleShape2D_mrnru")
-
-[node name="Table" type="Area2D" parent="."]
-script = ExtResource("4_v2fo0")
-
-[node name="TableCollision" type="CollisionShape2D" parent="Table"]
-position = Vector2(735, 264)
-shape = SubResource("RectangleShape2D_qcvq7")
 
 [node name="Board" type="Area2D" parent="."]
 position = Vector2(749, 352)
@@ -1957,6 +1965,22 @@ autoplay = "npc1 - (b) idle"
 position = Vector2(-0.5, 18)
 shape = SubResource("RectangleShape2D_tcn5o")
 
+[node name="DialogueWindow" parent="NPCs/Elric" instance=ExtResource("2_6imud")]
+visible = false
+z_index = 10
+offset_left = 365.0
+offset_top = 333.0
+offset_right = 1252.0
+offset_bottom = 492.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ElricArea" type="Area2D" parent="NPCs/Elric"]
+script = ExtResource("12_h2yv3")
+
+[node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Elric/ElricArea"]
+position = Vector2(335.75, 393.25)
+shape = SubResource("RectangleShape2D_v731m")
+
 [node name="Brynna" type="Node2D" parent="NPCs"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Brynna"]
@@ -1969,6 +1993,23 @@ autoplay = "npc2 - (b) idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPCs/Brynna/AnimatedSprite2D"]
 position = Vector2(-0.5, 18)
 shape = SubResource("RectangleShape2D_tcn5o")
+
+[node name="DialogueWindow" parent="NPCs/Brynna" instance=ExtResource("2_6imud")]
+visible = false
+z_index = 10
+offset_left = 512.0
+offset_top = 188.0
+offset_right = 1399.0
+offset_bottom = 347.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ElricArea" type="Area2D" parent="NPCs/Brynna"]
+position = Vector2(247, -108)
+script = ExtResource("13_bihkj")
+
+[node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Brynna/ElricArea"]
+position = Vector2(329.75, 393.25)
+shape = SubResource("RectangleShape2D_xfaaq")
 
 [node name="Gorun" type="Node2D" parent="NPCs"]
 
@@ -1983,6 +2024,23 @@ autoplay = "npc3 - (b) idle"
 position = Vector2(-0.5, 18)
 shape = SubResource("RectangleShape2D_tcn5o")
 
+[node name="DialogueWindow" parent="NPCs/Gorun" instance=ExtResource("2_6imud")]
+visible = false
+z_index = 10
+offset_left = 492.0
+offset_top = 171.0
+offset_right = 1379.0
+offset_bottom = 330.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ElricArea" type="Area2D" parent="NPCs/Gorun"]
+position = Vector2(133, -179)
+script = ExtResource("14_wwydl")
+
+[node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Gorun/ElricArea"]
+position = Vector2(325.75, 428)
+shape = SubResource("RectangleShape2D_yfeg4")
+
 [node name="Selene" type="Node2D" parent="NPCs"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Selene"]
@@ -1995,6 +2053,23 @@ autoplay = "npc4 - (b) idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPCs/Selene/AnimatedSprite2D"]
 position = Vector2(-0.5, 18)
 shape = SubResource("RectangleShape2D_tcn5o")
+
+[node name="DialogueWindow" parent="NPCs/Selene" instance=ExtResource("2_6imud")]
+visible = false
+z_index = 10
+offset_left = 448.0
+offset_top = 309.0
+offset_right = 1335.0
+offset_bottom = 468.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ElricArea" type="Area2D" parent="NPCs/Selene"]
+position = Vector2(180, -107)
+script = ExtResource("15_4p4hq")
+
+[node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Selene/ElricArea"]
+position = Vector2(335.5, 393.25)
+shape = SubResource("RectangleShape2D_jig66")
 
 [node name="Richard" type="Node2D" parent="NPCs"]
 
@@ -2009,6 +2084,23 @@ autoplay = "npc5 - (b) idle"
 position = Vector2(-0.5, 18)
 shape = SubResource("RectangleShape2D_tcn5o")
 
+[node name="DialogueWindow" parent="NPCs/Richard" instance=ExtResource("2_6imud")]
+visible = false
+z_index = 10
+offset_left = 554.0
+offset_top = 154.0
+offset_right = 1441.0
+offset_bottom = 313.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ElricArea" type="Area2D" parent="NPCs/Richard"]
+position = Vector2(441, -131)
+script = ExtResource("16_o78p2")
+
+[node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Richard/ElricArea"]
+position = Vector2(335.75, 393.25)
+shape = SubResource("RectangleShape2D_v731m")
+
 [node name="Talia" type="Node2D" parent="NPCs"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Talia"]
@@ -2021,3 +2113,20 @@ autoplay = "npc6 - (b) idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NPCs/Talia/AnimatedSprite2D"]
 position = Vector2(-0.5, 18)
 shape = SubResource("RectangleShape2D_tcn5o")
+
+[node name="DialogueWindow" parent="NPCs/Talia" instance=ExtResource("2_6imud")]
+visible = false
+z_index = 10
+offset_left = 494.0
+offset_top = 412.0
+offset_right = 1381.0
+offset_bottom = 571.0
+scale = Vector2(0.4, 0.4)
+
+[node name="ElricArea" type="Area2D" parent="NPCs/Talia"]
+position = Vector2(296, 7)
+script = ExtResource("17_bvgjs")
+
+[node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Talia/ElricArea"]
+position = Vector2(335.75, 393.25)
+shape = SubResource("RectangleShape2D_v731m")

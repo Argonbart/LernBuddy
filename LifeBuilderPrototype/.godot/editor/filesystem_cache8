@@ -1,6 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1726998456
-dialogue_window.gd::GDScript::-1::1726998634::0::1::::<>Control<>::
+::res://::1726998638
 ::res://ressources/::1726398471
 ::res://ressources/dialogues/::1726398471
 bonus_card_effects.json::JSON::-1::1726398471::0::1::::<><>::
@@ -25,7 +24,7 @@ return_to_tavern_button.png::CompressedTexture2D::6238012539223260595::172690820
 return_to_tavern_button_pressed.png::CompressedTexture2D::2871243194571361025::1726908209::1726908209::1::::<><>::
 switch.svg::CompressedTexture2D::2615296771891455896::1726398471::1726398471::1::::<><>::
 thumb.svg::CompressedTexture2D::5341027435201440023::1726398471::1726398471::1::::<><>::
-::res://ressources/shader/::1726952348
+::res://ressources/shader/::1726998634
 blinking.material::ShaderMaterial::8931227818503864559::1726998634::0::1::::<><>::uid://c12c75a40ihsv::::res://ressources/shader/blinking.tres
 blinking.tres::VisualShader::6653669657777010821::1726998634::0::1::::<><>::
 ::res://ressources/sprites/::1726783141
@@ -47,9 +46,10 @@ npc1-3 emotes.png::CompressedTexture2D::2995882708147098631::1726783141::1726783
 npc1-3 move.png::CompressedTexture2D::6283760189235211932::1726783141::1726783141::1::::<><>::
 npc4 emotes.png::CompressedTexture2D::6931885191580239726::1726783141::1726783141::1::::<><>::
 npc4 move.png::CompressedTexture2D::2427273644714043202::1726783141::1726783141::1::::<><>::
-::res://ressources/tilemaps/::1726783141
+::res://ressources/tilemaps/::1727000735
 atlas_32x.png::CompressedTexture2D::150557818807957387::1726783141::1726398471::1::::<><>::
-cardgame_background.png::CompressedTexture2D::3052610383163756830::1726783141::1726783141::1::::<><>::
+cardgame_background.png::CompressedTexture2D::3052610383163756830::1727000732::1727000735::1::::<><>::
+cardgame_background_compo.png::CompressedTexture2D::6938229702674612646::1727000732::1727000735::1::::<><>::
 chests_and_torches.png::CompressedTexture2D::1698584424342274561::1726398471::1726398471::1::::<><>::
 more_houses.png::CompressedTexture2D::6150018421270578824::1726398471::1726398471::1::::<><>::
 starter.png::CompressedTexture2D::8239294087805275596::1726398471::1726398471::1::::<><>::
@@ -58,8 +58,8 @@ village.png::CompressedTexture2D::4258111579158452813::1726398471::1726398471::1
 ::res://segments/player/::1726398471
 ::res://segments/player/scenes/::1726398471
 player.tscn::PackedScene::6351596555550944692::1726398471::0::1::::<><>::res://segments/player/scripts/player.gd<>uid://33btmr1jae4r::::res://ressources/sprites/player.png<>uid://d1nscf6uf5o1y::::res://segments/village/scenes/player_respond_choices.tscn
-::res://segments/player/scripts/::1726908209
-player.gd::GDScript::-1::1726908209::0::1::::<>CharacterBody2D<>::
+::res://segments/player/scripts/::1727001059
+player.gd::GDScript::-1::1727001059::0::1::::<>CharacterBody2D<>::
 ::res://segments/start/::1726398471
 ::res://segments/start/scenes/::1726398471
 start.tscn::PackedScene::5544239439759969179::1726398471::0::1::::<><>::res://segments/start/scripts/start.gd
@@ -68,15 +68,23 @@ api.gd::GDScript::-1::1726959596::0::1::::<>Node<>::
 scene_switcher.gd::GDScript::-1::1726398471::0::1::::<>Node<>::
 start.gd::GDScript::-1::1726398471::0::1::::<>Node<>::
 ::res://segments/tavern/::1726783141
-::res://segments/tavern/scenes/::1726959793
-dialogue_window.tscn::PackedScene::2254045799344471169::1726998638::0::1::::<><>::res://dialogue_window.gd
-tavern.tscn::PackedScene::5958473379130408850::1726959793::0::1::::<><>::res://segments/tavern/scripts/tavern_camera.gd<>uid://c5pvjgy8syrst::::res://segments/tavern/scenes/tavern_tile_map.tscn<>res://segments/tavern/scripts/tavern_exit.gd<>res://segments/tavern/scripts/table_game_enter.gd<>uid://cu4rpxwmecr2h::::res://segments/tavern_game/scenes/table_game.tscn<>res://segments/tavern/scripts/board_enter.gd
-tavern_tile_map.tscn::PackedScene::6910763825571103547::1726783141::0::1::::<><>::uid://ce6wvcejgqpn::::res://ressources/tilemaps/atlas_32x.png<>uid://cvr5u2013xm8s::::res://ressources/sprites/Tavern/npc1-3 move.png<>uid://bixh0rtvfh8xn::::res://ressources/sprites/Tavern/npc1-3 emotes.png<>uid://bat13vxy54fxy::::res://ressources/sprites/Tavern/npc4 move.png<>uid://c504evu4xxodi::::res://ressources/sprites/Tavern/npc4 emotes.png
-::res://segments/tavern/scripts/::1726958221
+::res://segments/tavern/scenes/::1727002589
+dialogue_window.tscn::PackedScene::2254045799344471169::1727002589::0::1::::<><>::res://segments/tavern/scripts/dialogue_window.gd
+tavern.tscn::PackedScene::5958473379130408850::1727002589::0::1::::<><>::uid://7d42mtr1yrlh::::res://segments/tavern/scenes/dialogue_window.tscn<>res://segments/tavern/scripts/tavern_camera.gd<>uid://c5pvjgy8syrst::::res://segments/tavern/scenes/tavern_tile_map.tscn<>res://segments/tavern/scripts/tavern_exit.gd<>res://segments/tavern/scripts/table_game_enter.gd<>uid://cu4rpxwmecr2h::::res://segments/tavern_game/scenes/table_game.tscn<>res://segments/tavern/scripts/board_enter.gd<>uid://cvr5u2013xm8s::::res://ressources/sprites/Tavern/npc1-3 move.png<>uid://bixh0rtvfh8xn::::res://ressources/sprites/Tavern/npc1-3 emotes.png<>uid://bat13vxy54fxy::::res://ressources/sprites/Tavern/npc4 move.png<>uid://c504evu4xxodi::::res://ressources/sprites/Tavern/npc4 emotes.png<>res://segments/tavern/scripts/npcs/elric.gd<>res://segments/tavern/scripts/npcs/brynna.gd<>res://segments/tavern/scripts/npcs/gorun.gd<>res://segments/tavern/scripts/npcs/selene.gd<>res://segments/tavern/scripts/npcs/richard_dialogue.gd<>res://segments/tavern/scripts/npcs/talia.gd
+tavern_tile_map.tscn::PackedScene::6910763825571103547::1726999169::0::1::::<><>::uid://ce6wvcejgqpn::::res://ressources/tilemaps/atlas_32x.png
+::res://segments/tavern/scripts/::1727000707
 board_enter.gd::GDScript::-1::1726783141::0::1::::<>Area2D<>::
+dialogue_window.gd::GDScript::-1::1727000707::0::1::::<>Control<>::
 table_game_enter.gd::GDScript::-1::1726958221::0::1::::<>Area2D<>::
 tavern_camera.gd::GDScript::-1::1726783141::0::1::::<>Camera2D<>::
-tavern_exit.gd::GDScript::-1::1726783141::0::1::::<>Area2D<>::
+tavern_exit.gd::GDScript::-1::1726999590::0::1::::<>Area2D<>::
+::res://segments/tavern/scripts/npcs/::1727002508
+elric.gd::GDScript::-1::1727002453::0::1::::<>Area2D<>::
+brynna.gd::GDScript::-1::1727002479::0::1::::<>Area2D<>::
+gorun.gd::GDScript::-1::1727002489::0::1::::<>Area2D<>::
+talia.gd::GDScript::-1::1727002508::0::1::::<>Area2D<>::
+richard_dialogue.gd::GDScript::-1::1727002503::0::1::::<>Area2D<>::
+selene.gd::GDScript::-1::1727002497::0::1::::<>Area2D<>::
 ::res://segments/tavern_board/::1726908209
 ::res://segments/tavern_board/scenes/::1726908209
 tavern_board.tscn::PackedScene::470598973468778196::1726908209::0::1::::<><>::res://segments/tavern_board/scripts/tavern_board.gd<>uid://b5j6jl8qnw7tj::::res://segments/tavern_board/scenes/tavern_board_background.tscn<>uid://cu40fjlp1sgy2::::res://ressources/icons/return_to_tavern_button.png<>uid://bg537rbri0tlx::::res://ressources/icons/return_to_tavern_button_pressed.png
@@ -96,13 +104,13 @@ bonus_card_border.tres::StyleBoxFlat::3918890503379322371::1726783141::0::1::::<
 card_white.tres::StyleBoxFlat::311885740616779625::1726783141::0::1::::<><>::
 white_border.tres::StyleBoxFlat::6892073634556906525::1726783141::0::1::::<><>::
 white_panel.tres::StyleBoxFlat::2385672774604958648::1726783141::0::1::::<><>::
-::res://segments/tavern_game/scenes/::1726959762
+::res://segments/tavern_game/scenes/::1727000732
 deck.tscn::PackedScene::4030193748639510910::1726783141::0::1::::<><>::
 ergebnis_screen.tscn::PackedScene::7527299586736345975::1726783141::0::1::::<><>::uid://ur1hsyltbhts::::res://segments/tavern_game/cards_colors_style_boxes/yellow_card.tres<>uid://cemdf27g8ojnd::::res://segments/tavern_game/cards_colors_style_boxes/green_card.tres<>uid://dmyoljv7hd5i1::::res://segments/tavern_game/cards_colors_style_boxes/blue_card.tres<>uid://dk4swo7r03emu::::res://segments/tavern_game/cards_colors_style_boxes/red_card.tres
 gameboard.tscn::PackedScene::2665502322467206258::1726827482::0::1::::<><>::res://segments/tavern_game/scripts/board_highlighting.gd<>uid://epcyh0jqqk4h::::res://segments/tavern_game/gameboard_visual_styles/card_white.tres<>uid://c5gtpfmm05s0d::::res://segments/tavern_game/gameboard_visual_styles/white_border.tres
 player_cards.tscn::PackedScene::8507175310454222206::1726783141::0::1::::<><>::
 table_game.tscn::PackedScene::6237545413373606705::1726959762::0::1::::<><>::res://segments/tavern_game/scripts/tavern_game.gd<>uid://bd8go0qykin0m::::res://segments/tavern_game/scenes/gameboard.tscn<>uid://bjtvxq2kyqf6v::::res://segments/tavern_game/scenes/tavern_game_background.tscn<>uid://bxoix41d028yc::::res://segments/tavern_game/scenes/deck.tscn<>uid://dtg661hui0ojm::::res://segments/tavern_game/scenes/player_cards.tscn<>uid://epcyh0jqqk4h::::res://segments/tavern_game/gameboard_visual_styles/card_white.tres<>uid://d0imauablx4ox::::res://ressources/shader/blinking.material<>uid://c5gtpfmm05s0d::::res://segments/tavern_game/gameboard_visual_styles/white_border.tres<>res://segments/tavern_game/scripts/bonus_card_controller.gd<>res://segments/tavern_game/scripts/point_system_controller.gd<>res://segments/tavern_game/scripts/richard.gd<>uid://ruwooljbkmql::::res://ressources/sprites/Richard.png<>uid://bmcjf30tqnlgm::::res://ressources/icons/pointing_hand.png<>uid://f3o0cvokhy07::::res://ressources/icons/hand.png<>uid://dmyoljv7hd5i1::::res://segments/tavern_game/cards_colors_style_boxes/blue_card.tres<>uid://cu40fjlp1sgy2::::res://ressources/icons/return_to_tavern_button.png<>uid://bg537rbri0tlx::::res://ressources/icons/return_to_tavern_button_pressed.png
-tavern_game_background.tscn::PackedScene::3058660466440820167::1726783141::0::1::::<><>::uid://ce6wvcejgqpn::::res://ressources/tilemaps/atlas_32x.png
+tavern_game_background.tscn::PackedScene::3058660466440820167::1727000732::0::1::::<><>::uid://ce6wvcejgqpn::::res://ressources/tilemaps/atlas_32x.png
 ::res://segments/tavern_game/scripts/::1726958545
 board_highlighting.gd::GDScript::-1::1726822152::0::1::::<>Node<>::
 bonus_card_controller.gd::GDScript::-1::1726908209::0::1::::<>Node<>::

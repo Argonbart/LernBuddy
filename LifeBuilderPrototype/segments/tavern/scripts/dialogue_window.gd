@@ -10,8 +10,5 @@ func set_npc(npc_name, npc_color):
 func set_text(npc_text):
 	text_label.text = npc_text
 
-func show_dialogue():
-	visible = true
-
-func hide_dialogue():
-	visible = false
+func toggle_dialogue():
+	visible = !visible
