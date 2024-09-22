@@ -1,8 +1,7 @@
-res://segments/tavern/scenes/tavern.tscn
 res://ressources/shader/blinking.tres
 res://ressources/shader/blinking.material
-res://segments/start/scripts/api.gd
-res://segments/tavern_game/scenes/table_game.tscn
-res://segments/tavern_game/scripts/richard.gd
-res://segments/tavern_game/scripts/tavern_game.gd
-res://segments/tavern/scripts/table_game_enter.gd
+res://dialogue_window.gd
+res://segments/tavern/scenes/dialogue_window.tscn
+res://segments/tavern/scripts/dialogue_window.gd
+res://segments/tavern/scenes/tavern_tile_map.tscn
+res://segments/tavern/scenes/tavern.tscn
