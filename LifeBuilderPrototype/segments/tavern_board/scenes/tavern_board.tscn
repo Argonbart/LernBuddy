@@ -22,16 +22,6 @@ offset_top = 137.0
 offset_right = 216.0
 offset_bottom = 177.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Background"]
-visible = false
-layout_mode = 0
-offset_left = -109.0
-offset_top = -32.0
-offset_right = -36.0
-offset_bottom = 59.0
-text = "Spielziel
-Beim Spielen von Perspektivenkarten geht es darum, sich mit seinem Projektprozess auseinanderzusetzen und diesen mit Hilfe seiner Spielkarten aus neuen Perspektiven zu betrachten. Während man sich so mit seinem Reflexionsthema auseinandersetzt, gilt es die Karten klug auszulegen und so mehr Punkte als der Gegenspieler zu sammeln."
-
 [node name="Label" type="RichTextLabel" parent="Background"]
 layout_mode = 0
 offset_left = -44.0
