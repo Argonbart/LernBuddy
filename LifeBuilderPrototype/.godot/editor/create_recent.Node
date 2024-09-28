@@ -1,4 +1,6 @@
+Sprite2D
 Node
+TileMap
 MarginContainer
 HBoxContainer
 Label
@@ -11,4 +13,3 @@ Camera2D
 Area2D
 CollisionShape2D
 TextureRect
-TextEdit
