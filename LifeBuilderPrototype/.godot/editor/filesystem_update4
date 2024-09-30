@@ -1,3 +1,4 @@
 res://segments/hexagons/hexagon_field.tscn
 res://ressources/shader/blinking.tres
-res://segments/hexagons/hexagon_controller.gd
+res://segments/hexagons/temp.gd
+res://segments/hexagons/hexagon.tscn

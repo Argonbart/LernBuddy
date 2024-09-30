@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1727488379
+::res://::1727655548
 ::res://ressources/::1726398471
 ::res://ressources/dialogues/::1726398471
 bonus_card_effects.json::JSON::-1::1726398471::0::1::::<><>::
@@ -24,9 +24,9 @@ return_to_tavern_button.png::CompressedTexture2D::6238012539223260595::172690820
 return_to_tavern_button_pressed.png::CompressedTexture2D::2871243194571361025::1726908209::1726908209::1::::<><>::
 switch.svg::CompressedTexture2D::2615296771891455896::1726398471::1726398471::1::::<><>::
 thumb.svg::CompressedTexture2D::5341027435201440023::1726398471::1726398471::1::::<><>::
-::res://ressources/shader/::1727480333
+::res://ressources/shader/::1727655611
 blinking.material::ShaderMaterial::8931227818503864559::1727480333::0::1::::<><>::uid://c12c75a40ihsv::::res://ressources/shader/blinking.tres
-blinking.tres::VisualShader::6653669657777010821::1727480333::0::1::::<><>::
+blinking.tres::VisualShader::6653669657777010821::1727655611::0::1::::<><>::
 ::res://ressources/sprites/::1726783141
 blacksmith.png::CompressedTexture2D::3309035163766255578::1726398471::1726398471::1::::<><>::
 mayor.png::CompressedTexture2D::6960810868752134267::1726398471::1726398471::1::::<><>::
@@ -46,20 +46,34 @@ npc1-3 emotes.png::CompressedTexture2D::2995882708147098631::1726783141::1726783
 npc1-3 move.png::CompressedTexture2D::6283760189235211932::1726783141::1726783141::1::::<><>::
 npc4 emotes.png::CompressedTexture2D::6931885191580239726::1726783141::1726783141::1::::<><>::
 npc4 move.png::CompressedTexture2D::2427273644714043202::1726783141::1726783141::1::::<><>::
-::res://ressources/tilemaps/::1727480024
+::res://ressources/tilemaps/::1727655790
 atlas_32x.png::CompressedTexture2D::150557818807957387::1726783141::1726398471::1::::<><>::
 cardgame_background.png::CompressedTexture2D::3052610383163756830::1727000732::1727000735::1::::<><>::
 cardgame_background_compo.png::CompressedTexture2D::6938229702674612646::1727000732::1727000735::1::::<><>::
 chests_and_torches.png::CompressedTexture2D::1698584424342274561::1726398471::1726398471::1::::<><>::
-hexagons.png::CompressedTexture2D::8721813606656779766::1727480001::1727480024::1::::<><>::
+e6d76e4332b34309f82092876c622ee6.jpg::CompressedTexture2D::1281522171338774948::1727655780::1727655792::1::::<><>::
+hexagons.png::CompressedTexture2D::8721813606656779766::1727535791::1727535793::1::::<><>::
+hex_grid-export.png::CompressedTexture2D::4141728787356633811::1727528729::1727528736::1::::<><>::
+hex_t1-export.png::CompressedTexture2D::8334892173299423950::1727643671::1727643676::1::::<><>::
+hex_t1.png::CompressedTexture2D::2594759786371958829::1727644215::1727643676::1::::<><>::
+hex_t2-export-export.png::CompressedTexture2D::4129554652000761592::1727645599::1727645603::1::::<><>::
+hex_t2-export.png::CompressedTexture2D::5642826599522768606::1727653480::1727645603::1::::<><>::
+hex_t3_1.png::CompressedTexture2D::6453070602798066910::1727653405::1727653483::1::::<><>::
+hex_t3_2.png::CompressedTexture2D::9197652959681665766::1727653427::1727653483::1::::<><>::
+hex_t3_3.png::CompressedTexture2D::6716131730433555055::1727653444::1727653483::1::::<><>::
+hex_t3_4.png::CompressedTexture2D::4505102269994771511::1727653453::1727653483::1::::<><>::
+hex_t3_5.png::CompressedTexture2D::7355582058046893633::1727653465::1727653483::1::::<><>::
+hex_t3_6.png::CompressedTexture2D::1045490688703980061::1727653474::1727653483::1::::<><>::
 more_houses.png::CompressedTexture2D::6150018421270578824::1726398471::1726398471::1::::<><>::
 pinboard_background.png::CompressedTexture2D::734491356494041245::1727038785::1727038794::1::::<><>::
 starter.png::CompressedTexture2D::8239294087805275596::1726398471::1726398471::1::::<><>::
 village.png::CompressedTexture2D::4258111579158452813::1726398471::1726398471::1::::<><>::
 ::res://segments/::1727480329
-::res://segments/hexagons/::1727488365
-hexagon_controller.gd::GDScript::-1::1727488345::0::1::::<>Node<>::
-hexagon_field.tscn::PackedScene::5942157997741877120::1727488365::0::1::::<><>::uid://dwi584gb1g4ic::::res://ressources/tilemaps/hexagons.png<>res://segments/hexagons/hexagon_controller.gd
+::res://segments/hexagons/::1727655709
+hexagon.tscn::PackedScene::1831769716056734545::1727655698::0::1::::<><>::uid://cmnosaka5gkqg::::res://ressources/tilemaps/hex_t2-export.png
+hexagon_controller.gd::GDScript::-1::1727537546::0::1::::<>Node<>::
+hexagon_field.tscn::PackedScene::5942157997741877120::1727655709::0::1::::<><>::uid://dwi584gb1g4ic::::res://ressources/tilemaps/hexagons.png<>uid://1dk8koe2pj5j::::res://segments/hexagons/hexagon.tscn<>res://segments/hexagons/hexagon_controller.gd<>res://segments/hexagons/temp.gd
+temp.gd::GDScript::-1::1727655709::0::1::::<>Node2D<>::
 ::res://segments/player/::1726398471
 ::res://segments/player/scenes/::1726398471
 player.tscn::PackedScene::6351596555550944692::1726398471::0::1::::<><>::res://segments/player/scripts/player.gd<>uid://33btmr1jae4r::::res://ressources/sprites/player.png<>uid://d1nscf6uf5o1y::::res://segments/village/scenes/player_respond_choices.tscn

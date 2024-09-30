@@ -28,9 +28,13 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton:
+		if mouse_left_down and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			if current_holded_sprite:
+				current_holded_sprite.rotate(0.523599)
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			mouse_left_down = true
 			var global_clicked = event.position
+			print(global_clicked, " - ", tilemap.to_local(global_clicked), " - ", tilemap.local_to_map(tilemap.to_local(global_clicked)))
 			var pos_clicked = tilemap.local_to_map(tilemap.to_local(global_clicked))
 			if pos_clicked in tilemap_tile_textures.keys():
 				current_holded_tile_type = tilemap.get_cell_atlas_coords(main_layer, pos_clicked)
@@ -50,7 +54,7 @@ func _process(_delta):
 func _drop_hexagon():
 	if !current_holded_sprite:
 		return
-	var drop_position = Vector2i(round((get_viewport().get_mouse_position().x - 16) / 32), round((get_viewport().get_mouse_position().y - 16) / 24))
+	var drop_position = Vector2i(round((get_viewport().get_mouse_position().x) / (462*0.2)), round((get_viewport().get_mouse_position().y) / (510*0.2)))
 	place_hexagon(drop_position, current_holded_tile_type)
 	current_holded_sprite.queue_free()
 	current_holded_sprite = null
