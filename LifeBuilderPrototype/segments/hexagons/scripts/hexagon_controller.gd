@@ -2,8 +2,6 @@ extends Node
 
 signal stop_pressing_mouse_button()
 
-@onready var tilemap = $"../TileMap"
-
 const main_layer = 0
 const main_atlas_id = 0
 

@@ -1,69 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqwoqeas87721"]
+[gd_scene load_steps=2 format=3 uid="uid://cqwoqeas87721"]
 
-[ext_resource type="Texture2D" uid="uid://dwi584gb1g4ic" path="res://ressources/tilemaps/hexagons.png" id="1_5xo4k"]
-[ext_resource type="PackedScene" uid="uid://1dk8koe2pj5j" path="res://segments/hexagons/hexagon.tscn" id="2_o2ivs"]
-[ext_resource type="Script" path="res://segments/hexagons/hexagon_controller.gd" id="2_vxww7"]
-[ext_resource type="Script" path="res://segments/hexagons/temp.gd" id="3_osswd"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rfgm7"]
-texture = ExtResource("1_5xo4k")
-texture_region_size = Vector2i(462, 510)
-0:0/0 = 0
-1:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_6sl6w"]
-tile_shape = 3
-tile_size = Vector2i(462, 510)
-sources/0 = SubResource("TileSetAtlasSource_rfgm7")
+[ext_resource type="Script" path="res://segments/hexagons/scripts/hexagon_controller_2.gd" id="1_qeevl"]
 
 [node name="HexagonField" type="Node"]
 
-[node name="TileMap" type="TileMap" parent="."]
-visible = false
-tile_set = SubResource("TileSet_6sl6w")
-format = 2
-layer_0/tile_data = PackedInt32Array(-1, 0, 0, 65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 262143, 0, 0, -65536, 0, 0, 0, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, -65535, 0, 0, 1, 65536, 0, 65537, 0, 0, 131073, 0, 0, 196609, 0, 0, -65534, 0, 0, 2, 0, 0, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, -65533, 0, 0, 3, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 4, 0, 0, 131076, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, -65532, 0, 0, 5, 0, 0, 65540, 0, 0, 131077, 0, 0, 196612, 0, 0, 262149, 0, 0, -65531, 0, 0, 65541, 0, 0, 196613, 0, 0)
-
-[node name="Hexagons" type="Node" parent="."]
-
-[node name="Hexagon#1" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-
-[node name="Hexagon#2" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(86.603, 0)
-
-[node name="Hexagon#11" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(173.206, 0)
-
-[node name="Hexagon#3" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(173.206, 0)
-script = ExtResource("3_osswd")
-
-[node name="Hexagon#4" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(43.302, -75)
-
-[node name="Hexagon#5" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(129.905, -75)
-
-[node name="Hexagon#6" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(43.302, 75)
-
-[node name="Hexagon#7" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(129.905, 75)
-
-[node name="Hexagon#8" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(216.508, -75)
-
-[node name="Hexagon#9" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(216.508, 75)
-
-[node name="Hexagon#10" parent="Hexagons" instance=ExtResource("2_o2ivs")]
-position = Vector2(259.809, 0)
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="HexagonController" type="Node" parent="."]
-script = ExtResource("2_vxww7")
+script = ExtResource("1_qeevl")
 
-[node name="Sprite2D" type="Sprite2D" parent="HexagonController"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(160, -4)
-zoom = Vector2(2.335, 2.335)
+[node name="Hexagons" type="Node" parent="."]

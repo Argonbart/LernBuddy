@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx66eokn8euyo"
-path="res://.godot/imported/hex_t3_1.png-d12025d915a9c06933ed30db11bcca1f.ctex"
+uid="uid://cmnosaka5gkqg"
+path="res://.godot/imported/empty_hexagon_tile.png-98108e3801e8e75e1f623ddb0d0a1df7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/tilemaps/hex_t3_1.png"
-dest_files=["res://.godot/imported/hex_t3_1.png-d12025d915a9c06933ed30db11bcca1f.ctex"]
+source_file="res://ressources/hexagons/empty_hexagon_tile.png"
+dest_files=["res://.godot/imported/empty_hexagon_tile.png-98108e3801e8e75e1f623ddb0d0a1df7.ctex"]
 
 [params]
 

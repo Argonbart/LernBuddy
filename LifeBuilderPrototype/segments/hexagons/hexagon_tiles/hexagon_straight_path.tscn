@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://6gnxl1bjo7im"]
+
+[ext_resource type="Texture2D" uid="uid://cmnosaka5gkqg" path="res://ressources/hexagons/empty_hexagon_tile.png" id="1_q4xsp"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-43.302, -50)
+texture = ExtResource("1_q4xsp")
+texture_scale = Vector2(1.735, 1.735)
+polygon = PackedVector2Array(43.302, 0, 86.603, 25, 86.603, 75, 43.302, 100, 0, 75, 0, 25)
