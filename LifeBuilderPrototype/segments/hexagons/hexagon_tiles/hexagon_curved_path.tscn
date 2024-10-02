@@ -1,12 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://coqfgy4445a73"]
+[gd_scene load_steps=2 format=3 uid="uid://cthgv8kwq3pe2"]
 
-[ext_resource type="Texture2D" uid="uid://dosx8ofm24rxo" path="res://ressources/hexagons/1-way-forest-hexagon-tile.png" id="1_pemo1"]
+[ext_resource type="Texture2D" uid="uid://cdyntsjs3ck3b" path="res://ressources/hexagons/120-turn-hexagon-tile.png" id="1_ey5l6"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(-43.302, -50)
-texture = ExtResource("1_pemo1")
+texture = ExtResource("1_ey5l6")
 texture_offset = Vector2(38.525, -13.35)
 texture_scale = Vector2(2.88, 2.88)
 texture_rotation = 0.523599
