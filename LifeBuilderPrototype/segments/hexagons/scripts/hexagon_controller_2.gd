@@ -9,7 +9,7 @@ signal stop_pressing_mouse_button()
 var q_basis = Vector2(sqrt(3), 0)
 var r_basis = Vector2(sqrt(3), 3/2)
 var size = 50
-var grid_size = 3
+var grid_size = 8
 
 var mouse_left_down : bool = false
 var current_hexagon : Node2D = null
