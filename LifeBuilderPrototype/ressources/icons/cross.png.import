@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rgu54sto3dno"
-path="res://.godot/imported/empty_hexagon_tile_old.png-fa1da652b5c9917628687ae2cac8f9ba.ctex"
+uid="uid://cfx1iso4dkqy8"
+path="res://.godot/imported/cross.png-9d5717e4a787f68ab135374d4b9611e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/hexagons/empty_hexagon_tile_old.png"
-dest_files=["res://.godot/imported/empty_hexagon_tile_old.png-fa1da652b5c9917628687ae2cac8f9ba.ctex"]
+source_file="res://ressources/icons/cross.png"
+dest_files=["res://.godot/imported/cross.png-9d5717e4a787f68ab135374d4b9611e8.ctex"]
 
 [params]
 

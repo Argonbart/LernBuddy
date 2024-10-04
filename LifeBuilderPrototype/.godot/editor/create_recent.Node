@@ -1,3 +1,5 @@
+TextureRect
+Node2D
 Panel
 TextureButton
 CollisionPolygon2D
@@ -7,8 +9,6 @@ CenterContainer
 HBoxContainer
 CanvasLayer
 PanelContainer
-Node2D
 Camera2D
 Node
 Polygon2D
-Sprite2D

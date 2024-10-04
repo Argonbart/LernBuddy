@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2ytegqyootl1"]
+
+[ext_resource type="Script" path="res://segments/hexagons/scripts/tile_menu.gd" id="1_e85ga"]
+[ext_resource type="Texture2D" uid="uid://cfx1iso4dkqy8" path="res://ressources/icons/cross.png" id="2_rjvis"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_e85ga")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="DeleteField" type="TextureRect" parent="PanelContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("2_rjvis")
+expand_mode = 1

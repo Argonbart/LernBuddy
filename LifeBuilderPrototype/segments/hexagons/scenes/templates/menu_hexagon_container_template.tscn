@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://o85nk7p0b32y"]
+
+[ext_resource type="Script" path="res://segments/hexagons/scripts/hexagon_outline.gd" id="1_r46fx"]
+
+[node name="CenterContainer" type="CenterContainer"]
+custom_minimum_size = Vector2(350, 300)
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(331, 288)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Polygon2D" type="Polygon2D" parent="Node2D"]
+texture_filter = 2
+position = Vector2(-165.5, -144)
+polygon = PackedVector2Array(82.75, 0, 248.25, 0, 331, 143.325, 248.25, 286.65, 82.75, 286.65, 0, 143.325)
+script = ExtResource("1_r46fx")
