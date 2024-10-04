@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2ytegqyootl1"]
+
+[ext_resource type="Script" path="res://segments/hexagons/tile_menu.gd" id="1_e85ga"]
+[ext_resource type="Texture2D" uid="uid://dosx8ofm24rxo" path="res://ressources/hexagons/1-way-forest-hexagon-tile.png" id="2_e6r6s"]
+[ext_resource type="PackedScene" uid="uid://cffqyl5ufi4ux" path="res://segments/hexagons/hexagon_tiles/hexagon_crossing_path.tscn" id="2_ivhay"]
+[ext_resource type="PackedScene" uid="uid://cthgv8kwq3pe2" path="res://segments/hexagons/hexagon_tiles/hexagon_curved_path.tscn" id="3_n07pe"]
+[ext_resource type="PackedScene" uid="uid://coqfgy4445a73" path="res://segments/hexagons/hexagon_tiles/hexagon_straight_path.tscn" id="4_a5f37"]
+[ext_resource type="Texture2D" uid="uid://lryxc5bf8fci" path="res://ressources/hexagons/2-way-forest-hexagon-tile.png.png" id="4_adglb"]
+[ext_resource type="Texture2D" uid="uid://bd5wa8pqarh54" path="res://ressources/hexagons/3-way-forest-hexagon-tile.png" id="6_7y1hm"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_e85ga")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(331, 288)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("2_e6r6s")
+
+[node name="1WayPath" parent="PanelContainer/HBoxContainer/CenterContainer" instance=ExtResource("4_a5f37")]
+layout_mode = 2
+
+[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/HBoxContainer/CenterContainer4"]
+custom_minimum_size = Vector2(331, 288)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("4_adglb")
+
+[node name="2WayPath" parent="PanelContainer/HBoxContainer/CenterContainer4" instance=ExtResource("3_n07pe")]
+layout_mode = 2
+
+[node name="CenterContainer5" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/HBoxContainer/CenterContainer5"]
+custom_minimum_size = Vector2(331, 288)
+layout_mode = 2
+mouse_filter = 1
+texture_normal = ExtResource("6_7y1hm")
+
+[node name="3WayPath" parent="PanelContainer/HBoxContainer/CenterContainer5" instance=ExtResource("2_ivhay")]
+layout_mode = 2

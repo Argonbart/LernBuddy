@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2ytegqyootl1"]
+
+[ext_resource type="Script" path="res://segments/hexagons/tile_menu.gd" id="1_e85ga"]
+[ext_resource type="PackedScene" uid="uid://cffqyl5ufi4ux" path="res://segments/hexagons/hexagon_tiles/hexagon_crossing_path.tscn" id="2_ivhay"]
+[ext_resource type="PackedScene" uid="uid://cthgv8kwq3pe2" path="res://segments/hexagons/hexagon_tiles/hexagon_curved_path.tscn" id="3_n07pe"]
+[ext_resource type="PackedScene" uid="uid://coqfgy4445a73" path="res://segments/hexagons/hexagon_tiles/hexagon_straight_path.tscn" id="4_a5f37"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_e85ga")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/CenterContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="1WayPath" parent="PanelContainer/HBoxContainer/CenterContainer/Control" instance=ExtResource("4_a5f37")]
+layout_mode = 1
+offset_left = 708.0
+offset_right = 708.0
+
+[node name="Area2D" type="Area2D" parent="PanelContainer/HBoxContainer/CenterContainer/Control/1WayPath"]
+position = Vector2(-165.5, -144)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PanelContainer/HBoxContainer/CenterContainer/Control/1WayPath/Area2D"]
+polygon = PackedVector2Array(82.75, 0, 248.25, 0, 331, 143.325, 248.25, 286.65, 82.75, 286.65, 0, 143.325)
+
+[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/CenterContainer4"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="2WayPath" parent="PanelContainer/HBoxContainer/CenterContainer4/Control" instance=ExtResource("3_n07pe")]
+layout_mode = 1
+
+[node name="CenterContainer5" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer/CenterContainer5"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="3WayPath" parent="PanelContainer/HBoxContainer/CenterContainer5/Control" instance=ExtResource("2_ivhay")]
+offset_left = -708.0
+offset_right = -668.0
+
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/CenterContainer/Control/1WayPath/Area2D" to="PanelContainer" method="_on_area_2d_mouse_entered"]

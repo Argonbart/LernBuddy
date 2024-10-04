@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://coqfgy4445a73"]
+[gd_scene load_steps=3 format=3 uid="uid://coqfgy4445a73"]
 
 [ext_resource type="Texture2D" uid="uid://dosx8ofm24rxo" path="res://ressources/hexagons/1-way-forest-hexagon-tile.png" id="1_pemo1"]
+[ext_resource type="Script" path="res://segments/hexagons/scripts/polygon_tile.gd" id="2_fnig0"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(-43.302, -50)
+texture_filter = 2
+position = Vector2(-165.5, -144)
 texture = ExtResource("1_pemo1")
-texture_offset = Vector2(38.525, -13.35)
-texture_scale = Vector2(2.88, 2.88)
-texture_rotation = 0.523599
-polygon = PackedVector2Array(43.302, 0, 86.603, 25, 86.603, 75, 43.302, 100, 0, 75, 0, 25)
+polygon = PackedVector2Array(82.75, 0, 248.25, 0, 331, 143.325, 248.25, 286.65, 82.75, 286.65, 0, 143.325)
+script = ExtResource("2_fnig0")

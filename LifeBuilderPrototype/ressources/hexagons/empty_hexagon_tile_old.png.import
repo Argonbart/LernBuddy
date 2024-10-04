@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lryxc5bf8fci"
-path="res://.godot/imported/2-way-forest-hexagon-tile.png.png-55af6a5ff8bca9ea782622d9f0e580a8.ctex"
+uid="uid://rgu54sto3dno"
+path="res://.godot/imported/empty_hexagon_tile_old.png-fa1da652b5c9917628687ae2cac8f9ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/hexagons/2-way-forest-hexagon-tile.png.png"
-dest_files=["res://.godot/imported/2-way-forest-hexagon-tile.png.png-55af6a5ff8bca9ea782622d9f0e580a8.ctex"]
+source_file="res://ressources/hexagons/empty_hexagon_tile_old.png"
+dest_files=["res://.godot/imported/empty_hexagon_tile_old.png-fa1da652b5c9917628687ae2cac8f9ba.ctex"]
 
 [params]
 

@@ -25,7 +25,8 @@ gdscript/warnings/integer_division=0
 
 [display]
 
-window/size/viewport_height=640
+window/size/viewport_width=2304
+window/size/viewport_height=1280
 window/stretch/mode="viewport"
 
 [editor_plugins]
@@ -127,5 +128,5 @@ playcard={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
+scaling_3d/mode=2
 environment/bg_color=Color(0.14, 0.14, 0.14, 1)

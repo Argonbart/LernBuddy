@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://1dk8koe2pj5j"]
+[gd_scene load_steps=2 format=3 uid="uid://bbb7wnn48ci2v"]
 
-[ext_resource type="Script" path="res://segments/hexagons/scripts/polygon_tile.gd" id="2_3d4t0"]
+[ext_resource type="Script" path="res://segments/hexagons/scripts/polygon_tile.gd" id="2_b0q6o"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -9,4 +9,4 @@ texture_filter = 2
 position = Vector2(-165.5, -144)
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(82.75, 0, 248.25, 0, 331, 143.325, 248.25, 286.65, 82.75, 286.65, 0, 143.325)
-script = ExtResource("2_3d4t0")
+script = ExtResource("2_b0q6o")

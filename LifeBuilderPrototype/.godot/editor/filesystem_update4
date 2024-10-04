@@ -1,8 +1,13 @@
 res://segments/hexagons/hexagon_field.tscn
 res://ressources/shader/blinking.tres
-res://segments/hexagons/scripts/hexagon_controller_2.gd
-res://hex_cam.tscn
-res://segments/hexagons/hexagon_tiles/hexagon_straight_path.tscn
 res://segments/hexagons/hexagon_tiles/hexagon_empty.tscn
-res://segments/hexagons/hexagon_tiles/hexagon_crossing_path.tscn
+res://segments/hexagons/hexagon_tiles/hexagon_straight_path.tscn
 res://segments/hexagons/hexagon_tiles/hexagon_curved_path.tscn
+res://segments/hexagons/hexagon_tiles/hexagon_crossing_path.tscn
+res://segments/hexagons/scripts/hexagon_controller.gd
+res://segments/hexagons/hexagon_camera.gd
+res://segments/hexagons/hexagon_tiles/polygon_tile.gd
+res://segments/hexagons/scripts/polygon_tile.gd
+res://segments/hexagons/user_interface.tscn
+res://segments/hexagons/tile_menu.gd
+res://segments/hexagons/hexagon_tiles/hexagon_tile_template.tscn
