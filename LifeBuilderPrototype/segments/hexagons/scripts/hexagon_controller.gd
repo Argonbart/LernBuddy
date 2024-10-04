@@ -15,7 +15,7 @@ var hexagon_tile_textures_list = ["res://ressources/hexagons/1-way-forest-hexago
 var q_basis = Vector2(3.0/2.0, sqrt(3)/2.0)
 var r_basis = Vector2(0, sqrt(3))
 var size = 165.5
-var grid_size = 2
+@export var grid_size = 2
 
 var hexagon_field = {}
 
