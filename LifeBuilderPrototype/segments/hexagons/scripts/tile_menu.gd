@@ -67,6 +67,8 @@ func _set_currently_hovered_hexagon(button):
 
 func close_menu():
 	container_list.visible = false
+	if currently_selected_hexagon == null:
+		delete_field.visible = false
 	var tween_grow_panel = create_tween()
 	tween_grow_panel.tween_property(self, "custom_minimum_size", Vector2(0,50), 0.2)
 	tween_grow_panel.tween_callback(func(): menu_closed = true ; hexagon_controller.menu_active = false)
@@ -103,6 +105,7 @@ func _input(event):
 				elif currently_selected_hexagon and hex_position_clicked in hexagon_controller.hexagon_field:
 					if hexagon_controller.hexagon_field[hex_position_clicked] == null:
 						hexagon_controller.move_hexagon_to(currently_selected_hexagon, hex_position_clicked)
+						delete_field.visible = false
 					else:
 						return
 				mouse_left_down = false

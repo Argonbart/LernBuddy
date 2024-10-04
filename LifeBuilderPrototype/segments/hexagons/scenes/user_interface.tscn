@@ -30,7 +30,7 @@ alignment = 1
 
 [node name="DeleteField" type="TextureRect" parent="PanelContainer"]
 visible = false
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0

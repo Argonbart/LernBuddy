@@ -16,3 +16,4 @@ res://segments/hexagons/menu_hexagon_container_template.tscn
 res://segments/hexagons/scripts/tile_menu.gd
 res://segments/hexagons/scripts/button_outline.gd
 res://segments/hexagons/scenes/hexagon_field.tscn
+res://segments/hexagons/scenes/user_interface.tscn
