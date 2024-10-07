@@ -16,7 +16,7 @@ script = ExtResource("2_gd68l")
 
 [node name="HexagonController" type="Node" parent="."]
 script = ExtResource("3_6ia27")
-grid_size = 10
+grid_size = 20
 
 [node name="HexagonField" type="Node" parent="."]
 
