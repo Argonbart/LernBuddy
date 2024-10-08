@@ -1,13 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwvqieiw75v58"]
+[gd_scene load_steps=17 format=3 uid="uid://bwvqieiw75v58"]
 
 [ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_68do6"]
 [ext_resource type="Script" path="res://user_interface.gd" id="1_o7e5x"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w2d0y"]
-bg_color = Color(0.448399, 0.612853, 0.810792, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uhmo"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xipro"]
-bg_color = Color(0.841435, 0.498008, 0.351161, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhytj"]
+bg_color = Color(1, 0, 0.196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_go7x4"]
+bg_color = Color(0, 0.643137, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_unxw3"]
+bg_color = Color(0, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2ntv"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnswl"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0pfy"]
+bg_color = Color(1, 0.533612, 0.468613, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v5vt"]
+bg_color = Color(0, 0.983666, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueo3j"]
+bg_color = Color(0.457333, 0.630597, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0sw4s"]
+bg_color = Color(0.559523, 1.27546e-06, 3.36915e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwcue"]
+bg_color = Color(0, 0.39123, 3.85046e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6yc3"]
+bg_color = Color(1.54018e-06, 0, 0.501564, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aaq67"]
 bg_color = Color(0.307093, 0.703256, 0.236471, 1)
@@ -24,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o7e5x")
 
-[node name="SelectMenu" type="MarginContainer" parent="."]
+[node name="MCSelectMenu" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,7 +62,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CollapsibleContainer" type="Control" parent="SelectMenu"]
+[node name="CCSelectMenu" type="Control" parent="MCSelectMenu"]
 process_mode = 3
 editor_description = "
 			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
@@ -47,60 +77,283 @@ starts_opened = false
 folding_direction_preset = 12
 sizing_constraint = 1
 auto_update_size = 1
-sizing_node = NodePath("Panel")
+sizing_node = NodePath("VBoxMenu")
 use_custom_open_size = true
 
-[node name="Panel" type="Panel" parent="SelectMenu/CollapsibleContainer"]
+[node name="VBoxMenu" type="VBoxContainer" parent="MCSelectMenu/CCSelectMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxTop" type="HBoxContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu"]
+layout_mode = 2
+
+[node name="EmptySpace1" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmo")
+
+[node name="TopSelectionHBox" type="HBoxContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop"]
+layout_mode = 2
+
+[node name="TopSelection1" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lhytj")
+
+[node name="Button" type="Button" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox/TopSelection1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+flat = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SelectMenu/CollapsibleContainer"]
+[node name="TopSelection2" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_go7x4")
+
+[node name="Button" type="Button" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox/TopSelection2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+flat = true
 
-[node name="MarginContainer" type="MarginContainer" parent="SelectMenu/CollapsibleContainer/HBoxContainer"]
+[node name="TopSelection3" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_unxw3")
+
+[node name="Button" type="Button" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox/TopSelection3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="EmptySpace4" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/TopSelectionHBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmo")
+
+[node name="EmptySpace2" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmo")
+
+[node name="EmptySpace3" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmo")
+
+[node name="HBoxBottom" type="HBoxContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu"]
+layout_mode = 2
+
+[node name="Area1" type="MarginContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom"]
+layout_mode = 2
+
+[node name="LeftSelectionVBox" type="VBoxContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area1"]
+layout_mode = 2
+
+[node name="LeftSelection1" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area1/LeftSelectionVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_c2ntv")
+
+[node name="Button" type="Button" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area1/LeftSelectionVBox/LeftSelection1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="LeftSelection2" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area1/LeftSelectionVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_wnswl")
+
+[node name="Button" type="Button" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area1/LeftSelectionVBox/LeftSelection2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Area2" type="MarginContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom"]
+layout_mode = 2
+
+[node name="CC00" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_68do6")
+starts_opened = false
+auto_update_size = 1
+sizing_node = NodePath("Panel")
+use_custom_open_size = true
+use_custom_close_size = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SelectMenu/CollapsibleContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
+[node name="Panel" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC00"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p0pfy")
 
-[node name="Panel3" type="Panel" parent="SelectMenu/CollapsibleContainer/HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_w2d0y")
-
-[node name="Panel4" type="Panel" parent="SelectMenu/CollapsibleContainer/HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_w2d0y")
-
-[node name="MarginContainer2" type="MarginContainer" parent="SelectMenu/CollapsibleContainer/HBoxContainer"]
+[node name="CC01" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_68do6")
+starts_opened = false
+auto_update_size = 1
+sizing_node = NodePath("Panel")
+use_custom_open_size = true
+use_custom_close_size = true
 
-[node name="Panel2" type="Panel" parent="SelectMenu/CollapsibleContainer/HBoxContainer/MarginContainer2"]
+[node name="Panel" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC01"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2v5vt")
+
+[node name="CC02" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_xipro")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_68do6")
+starts_opened = false
+auto_update_size = 1
+sizing_node = NodePath("Panel")
+use_custom_open_size = true
+use_custom_close_size = true
 
-[node name="MarginContainer3" type="MarginContainer" parent="SelectMenu/CollapsibleContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC02"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueo3j")
+
+[node name="CC10" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_68do6")
+starts_opened = false
+auto_update_size = 1
+sizing_node = NodePath("Panel")
+use_custom_open_size = true
+use_custom_close_size = true
+
+[node name="Panel" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0sw4s")
+
+[node name="CC11" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_68do6")
+starts_opened = false
+auto_update_size = 1
+sizing_node = NodePath("Panel")
+use_custom_open_size = true
+use_custom_close_size = true
+
+[node name="Panel" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC11"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bwcue")
+
+[node name="CC12" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
+process_mode = 3
+editor_description = "
+			A custom/plugin Control node capable of hiding and revealing its children by folding and unfolding.
+			
+Give feedback at: https://github.com/ArshvirGoraya/Godot-Collapsible-Container"
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_68do6")
+starts_opened = false
+auto_update_size = 1
+sizing_node = NodePath("Panel")
+use_custom_open_size = true
+use_custom_close_size = true
+
+[node name="Panel" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC12"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o6yc3")
+
+[node name="Area3" type="MarginContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom"]
 layout_mode = 2
 
-[node name="Panel3" type="Panel" parent="SelectMenu/CollapsibleContainer/HBoxContainer/MarginContainer3"]
+[node name="Panel3" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_aaq67")
 
-[node name="MarginContainer4" type="MarginContainer" parent="SelectMenu/CollapsibleContainer/HBoxContainer"]
+[node name="Area4" type="MarginContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom"]
 layout_mode = 2
 
-[node name="Panel4" type="Panel" parent="SelectMenu/CollapsibleContainer/HBoxContainer/MarginContainer4"]
+[node name="Panel4" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area4"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_mj6vi")

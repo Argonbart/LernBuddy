@@ -1,15 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqwoqeas87721"]
 
-[ext_resource type="PackedScene" uid="uid://c2ytegqyootl1" path="res://segments/hexagons/scenes/user_interface.tscn" id="1_8j3ji"]
 [ext_resource type="Script" path="res://segments/hexagons/scripts/hexagon_camera.gd" id="2_gd68l"]
+[ext_resource type="PackedScene" uid="uid://bwvqieiw75v58" path="res://user_interface.tscn" id="2_rhht2"]
 [ext_resource type="Script" path="res://segments/hexagons/scripts/hexagon_controller.gd" id="3_6ia27"]
 
 [node name="HexagonField" type="Node"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="UserInterface" parent="CanvasLayer" instance=ExtResource("1_8j3ji")]
-size_flags_vertical = 4
+[node name="UserInterface" parent="CanvasLayer" instance=ExtResource("2_rhht2")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_gd68l")
