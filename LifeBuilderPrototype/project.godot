@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LifeBuilderPrototype"
-run/main_scene="res://user_interface.tscn"
+run/main_scene="res://segments/hexagons/scenes/hexagon_field.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
 [autoload]
@@ -25,8 +25,8 @@ gdscript/warnings/integer_division=0
 
 [display]
 
-window/size/viewport_width=2304
-window/size/viewport_height=1280
+window/size/viewport_width=1920
+window/size/viewport_height=1200
 window/stretch/mode="viewport"
 
 [editor_plugins]

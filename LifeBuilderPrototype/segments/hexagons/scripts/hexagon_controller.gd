@@ -19,7 +19,7 @@ var size = 165.5
 
 var hexagon_field = {}
 
-var viewport_offset = Vector2(2304/2, 1280/2)
+var viewport_offset = Vector2(1920/2, 1200/2) # Vector2(2304/2, 1280/2)
 var mouse_left_down : bool = false
 var is_rotating : bool = false
 

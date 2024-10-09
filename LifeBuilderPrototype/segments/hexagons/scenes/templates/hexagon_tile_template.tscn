@@ -6,6 +6,6 @@
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 texture_filter = 2
-position = Vector2(-165.5, -144)
+position = Vector2(-165.5, -143.325)
 polygon = PackedVector2Array(82.75, 0, 248.25, 0, 331, 143.325, 248.25, 286.65, 82.75, 286.65, 0, 143.325)
 script = ExtResource("2_b0q6o")

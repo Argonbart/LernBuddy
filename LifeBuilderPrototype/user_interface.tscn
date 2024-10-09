@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bwvqieiw75v58"]
+[gd_scene load_steps=18 format=3 uid="uid://bwvqieiw75v58"]
 
 [ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_68do6"]
 [ext_resource type="Script" path="res://user_interface.gd" id="1_o7e5x"]
+[ext_resource type="PackedScene" uid="uid://bw1k1f4elfovv" path="res://sub_menu_with_hexagons.tscn" id="3_ewjeq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uhmo"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -211,6 +212,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p0pfy")
+
+[node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC00" instance=ExtResource("3_ewjeq")]
+layout_mode = 1
+offset_left = -10.0
+offset_top = -10.0
+offset_right = -10.0
+offset_bottom = -10.0
 
 [node name="CC01" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
 process_mode = 3
