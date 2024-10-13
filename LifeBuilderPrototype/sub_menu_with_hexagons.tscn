@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw1k1f4elfovv"]
+[gd_scene load_steps=5 format=3 uid="uid://bw1k1f4elfovv"]
 
+[ext_resource type="Script" path="res://sub_menu_with_hexagons.gd" id="1_byhwg"]
 [ext_resource type="PackedScene" uid="uid://bbb7wnn48ci2v" path="res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn" id="1_xvfip"]
+[ext_resource type="Texture2D" uid="uid://dosx8ofm24rxo" path="res://ressources/hexagons/1-way-forest-hexagon-tile.png" id="2_cqd8y"]
+[ext_resource type="Texture2D" uid="uid://cmnosaka5gkqg" path="res://ressources/hexagons/empty_hexagon_tile.png" id="3_y4e34"]
 
 [node name="SubMenuWithHexagons" type="Control"]
 layout_mode = 3
@@ -12,6 +15,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+script = ExtResource("1_byhwg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -67,6 +71,21 @@ custom_minimum_size = Vector2(496.5, 143.325)
 layout_mode = 2
 
 [node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot1" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot1/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("2_cqd8y")
+texture_pressed = ExtResource("3_y4e34")
 
 [node name="HexagonSlot2" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(496.5, 143.325)

@@ -7,6 +7,7 @@ extends Control
 @onready var left_selection_vbox : VBoxContainer = select_menu.get_child(0).get_child(0).get_child(1).get_child(0).get_child(0)
 @onready var up_selection_hbox : HBoxContainer = select_menu.get_child(0).get_child(0).get_child(0).get_child(1)
 @onready var submenu_list = select_menu.get_child(0).get_child(0).get_child(1).get_child(1).get_children()
+@onready var hexagon_field = $"../../HexagonController"
 
 var active_menu = null
 var toggle_index_left = 0
@@ -61,6 +62,7 @@ func _process(_delta):
 
 func menu_toggle():
 	collapse_menu.open_tween_toggle.call_deferred()
+	hexagon_field.menu_active = !hexagon_field.menu_active
 
 func toggle_collapsible_left(toggle_index):
 	toggle_index_left = toggle_index

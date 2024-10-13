@@ -5,6 +5,8 @@ extends Node
 @onready var hexagon_camera = $"../Camera2D"			# relevant for zoom calculations
 @onready var hexagon_field_node = $"../HexagonField"	# field hexagons go here
 @onready var hexagon_nodes = $"../Hexagons"				# tile hexagons go here
+@onready var user_interface = $"../CanvasLayer/UserInterface"
+@onready var button1 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC00/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot1/Node2D/TextureButton"
 
 var hexagon_tile_list = []
 var hexagon_tile_template = load("res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn")
@@ -35,6 +37,16 @@ var menu_hexagon_active = false
 func _ready():
 	generate_hex_tiles()
 	generate_hex_grid()
+	button1.connect("pressed", func(): button1_selected())
+
+func button1_selected():
+	var new_hexagon = hexagon_tile_template.instantiate()
+	new_hexagon.get_child(0).texture = load(hexagon_tile_textures_list[0])
+	hexagon_nodes.add_child(new_hexagon)
+	user_interface.menu_toggle()
+	menu_active = false
+	mouse_left_down = true
+	current_hexagon = new_hexagon
 
 func generate_hex_tiles():
 	for hexagon_tile_texture in hexagon_tile_textures_list:
@@ -144,9 +156,13 @@ func move_hexagon_to(hexagon, hex_position):
 #################################### INPUTS ####################################
 
 func _process(_delta):
-	if mouse_left_down:
-		if current_hexagon:
+	if mouse_left_down and current_hexagon:
+		if !menu_active:
 			current_hexagon.position = (get_viewport().get_mouse_position() - viewport_offset + (hexagon_camera.position * hexagon_camera.zoom)) / hexagon_camera.zoom
+		else:
+			move_hexagon_to(current_hexagon, current_hexagon_reset_position)
+			current_hexagon.rotation = current_hexagon_reset_rotation
+			current_hexagon = null
 
 func _input(event):
 	if !menu_active and !menu_hexagon_active:
@@ -167,6 +183,8 @@ func _input(event):
 			var pixel_position_clicked = event.position - viewport_offset + (hexagon_camera.position * hexagon_camera.zoom)
 			var hex_position_clicked = pixel_to_hex(pixel_position_clicked)
 			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				if mouse_left_down:
+					return
 				mouse_left_down = true
 				if hex_position_clicked in hexagon_field.keys():
 					current_hexagon = hexagon_field[hex_position_clicked]
