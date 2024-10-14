@@ -216,9 +216,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_p0pfy")
 [node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC00" instance=ExtResource("3_ewjeq")]
 layout_mode = 1
 offset_left = -10.0
-offset_top = -10.0
+offset_top = -5.0
 offset_right = -10.0
-offset_bottom = -10.0
+offset_bottom = -5.0
 
 [node name="CC01" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
 process_mode = 3
@@ -246,6 +246,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2v5vt")
 
+[node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC01" instance=ExtResource("3_ewjeq")]
+layout_mode = 1
+offset_left = -10.0
+offset_top = -5.0
+offset_right = -10.0
+offset_bottom = -5.0
+
 [node name="CC02" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
 process_mode = 3
 editor_description = "
@@ -271,6 +278,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueo3j")
+
+[node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC02" instance=ExtResource("3_ewjeq")]
+layout_mode = 1
+offset_left = -10.0
+offset_top = -5.0
+offset_right = -10.0
+offset_bottom = -5.0
 
 [node name="CC10" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
 process_mode = 3
@@ -298,6 +312,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0sw4s")
 
+[node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC10" instance=ExtResource("3_ewjeq")]
+layout_mode = 1
+offset_left = -10.0
+offset_top = -5.0
+offset_right = -10.0
+offset_bottom = -5.0
+
 [node name="CC11" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
 process_mode = 3
 editor_description = "
@@ -324,6 +345,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bwcue")
 
+[node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC11" instance=ExtResource("3_ewjeq")]
+layout_mode = 1
+offset_left = -10.0
+offset_top = -5.0
+offset_right = -10.0
+offset_bottom = -5.0
+
 [node name="CC12" type="Control" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2"]
 process_mode = 3
 editor_description = "
@@ -349,6 +377,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o6yc3")
+
+[node name="SubMenuWithHexagons" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC12" instance=ExtResource("3_ewjeq")]
+layout_mode = 1
+offset_left = -10.0
+offset_top = -5.0
+offset_right = -10.0
+offset_bottom = -5.0
 
 [node name="Area3" type="MarginContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom"]
 layout_mode = 2

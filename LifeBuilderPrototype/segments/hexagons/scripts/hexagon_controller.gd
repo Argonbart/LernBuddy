@@ -6,13 +6,19 @@ extends Node
 @onready var hexagon_field_node = $"../HexagonField"	# field hexagons go here
 @onready var hexagon_nodes = $"../Hexagons"				# tile hexagons go here
 @onready var user_interface = $"../CanvasLayer/UserInterface"
-@onready var button1 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC00/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot1/Node2D/TextureButton"
+@onready var six_hex_pick1 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC00/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+@onready var six_hex_pick2 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC01/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+@onready var six_hex_pick3 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC02/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+@onready var six_hex_pick4 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC10/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+@onready var six_hex_pick5 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC11/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+@onready var six_hex_pick6 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC12/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+var six_hex_pick_all = []
 
 var hexagon_tile_list = []
 var hexagon_tile_template = load("res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn")
-var hexagon_tile_textures_list = ["res://ressources/hexagons/1-way-forest-hexagon-tile.png",
-								  "res://ressources/hexagons/2-way-forest-hexagon-tile.png",
-								  "res://ressources/hexagons/3-way-forest-hexagon-tile.png"]
+var hexagon_tile_textures_short_list = ["res://ressources/hexagons/1-way-forest-hexagon-tile.png",
+										"res://ressources/hexagons/2-way-forest-hexagon-tile.png",
+										"res://ressources/hexagons/3-way-forest-hexagon-tile.png"]
 
 var q_basis = Vector2(3.0/2.0, sqrt(3)/2.0)
 var r_basis = Vector2(0, sqrt(3))
@@ -37,11 +43,29 @@ var menu_hexagon_active = false
 func _ready():
 	generate_hex_tiles()
 	generate_hex_grid()
-	button1.connect("pressed", func(): button1_selected())
+	connect_hex_pick_buttons()
 
-func button1_selected():
+func connect_hex_pick_buttons():
+	six_hex_pick_all = [get_buttons(six_hex_pick1), get_buttons(six_hex_pick2), get_buttons(six_hex_pick3), get_buttons(six_hex_pick4), get_buttons(six_hex_pick5), get_buttons(six_hex_pick6)]
+	var texture_counter = 0
+	for six_hex_pick in six_hex_pick_all:
+		for button in six_hex_pick:
+			button.texture_normal = load(hexagon_tile_textures_list[texture_counter])
+			button.texture_pressed = load("res://ressources/hexagons/hexagon_tile_pressed.png")
+			button.connect("pressed", func(): button_selected(texture_counter))
+			texture_counter += 1
+
+func get_buttons(six_hex_pick):
+	var button_list = []
+	for i in range(0,3):
+		button_list.append(six_hex_pick.get_child(1).get_child(i).get_child(0).get_child(1))
+	for i in range(0,3):
+		button_list.append(six_hex_pick.get_child(2).get_child(i+1).get_child(0).get_child(1))
+	return button_list
+
+func button_selected(texture_counter):
 	var new_hexagon = hexagon_tile_template.instantiate()
-	new_hexagon.get_child(0).texture = load(hexagon_tile_textures_list[0])
+	new_hexagon.get_child(0).texture = load(hexagon_tile_textures_list[texture_counter])
 	hexagon_nodes.add_child(new_hexagon)
 	user_interface.menu_toggle()
 	menu_active = false
@@ -49,7 +73,7 @@ func button1_selected():
 	current_hexagon = new_hexagon
 
 func generate_hex_tiles():
-	for hexagon_tile_texture in hexagon_tile_textures_list:
+	for hexagon_tile_texture in hexagon_tile_textures_short_list:
 		var new_hexagon_type = hexagon_tile_template.instantiate()
 		new_hexagon_type.get_child(0).texture = load(hexagon_tile_texture)
 		hexagon_tile_list.append(new_hexagon_type)
@@ -203,3 +227,45 @@ func _input(event):
 						move_hexagon_to(current_hexagon, current_hexagon_reset_position)
 						current_hexagon.rotation = current_hexagon_reset_rotation
 				current_hexagon = null
+
+var hexagon_tile_textures_list = ["res://ressources/hexagons/1-way-forest-hexagon-tile.png",
+								  "res://ressources/hexagons/2-way-forest-hexagon-tile.png",
+								  "res://ressources/hexagons/3-way-forest-hexagon-tile.png",
+								  "res://ressources/hexagons/hexagon_tile_4.png",
+								  "res://ressources/hexagons/hexagon_tile_5.png",
+								  "res://ressources/hexagons/hexagon_tile_6.png",
+								
+								  "res://ressources/hexagons/hexagon_tile_7.png",
+								  "res://ressources/hexagons/hexagon_tile_8.png",
+								  "res://ressources/hexagons/hexagon_tile_9.png",
+								  "res://ressources/hexagons/hexagon_tile_10.png",
+								  "res://ressources/hexagons/hexagon_tile_11.png",
+								  "res://ressources/hexagons/hexagon_tile_12.png",
+								
+								  "res://ressources/hexagons/hexagon_tile_13.png",
+								  "res://ressources/hexagons/hexagon_tile_14.png",
+								  "res://ressources/hexagons/hexagon_tile_15.png",
+								  "res://ressources/hexagons/hexagon_tile_16.png",
+								  "res://ressources/hexagons/hexagon_tile_17.png",
+								  "res://ressources/hexagons/hexagon_tile_18.png",
+								
+								  "res://ressources/hexagons/hexagon_tile_19.png",
+								  "res://ressources/hexagons/hexagon_tile_20.png",
+								  "res://ressources/hexagons/hexagon_tile_21.png",
+								  "res://ressources/hexagons/hexagon_tile_22.png",
+								  "res://ressources/hexagons/hexagon_tile_23.png",
+								  "res://ressources/hexagons/hexagon_tile_24.png",
+								
+								  "res://ressources/hexagons/hexagon_tile_25.png",
+								  "res://ressources/hexagons/hexagon_tile_26.png",
+								  "res://ressources/hexagons/hexagon_tile_27.png",
+								  "res://ressources/hexagons/hexagon_tile_28.png",
+								  "res://ressources/hexagons/hexagon_tile_29.png",
+								  "res://ressources/hexagons/hexagon_tile_30.png",
+								
+								  "res://ressources/hexagons/hexagon_tile_31.png",
+								  "res://ressources/hexagons/hexagon_tile_32.png",
+								  "res://ressources/hexagons/hexagon_tile_33.png",
+								  "res://ressources/hexagons/hexagon_tile_34.png",
+								  "res://ressources/hexagons/hexagon_tile_35.png",
+								  "res://ressources/hexagons/hexagon_tile_36.png"]

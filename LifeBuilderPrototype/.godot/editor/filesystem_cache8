@@ -1,14 +1,14 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1728857909
-sub_menu_with_hexagons.tscn::PackedScene::3984902973517293231::1728857897::0::1::::<><>::uid://bbb7wnn48ci2v::::res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn
-user_interface.gd::GDScript::-1::1728857897::0::1::::<>Control<>::
-user_interface.tscn::PackedScene::3974913158295953825::1728857897::0::1::::<><>::res://addons/collapsible_container/collapsible_elements/collapsible_container.gd<>res://user_interface.gd<>uid://bw1k1f4elfovv::::res://sub_menu_with_hexagons.tscn
+::res://::1728949568
+sub_menu_with_hexagons.tscn::PackedScene::3984902973517293231::1728949526::0::1::::<><>::uid://bbb7wnn48ci2v::::res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn
+user_interface.gd::GDScript::-1::1728860125::0::1::::<>Control<>::
+user_interface.tscn::PackedScene::3974913158295953825::1728949526::0::1::::<><>::res://addons/collapsible_container/collapsible_elements/collapsible_container.gd<>res://user_interface.gd<>uid://bw1k1f4elfovv::::res://sub_menu_with_hexagons.tscn
 ::res://addons/::1728857897
 ::res://addons/collapsible_container/::1728857897
 collapsible_container_inspector_plugin.gd::GDScript::-1::1728857897::0::1::::<>EditorInspectorPlugin<>::
 collapsible_container_plugin_loader.gd::GDScript::-1::1728857897::0::1::::<>EditorPlugin<>::
 plugin.cfg::TextFile::-1::1728857897::0::1::::<><>::
-::res://addons/collapsible_container/collapsible_elements/::1728857897
+::res://addons/collapsible_container/collapsible_elements/::1728857912
 collapsible_container.gd::GDScript::-1::1728857897::0::1::::CollapsibleContainer<>Control<>res://addons/collapsible_container/collapsible_elements/collapsible_container.svg::
 collapsible_container.svg::CompressedTexture2D::7091256535802334435::1728857897::1728857912::1::::<><>::
 collapsible_inspector_buttons.gd::GDScript::-1::1728857897::0::1::::<>EditorProperty<>::
@@ -16,7 +16,7 @@ collapsible_inspector_buttons.gd::GDScript::-1::1728857897::0::1::::<>EditorProp
 folding_presets.gd::GDScript::-1::1728857897::0::1::::<>Control<>::
 folding_presets.tscn::PackedScene::6319007483452450468::1728857897::0::1::::<><>::res://addons/collapsible_container/collapsible_elements/FoldingPresets/folding_presets.gd<>uid://crdv3y6m67ms0::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignTopLeft.svg<>uid://c24jayottym27::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignCenterTop.svg<>uid://domepwwue1sp4::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignTopLeft.svg<>uid://mncyfyt3fogw::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignTopLeft.svg<>uid://o7fbw2f04ja3::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignCenterTop.svg<>uid://rw3up4a251tx::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignCenterTop.svg<>uid://ci3ojhpr5r086::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignCenterLeft.svg<>uid://bmxi81k7vn8hj::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignCenter.svg<>uid://dftrdw2w3g6ny::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignCenterLeft.svg<>uid://6fwpcys854s3::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignCenterLeft.svg<>uid://b05wj4o55hnfj::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignCenter.svg<>uid://dus7earmqpni0::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignCenter.svg<>uid://bvv0caighcifa::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignBottomLeft.svg<>uid://bdyjj37l24bfu::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignBottomLeft.svg<>uid://ycroqpx34b3::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignBottomLeft.svg<>uid://dgu20vyoivwhd::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignTopWide.svg<>uid://cuwpinjjsq6st::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignTopWide.svg<>uid://cv33aqd6rhsw6::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignTopWide.svg<>uid://doy16u8e3gyte::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignHCenterWide.svg<>uid://kdisonq2pqmg::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignHCenterWide.svg<>uid://bsqtr0c5kxfln::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignHCenterWide.svg<>uid://d14a4y2w3a6kj::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignLeftWide.svg<>uid://fqqdb2kdffw5::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignLeftWide.svg<>uid://bytladrq678sl::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignLeftWide.svg<>uid://fuvk0u5r057e::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignFullRect_Tips.svg<>uid://w7ggyfcx8yjr::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/ControlAlignVCenterWide.svg<>uid://bh8p8p5c1j5jg::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/ControlAlignVCenterWide.svg<>uid://bdr0865vc18jt::::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/ControlAlignVCenterWide.svg
 ::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/::1728857897
-::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/::1728857897
+::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Clicked/::1728857912
 ControlAlignBottomLeft.svg::CompressedTexture2D::2647096326409232314::1728857897::1728857912::1::::<><>::
 ControlAlignCenter.svg::CompressedTexture2D::4204426499459569343::1728857897::1728857912::1::::<><>::
 ControlAlignCenterLeft.svg::CompressedTexture2D::7550468191116036670::1728857897::1728857912::1::::<><>::
@@ -27,7 +27,7 @@ ControlAlignLeftWide.svg::CompressedTexture2D::384951186212732150::1728857897::1
 ControlAlignTopLeft.svg::CompressedTexture2D::8166949240354610547::1728857897::1728857912::1::::<><>::
 ControlAlignTopWide.svg::CompressedTexture2D::6222960289119330803::1728857897::1728857912::1::::<><>::
 ControlAlignVCenterWide.svg::CompressedTexture2D::2946837575454047832::1728857897::1728857912::1::::<><>::
-::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/::1728857897
+::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Hover/::1728857912
 ControlAlignBottomLeft.svg::CompressedTexture2D::49697619336524642::1728857897::1728857912::1::::<><>::
 ControlAlignCenter.svg::CompressedTexture2D::8602147837186059669::1728857897::1728857912::1::::<><>::
 ControlAlignCenterLeft.svg::CompressedTexture2D::2187538745283894708::1728857897::1728857912::1::::<><>::
@@ -38,7 +38,7 @@ ControlAlignLeftWide.svg::CompressedTexture2D::4110844179854860323::1728857897::
 ControlAlignTopLeft.svg::CompressedTexture2D::869267628091376226::1728857897::1728857912::1::::<><>::
 ControlAlignTopWide.svg::CompressedTexture2D::6306310583135545019::1728857897::1728857912::1::::<><>::
 ControlAlignVCenterWide.svg::CompressedTexture2D::2633660167970101465::1728857897::1728857912::1::::<><>::
-::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/::1728857897
+::res://addons/collapsible_container/collapsible_elements/FoldingPresets/icons/Normal/::1728857912
 ControlAlignBottomLeft.svg::CompressedTexture2D::3905259841974498058::1728857897::1728857912::1::::<><>::
 ControlAlignCenter.svg::CompressedTexture2D::3276713545371551667::1728857897::1728857912::1::::<><>::
 ControlAlignCenterLeft.svg::CompressedTexture2D::5393021195296717229::1728857897::1728857912::1::::<><>::
@@ -54,27 +54,27 @@ ControlAlignVCenterWide.svg::CompressedTexture2D::1610590933294010651::172885789
 ::res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/::1728857897
 accordion_menu.tscn::PackedScene::5718306870135069498::1728857897::0::1::::<><>::res://addons/collapsible_container/collapsible_elements/collapsible_container.gd<>res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/horizontal_menu.gd<>uid://dqm8hk0rif0jg::::res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn
 horizontal_menu.gd::GDScript::-1::1728857897::0::1::::<>Control<>::
-::res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/::1728857897
+::res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/::1728857912
 collapsible_button.gd::GDScript::-1::1728857897::0::1::::<>Button<>res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_container_button.svg::
 collapsible_button.tscn::PackedScene::8309072808292096676::1728857897::0::1::::<><>::res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.gd
 collapsible_container_button.svg::CompressedTexture2D::3159317658515649253::1728857897::1728857912::1::::<><>::
-::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/::1728857897
+::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/::1728857926
 layout_logic.gd::GDScript::-1::1728857897::0::1::::<>Node<>::
 layout_preset_example.tscn::PackedScene::1610472462086195869::1728857897::0::1::::<><>::res://addons/collapsible_container/collapsible_elements/collapsible_container.gd<>uid://dyf5mpespmthb::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-2240764_640.jpg<>res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/layout_logic.gd<>uid://dnlq4coc1l4hy::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/urn.svg<>uid://olgdto6i6dke::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/blur-1239439_640.jpg<>uid://b1u4xl3dao0y2::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/train-60539_640.jpg<>uid://b15ef3yvpjlbp::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/urn_colored.svg<>res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/urn.gd<>uid://ckvxmlv3qpjuf::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/train-62849_640.jpg<>uid://ceq707cy3cm58::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/train-3758523_640.jpg<>uid://d1c4qkinesey2::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/urn -negative space.svg<>uid://dvo6x7u6grqtk::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-111179_640.jpg<>uid://cxfb8w5b6bdg3::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-3312038_640.jpg<>uid://b00wvmlkyo5cm::::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/frog-3644865_640.jpg
-urn.gd::GDScript::-1::1728857897::0::1::::<>TextureButton<>::
+urn.gd::GDScript::-1::1728857926::0::1::::<>TextureButton<>::
 ::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/::1728857897
 ::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/::1728857897
-::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/::1728857897
+::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/frogs/::1728857912
 frog-111179_640.jpg::CompressedTexture2D::8664054069130889496::1728857897::1728857912::1::::<><>::
 frog-2240764_640.jpg::CompressedTexture2D::8855959921340078283::1728857897::1728857912::1::::<><>::
 frog-3312038_640.jpg::CompressedTexture2D::6397627509967614348::1728857897::1728857912::1::::<><>::
 frog-3644865_640.jpg::CompressedTexture2D::4194125141768331704::1728857897::1728857912::1::::<><>::
-::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/::1728857897
+::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/trains/::1728857912
 blur-1239439_640.jpg::CompressedTexture2D::1005722646556750012::1728857897::1728857912::1::::<><>::
 train-60539_640.jpg::CompressedTexture2D::4254420660561440127::1728857897::1728857912::1::::<><>::
 train-62849_640.jpg::CompressedTexture2D::5519500268454186889::1728857897::1728857912::1::::<><>::
 train-3758523_640.jpg::CompressedTexture2D::5088616059584211869::1728857897::1728857912::1::::<><>::
-::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/::1728857897
+::res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/assets/images/urn/::1728857912
 urn -negative space.svg::CompressedTexture2D::8990090644857626059::1728857897::1728857912::1::::<><>::
 urn.svg::CompressedTexture2D::8095448560375930930::1728857897::1728857912::1::::<><>::
 urn_colored.svg::CompressedTexture2D::4273515256547992117::1728857897::1728857912::1::::<><>::
@@ -82,20 +82,56 @@ urn_colored.svg::CompressedTexture2D::4273515256547992117::1728857897::172885791
 signal_example.tscn::PackedScene::5697067499366212836::1728857897::0::1::::<><>::res://addons/collapsible_container/examples (OPTIONAL)/signal_example/signal_example_script.gd<>res://addons/collapsible_container/collapsible_elements/collapsible_container.gd<>uid://yji7vga2as48::::res://icon.svg
 signal_example_script.gd::GDScript::-1::1728857897::0::1::::<>Node<>::
 ::res://ressources/::1728857897
-::res://ressources/dialogues/::1728857897
+::res://ressources/dialogues/::1728857912
 bonus_card_effects.json::JSON::-1::1728857897::0::1::::<><>::
 dialogue_background.png::CompressedTexture2D::5474212437233819100::1728857897::1728857912::1::::<><>::
 mayor_dialogue.json::JSON::-1::1728857897::0::1::::<><>::
 richard_dialogue.json::JSON::-1::1728857897::0::1::::<><>::
-::res://ressources/fonts/::1728857897
+::res://ressources/fonts/::1728857911
 Roboto-Black.ttf::FontFile::1577976789616773615::1728857897::1728857911::1::::<><>::
 tavern_sign_font.otf::FontFile::1408256187824057178::1728857897::1728857911::1::::<><>::
-::res://ressources/hexagons/::1728857897
+::res://ressources/hexagons/::1728949568
 1-way-forest-hexagon-tile.png::CompressedTexture2D::8180520827250713272::1728857897::1728857911::1::::<><>::
 2-way-forest-hexagon-tile.png::CompressedTexture2D::808670134367832920::1728857897::1728857911::1::::<><>::
 3-way-forest-hexagon-tile.png::CompressedTexture2D::2660256078240118781::1728857897::1728857911::1::::<><>::
-empty_hexagon_tile.png::CompressedTexture2D::5642826599522768606::1728857897::1728857911::1::::<><>::
-::res://ressources/icons/::1728857897
+empty_hexagon_tile.png::CompressedTexture2D::5642826599522768606::1728947287::1728947288::1::::<><>::
+hexagon_tile_4.png::CompressedTexture2D::7785907382375973010::1728947547::1728947554::1::::<><>::
+hexagon_tile_5.png::CompressedTexture2D::7552243751649808232::1728948348::1728948783::1::::<><>::
+hexagon_tile_6.png::CompressedTexture2D::1985796302080253857::1728948367::1728948783::1::::<><>::
+hexagon_tile_7.png::CompressedTexture2D::4103212278722920377::1728948387::1728948783::1::::<><>::
+hexagon_tile_8.png::CompressedTexture2D::6428280101359264342::1728948403::1728948783::1::::<><>::
+hexagon_tile_9.png::CompressedTexture2D::3518246836831314640::1728948414::1728948783::1::::<><>::
+hexagon_tile_10.png::CompressedTexture2D::7692208853840289873::1728948437::1728948783::1::::<><>::
+hexagon_tile_11.png::CompressedTexture2D::5109764174586653131::1728948445::1728948783::1::::<><>::
+hexagon_tile_12.png::CompressedTexture2D::6798900643989741899::1728948457::1728948783::1::::<><>::
+hexagon_tile_13.png::CompressedTexture2D::5267440609024899197::1728948477::1728948783::1::::<><>::
+hexagon_tile_14.png::CompressedTexture2D::1991740022057211651::1728948488::1728948783::1::::<><>::
+hexagon_tile_15.png::CompressedTexture2D::4246054224623440082::1728948499::1728948783::1::::<><>::
+hexagon_tile_16.png::CompressedTexture2D::7565840485857466417::1728948510::1728948783::1::::<><>::
+hexagon_tile_17.png::CompressedTexture2D::7195503217117048409::1728948521::1728948783::1::::<><>::
+hexagon_tile_18.png::CompressedTexture2D::2259725287448292800::1728948534::1728948783::1::::<><>::
+hexagon_tile_19.png::CompressedTexture2D::252726487472039634::1728948564::1728948783::1::::<><>::
+hexagon_tile_20.png::CompressedTexture2D::4788927940148501659::1728948581::1728948783::1::::<><>::
+hexagon_tile_21.png::CompressedTexture2D::6211332265634752249::1728948598::1728948783::1::::<><>::
+hexagon_tile_22.png::CompressedTexture2D::5752394897709061550::1728948609::1728948783::1::::<><>::
+hexagon_tile_23.png::CompressedTexture2D::4608619152629191170::1728948620::1728948783::1::::<><>::
+hexagon_tile_24.png::CompressedTexture2D::4468318794306068322::1728948629::1728948783::1::::<><>::
+hexagon_tile_25.png::CompressedTexture2D::8080145500618500480::1728948648::1728948783::1::::<><>::
+hexagon_tile_26.png::CompressedTexture2D::8526517253347135751::1728948658::1728948783::1::::<><>::
+hexagon_tile_27.png::CompressedTexture2D::6400540799935107753::1728948670::1728948783::1::::<><>::
+hexagon_tile_28.png::CompressedTexture2D::8195506818220656812::1728948680::1728948783::1::::<><>::
+hexagon_tile_29.png::CompressedTexture2D::6803130120600913975::1728948691::1728948783::1::::<><>::
+hexagon_tile_30.png::CompressedTexture2D::5362123157998456683::1728948710::1728948783::1::::<><>::
+hexagon_tile_31.png::CompressedTexture2D::2042432910066127906::1728948720::1728948783::1::::<><>::
+hexagon_tile_32.png::CompressedTexture2D::7045004008969549437::1728948731::1728948783::1::::<><>::
+hexagon_tile_33.png::CompressedTexture2D::3924851361902562916::1728948740::1728948783::1::::<><>::
+hexagon_tile_34.png::CompressedTexture2D::2469626275896198780::1728948752::1728948783::1::::<><>::
+hexagon_tile_35.png::CompressedTexture2D::8423243673370583451::1728948765::1728948783::1::::<><>::
+hexagon_tile_36.png::CompressedTexture2D::2587692211328295662::1728948779::1728948783::1::::<><>::
+hexagon_tile_empty.png::CompressedTexture2D::3266780479851354802::1728947602::1728947604::1::::<><>::
+hexagon_tile_pressed.png::CompressedTexture2D::7083062051224725506::1728949524::1728949569::1::::<><>::
+hex_template.png::CompressedTexture2D::6202758798504754853::1728947287::1728947554::1::::<><>::
+::res://ressources/icons/::1728857912
 bulb.svg::CompressedTexture2D::2512720310245744790::1728857897::1728857912::1::::<><>::
 cross.png::CompressedTexture2D::5172860170452519217::1728857897::1728857912::1::::<><>::
 doublepoints.png::CompressedTexture2D::6706694194515513653::1728857897::1728857911::1::::<><>::
@@ -111,29 +147,29 @@ return_to_tavern_button.png::CompressedTexture2D::6238012539223260595::172885789
 return_to_tavern_button_pressed.png::CompressedTexture2D::2871243194571361025::1728857897::1728857911::1::::<><>::
 switch.svg::CompressedTexture2D::2615296771891455896::1728857897::1728857911::1::::<><>::
 thumb.svg::CompressedTexture2D::5341027435201440023::1728857897::1728857911::1::::<><>::
-::res://ressources/shader/::1728857897
-blinking.material::ShaderMaterial::8931227818503864559::1728857897::0::1::::<><>::uid://c12c75a40ihsv::::res://ressources/shader/blinking.tres
-blinking.tres::VisualShader::6653669657777010821::1728857897::0::1::::<><>::
-::res://ressources/sprites/::1728857897
+::res://ressources/shader/::1728935563
+blinking.material::ShaderMaterial::8931227818503864559::1728857926::0::1::::<><>::uid://c12c75a40ihsv::::res://ressources/shader/blinking.tres
+blinking.tres::VisualShader::6653669657777010821::1728935563::0::1::::<><>::
+::res://ressources/sprites/::1728857912
 blacksmith.png::CompressedTexture2D::3309035163766255578::1728857897::1728857912::1::::<><>::
 mayor.png::CompressedTexture2D::6960810868752134267::1728857897::1728857912::1::::<><>::
 player.png::CompressedTexture2D::2023185503790770443::1728857897::1728857912::1::::<><>::
 Richard.png::CompressedTexture2D::1235859424613690011::1728857897::1728857912::1::::<><>::
-::res://ressources/sprites/npc/::1728857897
+::res://ressources/sprites/npc/::1728857912
 npc_idle.png::CompressedTexture2D::9080149561257337857::1728857897::1728857911::1::::<><>::
 npc_move.png::CompressedTexture2D::6798087550458895655::1728857897::1728857912::1::::<><>::
-::res://ressources/sprites/phantom/::1728857897
+::res://ressources/sprites/phantom/::1728857912
 phantom_attack.png::CompressedTexture2D::1468951138691218556::1728857897::1728857912::1::::<><>::
 phantom_bullet.png::CompressedTexture2D::2421407351095099928::1728857897::1728857912::1::::<><>::
 phantom_death.png::CompressedTexture2D::3789624396521818743::1728857897::1728857912::1::::<><>::
 phantom_idle.png::CompressedTexture2D::6471582140572943177::1728857897::1728857912::1::::<><>::
 phantom_move.png::CompressedTexture2D::8902011724292437459::1728857897::1728857912::1::::<><>::
-::res://ressources/sprites/Tavern/::1728857897
+::res://ressources/sprites/Tavern/::1728857912
 npc1-3 emotes.png::CompressedTexture2D::2995882708147098631::1728857897::1728857912::1::::<><>::
 npc1-3 move.png::CompressedTexture2D::6283760189235211932::1728857897::1728857912::1::::<><>::
 npc4 emotes.png::CompressedTexture2D::6931885191580239726::1728857897::1728857912::1::::<><>::
 npc4 move.png::CompressedTexture2D::2427273644714043202::1728857897::1728857912::1::::<><>::
-::res://ressources/tilemaps/::1728857897
+::res://ressources/tilemaps/::1728857912
 atlas_32x.png::CompressedTexture2D::150557818807957387::1728857897::1728857912::1::::<><>::
 cardgame_background.png::CompressedTexture2D::3052610383163756830::1728857897::1728857912::1::::<><>::
 cardgame_background_compo.png::CompressedTexture2D::6938229702674612646::1728857897::1728857912::1::::<><>::
@@ -144,16 +180,16 @@ starter.png::CompressedTexture2D::8239294087805275596::1728857897::1728857912::1
 village.png::CompressedTexture2D::4258111579158452813::1728857897::1728857912::1::::<><>::
 ::res://segments/::1728857897
 ::res://segments/hexagons/::1728857897
-::res://segments/hexagons/scenes/::1728857897
-hexagon_field.tscn::PackedScene::5942157997741877120::1728857897::0::1::::<><>::res://segments/hexagons/scripts/hexagon_camera.gd<>uid://bwvqieiw75v58::::res://user_interface.tscn<>res://segments/hexagons/scripts/hexagon_controller.gd
+::res://segments/hexagons/scenes/::1728949526
+hexagon_field.tscn::PackedScene::5942157997741877120::1728949526::0::1::::<><>::res://segments/hexagons/scripts/hexagon_camera.gd<>uid://bwvqieiw75v58::::res://user_interface.tscn<>res://segments/hexagons/scripts/hexagon_controller.gd
 user_interface.tscn::PackedScene::6718646318715396524::1728857897::0::1::::<><>::res://segments/hexagons/scripts/tile_menu.gd<>uid://cfx1iso4dkqy8::::res://ressources/icons/cross.png
-::res://segments/hexagons/scenes/templates/::1728857897
-hexagon_tile_template.tscn::PackedScene::2460656840567452235::1728857897::0::1::::<><>::res://segments/hexagons/scripts/hexagon_outline.gd
+::res://segments/hexagons/scenes/templates/::1728858057
+hexagon_tile_template.tscn::PackedScene::2460656840567452235::1728858057::0::1::::<><>::res://segments/hexagons/scripts/hexagon_outline.gd
 menu_hexagon_container_template.tscn::PackedScene::1052613577302438678::1728857897::0::1::::<><>::res://segments/hexagons/scripts/hexagon_outline.gd
-::res://segments/hexagons/scripts/::1728857897
+::res://segments/hexagons/scripts/::1728949437
 button_outline.gd::GDScript::-1::1728857897::0::1::::<>TextureButton<>::
 hexagon_camera.gd::GDScript::-1::1728857897::0::1::::<>Camera2D<>::
-hexagon_controller.gd::GDScript::-1::1728857897::0::1::::<>Node<>::
+hexagon_controller.gd::GDScript::-1::1728949437::0::1::::<>Node<>::
 hexagon_outline.gd::GDScript::-1::1728857897::0::1::::<>Polygon2D<>::
 tile_menu.gd::GDScript::-1::1728857897::0::1::::<>PanelContainer<>::
 ::res://segments/player/::1728857897
