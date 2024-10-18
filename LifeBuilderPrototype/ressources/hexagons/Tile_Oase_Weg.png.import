@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lryxc5bf8fci"
-path="res://.godot/imported/2-way-forest-hexagon-tile.png-abc0a6bb6a140084960f0cf36522d0c6.ctex"
+uid="uid://bpec1a3v57a0a"
+path="res://.godot/imported/Tile_Oase_Weg.png-20bb2cf5682b1823366f0557410a6b80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ressources/hexagons/2-way-forest-hexagon-tile.png"
-dest_files=["res://.godot/imported/2-way-forest-hexagon-tile.png-abc0a6bb6a140084960f0cf36522d0c6.ctex"]
+source_file="res://ressources/hexagons/Tile_Oase_Weg.png"
+dest_files=["res://.godot/imported/Tile_Oase_Weg.png-20bb2cf5682b1823366f0557410a6b80.ctex"]
 
 [params]
 

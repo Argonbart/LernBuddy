@@ -16,9 +16,9 @@ var six_hex_pick_all = []
 
 var hexagon_tile_list = []
 var hexagon_tile_template = load("res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn")
-var hexagon_tile_textures_short_list = ["res://ressources/hexagons/1-way-forest-hexagon-tile.png",
-										"res://ressources/hexagons/2-way-forest-hexagon-tile.png",
-										"res://ressources/hexagons/3-way-forest-hexagon-tile.png"]
+var hexagon_tile_textures_short_list = ["res://ressources/hexagons/Tile_Wald_Straight.png",
+										"res://ressources/hexagons/Tile_Wald_Gay.png",
+										"res://ressources/hexagons/Tile_Wald_Y.png"]
 
 var q_basis = Vector2(3.0/2.0, sqrt(3)/2.0)
 var r_basis = Vector2(0, sqrt(3))
@@ -228,44 +228,44 @@ func _input(event):
 						current_hexagon.rotation = current_hexagon_reset_rotation
 				current_hexagon = null
 
-var hexagon_tile_textures_list = ["res://ressources/hexagons/1-way-forest-hexagon-tile.png",
-								  "res://ressources/hexagons/3-way-forest-hexagon-tile.png",
-								  "res://ressources/hexagons/hexagon_tile_5.png",
-								  "res://ressources/hexagons/2-way-forest-hexagon-tile.png",
-								  "res://ressources/hexagons/hexagon_tile_4.png",
-								  "res://ressources/hexagons/hexagon_tile_6.png",
+var hexagon_tile_textures_list = ["res://ressources/hexagons/Tile_Wald_Straight.png",
+								  "res://ressources/hexagons/Tile_Wald_Y.png",
+								  "res://ressources/hexagons/Tile_Wald_Filler.png",
+								  "res://ressources/hexagons/Tile_Wald_Gay.png",
+								  "res://ressources/hexagons/Tile_Wald_Filler.png",
+								  "res://ressources/hexagons/Tile_Wald_Filler.png",
 								
-								  "res://ressources/hexagons/hexagon_tile_7.png",
-								  "res://ressources/hexagons/hexagon_tile_9.png",
-								  "res://ressources/hexagons/hexagon_tile_11.png",
-								  "res://ressources/hexagons/hexagon_tile_8.png",
-								  "res://ressources/hexagons/hexagon_tile_10.png",
-								  "res://ressources/hexagons/hexagon_tile_12.png",
+								  "res://ressources/hexagons/Tile_Wuste_Straight.png",
+								  "res://ressources/hexagons/Tile_Wuste_Y.png",
+								  "res://ressources/hexagons/Tile_Wuste_Filler.png",
+								  "res://ressources/hexagons/Tile_Wuste_Gay.png",
+								  "res://ressources/hexagons/Tile_Wuste_Filler.png",
+								  "res://ressources/hexagons/Tile_Wuste_Filler.png",
 								
-								  "res://ressources/hexagons/hexagon_tile_13.png",
-								  "res://ressources/hexagons/hexagon_tile_15.png",
-								  "res://ressources/hexagons/hexagon_tile_17.png",
-								  "res://ressources/hexagons/hexagon_tile_14.png",
-								  "res://ressources/hexagons/hexagon_tile_16.png",
-								  "res://ressources/hexagons/hexagon_tile_18.png",
+								  "res://ressources/hexagons/Tile_Wasser_Straight.png",
+								  "res://ressources/hexagons/Tile_Wasser_Y.png",
+								  "res://ressources/hexagons/Tile_Wasser_Filler.png",
+								  "res://ressources/hexagons/Tile_Wasser_Gay.png",
+								  "res://ressources/hexagons/Tile_Wasser_Filler.png",
+								  "res://ressources/hexagons/Tile_Wasser_Filler.png",
 								
-								  "res://ressources/hexagons/hexagon_tile_19.png",
-								  "res://ressources/hexagons/hexagon_tile_21.png",
-								  "res://ressources/hexagons/hexagon_tile_23.png",
-								  "res://ressources/hexagons/hexagon_tile_20.png",
-								  "res://ressources/hexagons/hexagon_tile_22.png",
-								  "res://ressources/hexagons/hexagon_tile_24.png",
+								  "res://ressources/hexagons/Tile_Festung.png",
+								  "res://ressources/hexagons/Tile_Festung.png",
+								  "res://ressources/hexagons/Tile_Festung_Weg.png",
+								  "res://ressources/hexagons/Tile_Festung.png",
+								  "res://ressources/hexagons/Tile_Festung_Weg.png",
+								  "res://ressources/hexagons/Tile_Festung_Weg.png",
 								
-								  "res://ressources/hexagons/hexagon_tile_25.png",
-								  "res://ressources/hexagons/hexagon_tile_27.png",
-								  "res://ressources/hexagons/hexagon_tile_29.png",
-								  "res://ressources/hexagons/hexagon_tile_26.png",
-								  "res://ressources/hexagons/hexagon_tile_28.png",
-								  "res://ressources/hexagons/hexagon_tile_30.png",
+								  "res://ressources/hexagons/Tile_Oase.png",
+								  "res://ressources/hexagons/Tile_Oase.png",
+								  "res://ressources/hexagons/Tile_Oase_Weg.png",
+								  "res://ressources/hexagons/Tile_Oase.png",
+								  "res://ressources/hexagons/Tile_Oase_Weg.png",
+								  "res://ressources/hexagons/Tile_Oase_Weg.png",
 								
-								  "res://ressources/hexagons/hexagon_tile_31.png",
-								  "res://ressources/hexagons/hexagon_tile_33.png",
-								  "res://ressources/hexagons/hexagon_tile_35.png",
-								  "res://ressources/hexagons/hexagon_tile_32.png",
-								  "res://ressources/hexagons/hexagon_tile_34.png",
-								  "res://ressources/hexagons/hexagon_tile_36.png"]
+								  "res://ressources/hexagons/Tile_Insel.png",
+								  "res://ressources/hexagons/Tile_Insel.png",
+								  "res://ressources/hexagons/Tile_Insel_Weg.png",
+								  "res://ressources/hexagons/Tile_Insel.png",
+								  "res://ressources/hexagons/Tile_Insel_Weg.png",
+								  "res://ressources/hexagons/Tile_Insel_Weg.png",]
