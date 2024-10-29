@@ -1,8 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwvqieiw75v58"]
+[gd_scene load_steps=21 format=3 uid="uid://bwvqieiw75v58"]
 
 [ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_68do6"]
 [ext_resource type="Script" path="res://user_interface.gd" id="1_o7e5x"]
+[ext_resource type="Script" path="res://jana_return_to_tavern.gd" id="3_2qymq"]
 [ext_resource type="PackedScene" uid="uid://bw1k1f4elfovv" path="res://sub_menu_with_hexagons.tscn" id="3_ewjeq"]
+[ext_resource type="Texture2D" uid="uid://cu40fjlp1sgy2" path="res://ressources/icons/return_to_tavern_button.png" id="4_6kxit"]
+[ext_resource type="Texture2D" uid="uid://bg537rbri0tlx" path="res://ressources/icons/return_to_tavern_button_pressed.png" id="5_ycjr0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uhmo"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -146,6 +149,24 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmo")
 [node name="EmptySpace3" type="Panel" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmo")
+script = ExtResource("3_2qymq")
+
+[node name="ReturnToTavernButton" type="TextureButton" parent="MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxTop/EmptySpace3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_right = -20.0
+offset_bottom = 100.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("4_6kxit")
+texture_pressed = ExtResource("5_ycjr0")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="HBoxBottom" type="HBoxContainer" parent="MCSelectMenu/CCSelectMenu/VBoxMenu"]
 layout_mode = 2

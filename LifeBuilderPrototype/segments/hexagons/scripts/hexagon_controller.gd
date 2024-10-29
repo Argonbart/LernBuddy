@@ -1,5 +1,7 @@
 extends Node
 
+signal visibility_labels_toggle()
+
 #################################### VARIABLES & IMPORTS ####################################
 
 @onready var hexagon_camera = $"../Camera2D"			# relevant for zoom calculations
@@ -37,11 +39,14 @@ var current_hexagon_reset_rotation : float = 0.0
 
 var menu_active = false
 var menu_hexagon_active = false
+var typing_active = false
+var all_name_labels = []
+var current_label_visibility = true
 
 #################################### INITIALIZE ####################################
 
 func _ready():
-	generate_hex_tiles()
+	#generate_hex_tiles()
 	generate_hex_grid()
 	connect_hex_pick_buttons()
 
@@ -176,6 +181,34 @@ func axial_to_cube(hex_vector):
 func move_hexagon_to(hexagon, hex_position):
 	hexagon.global_position = hex_to_pixel(hex_position)
 	hexagon_field[hex_position] = hexagon
+	
+	if len(hexagon.get_children()) == 1:
+		var new_label = LineEdit.new()
+		new_label.add_theme_font_size_override("font_size", 50)
+		new_label.text = "AAAA"
+		hexagon.add_child(new_label)
+		var rotations = int(hexagon.rotation / 1.047198)
+		new_label.rotation_degrees = rotations * -60
+		all_name_labels.append(new_label)
+		new_label.connect("focus_entered", func(): _typing_start())
+		new_label.connect("focus_exited", func(): _typing_stop())
+		new_label.connect("text_submitted", func(_text): _text_typed(new_label))
+		new_label.grab_focus()
+		connect("visibility_labels_toggle", func(): _visibility_hexagon_text_toggle(new_label))
+
+func _typing_start():
+	typing_active = true
+
+func _typing_stop():
+	typing_active = false
+
+func _text_typed(label):
+	label.release_focus()
+	label.visible = current_label_visibility
+
+func _visibility_hexagon_text_toggle(label):
+	label.visible = !label.visible
+	current_label_visibility = !current_label_visibility
 
 #################################### INPUTS ####################################
 
@@ -189,20 +222,26 @@ func _process(_delta):
 			current_hexagon = null
 
 func _input(event):
-	if !menu_active and !menu_hexagon_active:
+	if !menu_active and !menu_hexagon_active and !typing_active:
 		if event is InputEventKey:
 			if event.keycode == KEY_E and !is_rotating:
 				if current_hexagon:
 					is_rotating = true
 					current_hexagon.rotate(1.047198)
+					if len(current_hexagon.get_children()) > 1:
+						current_hexagon.get_child(1).rotation_degrees -= 60
 			if event.keycode == KEY_Q and !is_rotating:
 				if current_hexagon:
 					is_rotating = true
 					current_hexagon.rotate(-1.047198)
+					if len(current_hexagon.get_children()) > 1:
+						current_hexagon.get_child(1).rotation_degrees += 60
 			if event.keycode == KEY_E and event.is_released():
 				is_rotating = false
 			if event.keycode == KEY_Q and event.is_released():
 				is_rotating = false
+			if event.keycode == KEY_T and event.is_released():
+				visibility_labels_toggle.emit()
 		if event is InputEventMouseButton:
 			var pixel_position_clicked = event.position - viewport_offset + (hexagon_camera.position * hexagon_camera.zoom)
 			var hex_position_clicked = pixel_to_hex(pixel_position_clicked)
@@ -210,23 +249,22 @@ func _input(event):
 				if mouse_left_down:
 					return
 				mouse_left_down = true
-				if hex_position_clicked in hexagon_field.keys():
+				if hex_position_clicked in hexagon_field.keys() and hexagon_field[hex_position_clicked] != null:
 					current_hexagon = hexagon_field[hex_position_clicked]
-				if current_hexagon:
 					current_hexagon_reset_position = hex_position_clicked
 					current_hexagon_reset_rotation = current_hexagon.rotation
 			elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
 				mouse_left_down = false
-				if current_hexagon and hex_position_clicked in hexagon_field:
+				if current_hexagon:# and hex_position_clicked in hexagon_field:
 					if hexagon_field[hex_position_clicked] == null:
-						move_hexagon_to(current_hexagon, hex_position_clicked)
 						hexagon_field[current_hexagon_reset_position] = null
+						move_hexagon_to(current_hexagon, hex_position_clicked)
 					elif hexagon_field[hex_position_clicked] == current_hexagon:
 						move_hexagon_to(current_hexagon, hex_position_clicked)
 					else:
 						move_hexagon_to(current_hexagon, current_hexagon_reset_position)
 						current_hexagon.rotation = current_hexagon_reset_rotation
-				current_hexagon = null
+					current_hexagon = null
 
 var hexagon_tile_textures_list = ["res://ressources/hexagons/Tile_Wald_Straight.png",
 								  "res://ressources/hexagons/Tile_Wald_Y.png",

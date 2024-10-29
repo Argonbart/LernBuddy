@@ -1931,6 +1931,7 @@ size = Vector2(55, 70.5)
 script = ExtResource("2_vsa6c")
 
 [node name="TavernTileMap" parent="." instance=ExtResource("3_4stuk")]
+layer_4/name = "Layer4"
 
 [node name="Exit" type="Area2D" parent="."]
 script = ExtResource("4_og8pp")

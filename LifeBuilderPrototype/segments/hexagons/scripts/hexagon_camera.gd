@@ -1,5 +1,7 @@
 extends Camera2D
 
+@onready var hexagon_controller = $"../HexagonController"
+
 var zoom_target : Vector2
 var is_dragging : bool = false
 var drag_start_mouse_pos = Vector2.ZERO
@@ -23,6 +25,8 @@ func zooming(delta):
 	zoom = zoom.slerp(zoom_target, 20 * delta)
 
 func simple_pan(delta):
+	if hexagon_controller.typing_active:
+		return
 	var move_amount = Vector2.ZERO
 	if Input.is_action_pressed("right"):
 		move_amount.x += 1
