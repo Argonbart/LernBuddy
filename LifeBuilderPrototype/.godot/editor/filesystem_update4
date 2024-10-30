@@ -1,5 +1,6 @@
 res://segments/hexagons/scenes/hexagon_field.tscn
 res://ressources/shader/blinking.tres
-res://segments/hexagons/scripts/hexagon_controller.gd
-res://segments/hexagons/scripts/hexagon_camera.gd
 res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn
+res://segments/hexagons/scenes/user_interface.tscn
+res://segments/hexagons/scenes/templates/menu_hexagon_container_template.tscn
+res://user_interface.tscn
