@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://7d42mtr1yrlh"]
+[gd_scene load_steps=5 format=3 uid="uid://7d42mtr1yrlh"]
 
 [ext_resource type="Script" path="res://segments/tavern/scripts/dialogue_window.gd" id="1_k20x1"]
+[ext_resource type="FontFile" uid="uid://wqnbusl6nw4f" path="res://ressources/fonts/Roboto-Black.ttf" id="2_yv83r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68yr7"]
 bg_color = Color(1, 1, 1, 1)
@@ -80,7 +81,8 @@ theme_override_constants/margin_bottom = 5
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 0
+theme_override_fonts/font = ExtResource("2_yv83r")
+theme_override_font_sizes/font_size = 20
 text = "Just wanted to say \"hi\" to you!"
 autowrap_mode = 3
 clip_text = true

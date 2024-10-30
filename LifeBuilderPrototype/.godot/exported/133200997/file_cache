@@ -1,0 +1,40 @@
+res://addons/collapsible_container/collapsible_elements/FoldingPresets/folding_presets.tscn::06fa3be73a1d4691ebfeaba50bb3401e::1728854297::res://.godot/exported/133200997/export-592d54728cec53bcb0e40ddd414854aa-folding_presets.scn
+res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/collapsible_optional_button/collapsible_button.tscn::9352da9fc64cf6dbb235ed3da9f87bfc::1728854297::res://.godot/exported/133200997/export-587d011fca72dc79b77c952f96f0ffff-collapsible_button.scn
+res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/accordion_menu.tscn::eb16a8e6abff691398ef21958cb6d38c::1728854297::res://.godot/exported/133200997/export-92b284c92519a3d266eb2d07035e18da-accordion_menu.scn
+res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/layout_preset_example.tscn::795cd6239d58a1717e5839118e8636b0::1728854297::res://.godot/exported/133200997/export-a07cbcfd21992b4b14c5fe7140ac6c65-layout_preset_example.scn
+res://addons/collapsible_container/examples (OPTIONAL)/signal_example/signal_example.tscn::c3ec773ebf98472f726e5243e342a84b::1728854297::res://.godot/exported/133200997/export-cb79ffc128393252449b86ba6c30e0ff-signal_example.scn
+res://ressources/shader/blinking.tres::3d4873e166174b003c2ca3ed8f2603a2::1730328655::res://.godot/exported/133200997/export-c3532ecdcb2f1b5065b4507937266798-blinking.res
+res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn::be50ddbf1b0f841a7c94281a837936fa::1730312879::res://.godot/exported/133200997/export-8858f0d8d7db2b913d33868434214f9c-hexagon_tile_template.scn
+res://segments/hexagons/scenes/templates/menu_hexagon_container_template.tscn::8015bfe67fed498daed21f727e2e6f1b::1730312879::res://.godot/exported/133200997/export-cd63e6e4b12843094d1a62ac84b2e2ce-menu_hexagon_container_template.scn
+res://segments/hexagons/scenes/hexagon_field.tscn::b7eb7166c80ded9f82d7d2a022ab5818::1730313109::res://.godot/exported/133200997/export-bac9fa0cb1983eeb7a8187087f108622-hexagon_field.scn
+res://segments/hexagons/scenes/sub_menu_with_hexagons.tscn::80b8ecf61c4a318f6086f8e72bd6bdd2::1730145106::res://.godot/exported/133200997/export-b371f0fd3c899dfbeb5cfa804581da44-sub_menu_with_hexagons.scn
+res://segments/hexagons/scenes/user_interface.tscn::46505b56ab901c74d1971f80e149db95::1730313058::res://.godot/exported/133200997/export-6b266ffd4d4d07efb9bb202155749f35-user_interface.scn
+res://segments/hexagons/scenes/user_interface_old.tscn::9f115657f4344a2cfd964fd5b97a6681::1730313116::res://.godot/exported/133200997/export-0d4d0adfed44cfab2ba3f81bb0b13dbe-user_interface_old.scn
+res://segments/player/scenes/player.tscn::80916a384cc5e9aec32f1ce280350cb3::1728854297::res://.godot/exported/133200997/export-b6fd34034cb0755b5f88b21d242e5a77-player.scn
+res://segments/start/scenes/start.tscn::a346172b19d509bdad7888196eda054b::1730328666::res://.godot/exported/133200997/export-8f5134692f7b3f3add43b1c7888a6937-start.scn
+res://segments/tavern/scenes/dialogue_window.tscn::2a7a04fd44e00050c60debfa3df2d364::1730313756::res://.godot/exported/133200997/export-5f4c557d31191e8d9fc9b5917f47cef9-dialogue_window.scn
+res://segments/tavern/scenes/tavern.tscn::f34fafa157774ca56042a8a775441cad::1730313756::res://.godot/exported/133200997/export-10d4e72a81ffce8e4cb6aae9bde0d858-tavern.scn
+res://segments/tavern/scenes/tavern_tile_map.tscn::4f68109041ee7719227ea75765705c33::1728854297::res://.godot/exported/133200997/export-e02cbae95ca7e91a51f31298f9d3c81b-tavern_tile_map.scn
+res://segments/tavern_board/scenes/tavern_board.tscn::cb69be0c90b5cc5cef895a084db7ea11::1730148097::res://.godot/exported/133200997/export-f447c3342767b2264334de73231718e1-tavern_board.scn
+res://segments/tavern_board/scenes/tavern_board_background.tscn::d8d1bc51235fee6f1399d04ea4051dbe::1728854297::res://.godot/exported/133200997/export-d5e5a8e13051c3b7d5a11763746284e7-tavern_board_background.scn
+res://segments/tavern_game/cards_colors_style_boxes/blue_card.tres::34f5d29246b6cb8b9ccc2d885ad85240::1728854297::res://.godot/exported/133200997/export-524d9eef13b3657d111c78a6f4166502-blue_card.res
+res://segments/tavern_game/cards_colors_style_boxes/bonus_card.tres::941519449c4f8a8abe87dad4b4ef6889::1728854297::res://.godot/exported/133200997/export-b64a188028737b45229b89ac3692b484-bonus_card.res
+res://segments/tavern_game/cards_colors_style_boxes/empty_card.tres::664eb85ae0d359a674b6969ac748677d::1728854297::res://.godot/exported/133200997/export-c17fe1e2807da5bba34ed3fcb2feb4c8-empty_card.res
+res://segments/tavern_game/cards_colors_style_boxes/green_card.tres::374262b388b1d1e8f26f30b639607e27::1728854297::res://.godot/exported/133200997/export-1b54e0cc17d7baf8d77464114fb31399-green_card.res
+res://segments/tavern_game/cards_colors_style_boxes/red_card.tres::a396db548e5e8b316bf2bb78d96375e7::1728854297::res://.godot/exported/133200997/export-c78ba05222cd43c86c59416de5fb91ae-red_card.res
+res://segments/tavern_game/cards_colors_style_boxes/yellow_card.tres::07bca1489ef6e92ae863910a3296ece8::1728854297::res://.godot/exported/133200997/export-18105c61423b3123cbf507e5a6621ddb-yellow_card.res
+res://segments/tavern_game/gameboard_visual_styles/bonus_card_border.tres::07ffaaf4aa35cfb69f1c62750e9b5926::1728854297::res://.godot/exported/133200997/export-6b8ff2fdd08d18e19bd389a336c4d6c7-bonus_card_border.res
+res://segments/tavern_game/gameboard_visual_styles/card_white.tres::bc1fc420189475298c2224801c0de090::1728854297::res://.godot/exported/133200997/export-8244ef1dedee16c8b0dc13b58670a47d-card_white.res
+res://segments/tavern_game/gameboard_visual_styles/white_border.tres::f37b8ea3defeef996864e4880a1c5e0d::1728854297::res://.godot/exported/133200997/export-991f1bf1748a82979926ef2551ce3566-white_border.res
+res://segments/tavern_game/gameboard_visual_styles/white_panel.tres::c262d8d952e4760d6e5b9e0fd0310384::1728854297::res://.godot/exported/133200997/export-4b89dad347c0f494a7a5332f15a73f01-white_panel.res
+res://segments/tavern_game/scenes/deck.tscn::ad643d851f913ea2d9262f57cc55b8fb::1728854297::res://.godot/exported/133200997/export-6330246eb91dd78c4375f6b11908e29a-deck.scn
+res://segments/tavern_game/scenes/ergebnis_screen.tscn::d4ebe71273d161ca6a1a0ee4c825406a::1728854297::res://.godot/exported/133200997/export-ac785fad79eb34d26776ff6b130453eb-ergebnis_screen.scn
+res://segments/tavern_game/scenes/gameboard.tscn::1076ceec9dc43a8d1ff352679576d9c1::1728854297::res://.godot/exported/133200997/export-456bb657997eeaac843ece05a88d177c-gameboard.scn
+res://segments/tavern_game/scenes/player_cards.tscn::c61d2218be585d3277db0a01435e1ba5::1728854297::res://.godot/exported/133200997/export-e8eff87eeadf0913f6907430ec81c0d6-player_cards.scn
+res://segments/tavern_game/scenes/table_game.tscn::9572d8a2346163a230be634dbaab86a7::1728854297::res://.godot/exported/133200997/export-c6c19dfcc60bb31bb2d05626af8ec885-table_game.scn
+res://segments/tavern_game/scenes/tavern_game_background.tscn::86e7ee0ff3539aed513b5dce47424f0c::1728854297::res://.godot/exported/133200997/export-25bd5f8c4d012498a5b7a96a03fe86e0-tavern_game_background.scn
+res://segments/village/scenes/npc_dialogue.tscn::7c28649b7a10e4f02e52c4845f956980::1728854297::res://.godot/exported/133200997/export-537192de07379a4f12cacc854f2e9761-npc_dialogue.scn
+res://segments/village/scenes/player_respond_choices.tscn::ca77848a71817d8782a7cd8fd5e771fc::1728854297::res://.godot/exported/133200997/export-6041dbd0cfc67cd8583f4914c03462e6-player_respond_choices.scn
+res://segments/village/scenes/tavern_sign.tscn::a2b0a7f3a079c321cb0b5225505aa876::1728854297::res://.godot/exported/133200997/export-1c53c96894083dd1f85b1f8f24d832ae-tavern_sign.scn
+res://segments/village/scenes/village.tscn::864ce2deba9886e73f2d6e7fa90e5825::1730146948::res://.godot/exported/133200997/export-163da3ce8f3be9f62e5a9d5617e5c523-village.scn
+res://segments/village/scenes/village_tile_map.tscn::a91f7769d8bf27f5f35042a7af465984::1728854297::res://.godot/exported/133200997/export-5bbdc07d64b1694296e655d82c5fffc6-village_tile_map.scn

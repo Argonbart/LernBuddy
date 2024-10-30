@@ -1,0 +1,189 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw1k1f4elfovv"]
+
+[ext_resource type="PackedScene" uid="uid://bbb7wnn48ci2v" path="res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn" id="1_xvfip"]
+
+[sub_resource type="GDScript" id="GDScript_1smnl"]
+
+[node name="SubMenuWithHexagons" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+script = SubResource("GDScript_1smnl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -950.0
+offset_top = -325.0
+offset_right = 950.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(1700, 450)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -620.625
+offset_top = -214.987
+offset_right = 834.375
+offset_bottom = 214.013
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Space" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 143.325)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 143.325)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HexagonSlot1" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(496.5, 143.325)
+layout_mode = 2
+
+[node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot1" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot1/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HexagonSlot2" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(496.5, 143.325)
+layout_mode = 2
+
+[node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot2" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot2/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HexagonSlot3" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(423.75, 143.325)
+layout_mode = 2
+
+[node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot3" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer/HexagonSlot3/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/CenterContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 143.325)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Space" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(238.25, 143.325)
+layout_mode = 2
+
+[node name="HexagonSlot1" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(496.5, 143.325)
+layout_mode = 2
+
+[node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2/HexagonSlot1" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2/HexagonSlot1/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HexagonSlot2" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(496.5, 143.325)
+layout_mode = 2
+
+[node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2/HexagonSlot2" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2/HexagonSlot2/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HexagonSlot3" type="Control" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(165.5, 143.325)
+layout_mode = 2
+
+[node name="Node2D" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2/HexagonSlot3" instance=ExtResource("1_xvfip")]
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/CenterContainer/Control/VBoxContainer/HBoxContainer2/HexagonSlot3/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -144.0
+offset_right = 165.5
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
