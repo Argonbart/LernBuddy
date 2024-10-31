@@ -57,7 +57,7 @@ func _ready():
 		j = j + 1
 
 func _process(_delta):
-	if Input.is_action_just_pressed("tab"):
+	if Input.is_action_just_pressed("tab") and hexagon_field.current_hexagon == null and !hexagon_field.typing_active:
 		menu_toggle()
 
 func menu_toggle():

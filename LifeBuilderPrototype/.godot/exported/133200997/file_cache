@@ -3,15 +3,15 @@ res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/co
 res://addons/collapsible_container/examples (OPTIONAL)/accordion_menu_example/accordion_menu.tscn::eb16a8e6abff691398ef21958cb6d38c::1728854297::res://.godot/exported/133200997/export-92b284c92519a3d266eb2d07035e18da-accordion_menu.scn
 res://addons/collapsible_container/examples (OPTIONAL)/layout_preset_example/layout_preset_example.tscn::795cd6239d58a1717e5839118e8636b0::1728854297::res://.godot/exported/133200997/export-a07cbcfd21992b4b14c5fe7140ac6c65-layout_preset_example.scn
 res://addons/collapsible_container/examples (OPTIONAL)/signal_example/signal_example.tscn::c3ec773ebf98472f726e5243e342a84b::1728854297::res://.godot/exported/133200997/export-cb79ffc128393252449b86ba6c30e0ff-signal_example.scn
-res://ressources/shader/blinking.tres::3d4873e166174b003c2ca3ed8f2603a2::1730328655::res://.godot/exported/133200997/export-c3532ecdcb2f1b5065b4507937266798-blinking.res
+res://ressources/shader/blinking.tres::3d4873e166174b003c2ca3ed8f2603a2::1730340326::res://.godot/exported/133200997/export-c3532ecdcb2f1b5065b4507937266798-blinking.res
 res://segments/hexagons/scenes/templates/hexagon_tile_template.tscn::be50ddbf1b0f841a7c94281a837936fa::1730312879::res://.godot/exported/133200997/export-8858f0d8d7db2b913d33868434214f9c-hexagon_tile_template.scn
 res://segments/hexagons/scenes/templates/menu_hexagon_container_template.tscn::8015bfe67fed498daed21f727e2e6f1b::1730312879::res://.godot/exported/133200997/export-cd63e6e4b12843094d1a62ac84b2e2ce-menu_hexagon_container_template.scn
-res://segments/hexagons/scenes/hexagon_field.tscn::b7eb7166c80ded9f82d7d2a022ab5818::1730313109::res://.godot/exported/133200997/export-bac9fa0cb1983eeb7a8187087f108622-hexagon_field.scn
+res://segments/hexagons/scenes/hexagon_field.tscn::b7eb7166c80ded9f82d7d2a022ab5818::1730340163::res://.godot/exported/133200997/export-bac9fa0cb1983eeb7a8187087f108622-hexagon_field.scn
 res://segments/hexagons/scenes/sub_menu_with_hexagons.tscn::80b8ecf61c4a318f6086f8e72bd6bdd2::1730145106::res://.godot/exported/133200997/export-b371f0fd3c899dfbeb5cfa804581da44-sub_menu_with_hexagons.scn
-res://segments/hexagons/scenes/user_interface.tscn::46505b56ab901c74d1971f80e149db95::1730313058::res://.godot/exported/133200997/export-6b266ffd4d4d07efb9bb202155749f35-user_interface.scn
+res://segments/hexagons/scenes/user_interface.tscn::f8ad98aed2355bcdc3d57ccae1215262::1730338984::res://.godot/exported/133200997/export-6b266ffd4d4d07efb9bb202155749f35-user_interface.scn
 res://segments/hexagons/scenes/user_interface_old.tscn::9f115657f4344a2cfd964fd5b97a6681::1730313116::res://.godot/exported/133200997/export-0d4d0adfed44cfab2ba3f81bb0b13dbe-user_interface_old.scn
 res://segments/player/scenes/player.tscn::80916a384cc5e9aec32f1ce280350cb3::1728854297::res://.godot/exported/133200997/export-b6fd34034cb0755b5f88b21d242e5a77-player.scn
-res://segments/start/scenes/start.tscn::a346172b19d509bdad7888196eda054b::1730328666::res://.godot/exported/133200997/export-8f5134692f7b3f3add43b1c7888a6937-start.scn
+res://segments/start/scenes/start.tscn::a346172b19d509bdad7888196eda054b::1730340326::res://.godot/exported/133200997/export-8f5134692f7b3f3add43b1c7888a6937-start.scn
 res://segments/tavern/scenes/dialogue_window.tscn::2a7a04fd44e00050c60debfa3df2d364::1730313756::res://.godot/exported/133200997/export-5f4c557d31191e8d9fc9b5917f47cef9-dialogue_window.scn
 res://segments/tavern/scenes/tavern.tscn::f34fafa157774ca56042a8a775441cad::1730313756::res://.godot/exported/133200997/export-10d4e72a81ffce8e4cb6aae9bde0d858-tavern.scn
 res://segments/tavern/scenes/tavern_tile_map.tscn::4f68109041ee7719227ea75765705c33::1728854297::res://.godot/exported/133200997/export-e02cbae95ca7e91a51f31298f9d3c81b-tavern_tile_map.scn

@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal activate_player()
+signal deactivate_player()
+
 var village_camera : Camera2D
 @onready var player_sprite = $PlayerSprite
 @onready var speed = 200
@@ -7,6 +10,10 @@ var village_camera : Camera2D
 var is_active = true
 var just_respawned = false
 var respawn_animation = false
+
+func _ready():
+	connect("activate_player", func(): _activate_player())
+	connect("deactivate_player", func(): _deactivate_player())
 
 func _process(_delta):
 	if just_respawned:
@@ -58,11 +65,11 @@ func _on_mayor_dialogue_finished():
 func dialogue_toggled():
 	is_active = !is_active
 
-func _on_camera_activate_player():
+func _activate_player():
 	process_mode = Node.PROCESS_MODE_INHERIT
 	just_respawned = true
 
-func _on_camera_deactivate_player():
+func _deactivate_player():
 	process_mode = Node.PROCESS_MODE_DISABLED
 	player_sprite.process_mode = Node.PROCESS_MODE_ALWAYS
 	player_sprite.play("off")

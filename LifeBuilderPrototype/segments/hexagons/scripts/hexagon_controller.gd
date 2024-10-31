@@ -14,6 +14,7 @@ signal visibility_labels_toggle()
 @onready var six_hex_pick4 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC10/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
 @onready var six_hex_pick5 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC11/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
 @onready var six_hex_pick6 = $"../CanvasLayer/UserInterface/MCSelectMenu/CCSelectMenu/VBoxMenu/HBoxBottom/Area2/CC12/SubMenuWithHexagons/MarginContainer/CenterContainer/Control/VBoxContainer"
+@onready var delete_button = $"../CanvasLayer/UserInterface/ReturnToTavernButton"
 var six_hex_pick_all = []
 
 var hexagon_tile_list = []
@@ -42,6 +43,7 @@ var menu_hexagon_active = false
 var typing_active = false
 var all_name_labels = []
 var current_label_visibility = true
+var hex_over_delete = false
 
 #################################### INITIALIZE ####################################
 
@@ -49,6 +51,16 @@ func _ready():
 	#generate_hex_tiles()
 	generate_hex_grid()
 	connect_hex_pick_buttons()
+	delete_button.connect("mouse_entered", func(): _hovering_over_delete_on())
+	delete_button.connect("mouse_exited", func(): _hovering_over_delete_off())
+	delete_button.visible = false
+
+func _hovering_over_delete_on():
+	if current_hexagon:
+		hex_over_delete = true
+
+func _hovering_over_delete_off():
+	hex_over_delete = false
 
 func connect_hex_pick_buttons():
 	six_hex_pick_all = [get_buttons(six_hex_pick1), get_buttons(six_hex_pick2), get_buttons(six_hex_pick3), get_buttons(six_hex_pick4), get_buttons(six_hex_pick5), get_buttons(six_hex_pick6)]
@@ -251,11 +263,18 @@ func _input(event):
 				mouse_left_down = true
 				if hex_position_clicked in hexagon_field.keys() and hexagon_field[hex_position_clicked] != null:
 					current_hexagon = hexagon_field[hex_position_clicked]
+					delete_button.visible = true
 					current_hexagon_reset_position = hex_position_clicked
 					current_hexagon_reset_rotation = current_hexagon.rotation
 			elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
 				mouse_left_down = false
 				if current_hexagon:# and hex_position_clicked in hexagon_field:
+					if hex_over_delete:
+						current_hexagon.queue_free()
+						hexagon_field[current_hexagon_reset_position] = null
+						current_hexagon = null
+						delete_button.visible = false
+						return
 					if hexagon_field[hex_position_clicked] == null:
 						hexagon_field[current_hexagon_reset_position] = null
 						move_hexagon_to(current_hexagon, hex_position_clicked)
@@ -265,6 +284,7 @@ func _input(event):
 						move_hexagon_to(current_hexagon, current_hexagon_reset_position)
 						current_hexagon.rotation = current_hexagon_reset_rotation
 					current_hexagon = null
+					delete_button.visible = false
 
 var hexagon_tile_textures_list = ["res://ressources/hexagons/Tile_Wald_Straight.png",
 								  "res://ressources/hexagons/Tile_Wald_Y.png",

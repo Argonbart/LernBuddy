@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwvqieiw75v58"]
+[gd_scene load_steps=22 format=3 uid="uid://bwvqieiw75v58"]
 
 [ext_resource type="Script" path="res://addons/collapsible_container/collapsible_elements/collapsible_container.gd" id="1_68do6"]
 [ext_resource type="Script" path="res://segments/hexagons/scripts/user_interface.gd" id="1_o7e5x"]
 [ext_resource type="Script" path="res://segments/hexagons/scripts/jana_return_to_tavern.gd" id="3_2qymq"]
 [ext_resource type="PackedScene" uid="uid://bw1k1f4elfovv" path="res://segments/hexagons/scenes/sub_menu_with_hexagons.tscn" id="3_ewjeq"]
+[ext_resource type="Texture2D" uid="uid://cfx1iso4dkqy8" path="res://ressources/icons/cross.png" id="3_qr0w2"]
 [ext_resource type="Texture2D" uid="uid://cu40fjlp1sgy2" path="res://ressources/icons/return_to_tavern_button.png" id="4_6kxit"]
 [ext_resource type="Texture2D" uid="uid://bg537rbri0tlx" path="res://ressources/icons/return_to_tavern_button_pressed.png" id="5_ycjr0"]
 
@@ -421,3 +422,21 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_mj6vi")
+
+[node name="ReturnToTavernButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("3_qr0w2")
+ignore_texture_size = true
+stretch_mode = 0

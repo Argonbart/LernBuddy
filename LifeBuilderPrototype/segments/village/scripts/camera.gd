@@ -1,8 +1,5 @@
 extends Camera2D
 
-signal activate_player
-signal deactivate_player
-
 @onready var player : Node2D
 @export var blacksmith : Node2D
 @export var phantom : Node2D
@@ -27,10 +24,10 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_released("camera"):
 		if is_active:
-			activate_player.emit()
+			player.activate_player.emit()
 			is_active = !is_active
 		else:
-			deactivate_player.emit()
+			player.deactivate_player.emit()
 			is_active = !is_active
 	
 	zooming(delta)
