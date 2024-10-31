@@ -51,6 +51,7 @@ buttons:
 - tab = open menu
 - enter = confirm naming
 - e/q while holding hexagon = rotate it
+- t = toggle visibility of lables/names
 
 interactions:
 - select hexagons from menu
