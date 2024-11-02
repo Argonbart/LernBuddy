@@ -1,4 +1,4 @@
-[gd_scene load_steps=169 format=3 uid="uid://cq5lgla7on08e"]
+[gd_scene load_steps=170 format=3 uid="uid://cq5lgla7on08e"]
 
 [ext_resource type="PackedScene" uid="uid://7d42mtr1yrlh" path="res://segments/tavern/scenes/dialogue_window.tscn" id="2_6imud"]
 [ext_resource type="Script" path="res://segments/tavern/scripts/tavern_camera.gd" id="2_vsa6c"]
@@ -21,7 +21,7 @@
 size = Vector2(69, 53)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8q36"]
-size = Vector2(99, 82.25)
+size = Vector2(84, 82.25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x87rb"]
 atlas = ExtResource("7_wf7bh")
@@ -1917,13 +1917,16 @@ size = Vector2(23, 26)
 size = Vector2(74.5, 70.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfaaq"]
-size = Vector2(62.5, 70.5)
+size = Vector2(53, 70.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfeg4"]
-size = Vector2(54.5, 140)
+size = Vector2(55, 140)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jig66"]
-size = Vector2(55, 70.5)
+size = Vector2(42, 70.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hadur"]
+size = Vector2(58.5, 75)
 
 [node name="Taverne" type="Node"]
 
@@ -1945,7 +1948,7 @@ position = Vector2(749, 352)
 script = ExtResource("6_1332m")
 
 [node name="BoardCollision" type="CollisionShape2D" parent="Board"]
-position = Vector2(101.5, -72.125)
+position = Vector2(109, -72.125)
 shape = SubResource("RectangleShape2D_n8q36")
 
 [node name="TableGame" parent="." instance=ExtResource("5_3i1ny")]
@@ -2009,7 +2012,7 @@ position = Vector2(247, -108)
 script = ExtResource("13_bihkj")
 
 [node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Brynna/ElricArea"]
-position = Vector2(329.75, 393.25)
+position = Vector2(334.5, 393.25)
 shape = SubResource("RectangleShape2D_xfaaq")
 
 [node name="Gorun" type="Node2D" parent="NPCs"]
@@ -2039,7 +2042,7 @@ position = Vector2(133, -179)
 script = ExtResource("14_wwydl")
 
 [node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Gorun/ElricArea"]
-position = Vector2(325.75, 428)
+position = Vector2(319.5, 428)
 shape = SubResource("RectangleShape2D_yfeg4")
 
 [node name="Selene" type="Node2D" parent="NPCs"]
@@ -2069,7 +2072,7 @@ position = Vector2(180, -107)
 script = ExtResource("15_4p4hq")
 
 [node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Selene/ElricArea"]
-position = Vector2(335.5, 393.25)
+position = Vector2(337, 393)
 shape = SubResource("RectangleShape2D_jig66")
 
 [node name="Richard" type="Node2D" parent="NPCs"]
@@ -2099,8 +2102,8 @@ position = Vector2(441, -131)
 script = ExtResource("16_o78p2")
 
 [node name="ElricAreaCollision" type="CollisionShape2D" parent="NPCs/Richard/ElricArea"]
-position = Vector2(335.75, 393.25)
-shape = SubResource("RectangleShape2D_v731m")
+position = Vector2(327.75, 395.5)
+shape = SubResource("RectangleShape2D_hadur")
 
 [node name="Talia" type="Node2D" parent="NPCs"]
 

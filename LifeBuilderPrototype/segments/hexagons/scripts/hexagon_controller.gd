@@ -279,6 +279,7 @@ func _input(event):
 						hexagon_field[current_hexagon_reset_position] = null
 						move_hexagon_to(current_hexagon, hex_position_clicked)
 					elif hexagon_field[hex_position_clicked] == current_hexagon:
+						hexagon_field[current_hexagon_reset_position] = null
 						move_hexagon_to(current_hexagon, hex_position_clicked)
 					else:
 						move_hexagon_to(current_hexagon, current_hexagon_reset_position)

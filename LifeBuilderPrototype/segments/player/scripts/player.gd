@@ -1,8 +1,5 @@
 extends CharacterBody2D
 
-signal activate_player()
-signal deactivate_player()
-
 var village_camera : Camera2D
 @onready var player_sprite = $PlayerSprite
 @onready var speed = 200
@@ -10,10 +7,6 @@ var village_camera : Camera2D
 var is_active = true
 var just_respawned = false
 var respawn_animation = false
-
-func _ready():
-	connect("activate_player", func(): _activate_player())
-	connect("deactivate_player", func(): _deactivate_player())
 
 func _process(_delta):
 	if just_respawned:

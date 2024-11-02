@@ -1,5 +1,8 @@
 extends Camera2D
 
+signal activate_player
+signal deactivate_player
+
 @onready var player : Node2D
 @export var blacksmith : Node2D
 @export var phantom : Node2D
@@ -19,15 +22,16 @@ func _ready():
 	zoom_target = zoom
 	player = get_tree().get_root().get_node("Player")
 	player.village_camera = self
-	player.village_camera.connect("deactivate_player", func(): player._on_camera_deactivate_player())
+	connect("activate_player", func(): player._activate_player())
+	connect("deactivate_player", func(): player._deactivate_player())
 
 func _process(delta):
 	if Input.is_action_just_released("camera"):
 		if is_active:
-			player.activate_player.emit()
+			activate_player.emit()
 			is_active = !is_active
 		else:
-			player.deactivate_player.emit()
+			deactivate_player.emit()
 			is_active = !is_active
 	
 	zooming(delta)
@@ -92,7 +96,10 @@ func move_to_mayor():
 func move_to_target(target):
 	var target_vector = target - position
 	var move_amount = target_vector.normalized()
-	position = position + move_amount * (1/zoom.x)
+	if target_vector.length() < 1.0:
+		position = target
+	else:
+		position = position + move_amount * (1/zoom.x)
 
 func _on_blacksmith_dialogue_started():
 	blacksmith_dialogue_active = true

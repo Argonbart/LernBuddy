@@ -405,6 +405,9 @@ func _play_card_tween_finished():
 
 # Card played
 func play_card():
+	if currently_shown_edit_card == null:
+		return
+	
 	var field_position = gameboard_fields.find(last_selected_field)
 	var color_name = colors[currently_shown_edit_card.get_theme_stylebox("panel").bg_color]
 	
