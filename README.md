@@ -7,6 +7,9 @@
 - [x] [Video](Video.mp4)
 - [ ] [Assets]()
 
+Zum Starten des Spiels in Godot muss noch eine "key.env"-Datei in den [Code-Ordner](Code) eingefügt werden mit dem Inhalt "API_KEY = " und dann den entsprechenden Gemini API Key.
+Die .exe-Datei im [Build-Ordner](Build) funktioniert jedoch auch so.
+
 ---
 Beim Spielstart erscheint man im Dorf. Von dort kann man in die Taverne.  
 In der Taverne kann man über Richard das **Karten-Reflektionsspiel** starten.  
