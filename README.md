@@ -3,8 +3,8 @@
 ## Abgabe
 - [x] [Readme](README.md)
 - [x] [Build](Build)
-- [x] [Quellcode](LifeBuilderPrototype)
-- [x] [Video](LernBuddyVideo.mp4)
+- [x] [Quellcode](Code)
+- [x] [Video](Video.mp4)
 - [ ] [Assets]()
 
 ---

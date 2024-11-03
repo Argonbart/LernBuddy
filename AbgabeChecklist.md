@@ -1,5 +1,0 @@
-+ Readme-File	--> "README.md"
-+ Build 	--> "Build"
-+ Quellcode	--> "LifeBuilderPrototype"
-+ Video		--> "LernBuddyVideo.mp4"
-- Assets	--> ""
