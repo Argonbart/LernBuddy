@@ -5,7 +5,7 @@
 - [x] [Build](Build)
 - [x] [Quellcode](Code)
 - [x] [Video](Video.mp4)
-- [ ] [Assets]()
+- [x] [Assets](AssetlisteLenbuddy.pdf)
 
 Zum Starten des Spiels in Godot muss noch eine "key.env"-Datei in den [Code-Ordner](Code) eingefügt werden mit dem Inhalt "API_KEY = " und dann den entsprechenden Gemini API Key.
 Die .exe-Datei im [Build-Ordner](Build) funktioniert jedoch auch so.
